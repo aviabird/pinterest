@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFire, AuthProviders } from 'angularfire2';
 
 @Component({
   selector: 'pin-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pin works!';
+
+  constructor(
+
+  ) {
+  }
+
 }

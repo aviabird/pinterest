@@ -18,9 +18,14 @@
       "prefix": "pin",
       "mobile": false,
       "styles": [
+        "../node_modules/foundation-sites/dist/foundation.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/foundation-sites/vendor/jquery/dist/jquery.min.js",
+        "../node_modules/foundation-sites/dist/foundation.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
@@ -28,7 +33,9 @@
       }
     }
   ],
-  "addons": [],
+  "addons": [
+    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
+  ],
   "packages": [],
   "e2e": {
     "protractor": {

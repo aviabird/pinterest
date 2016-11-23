@@ -1,0 +1,48 @@
+.top-bar{
+  box-shadow: 0px 2px 5px #aaa;
+}
+
+.top-bar, .top-bar ul {
+  background-color: #3b78e7;
+}
+
+.top-bar input {
+  max-width: none;
+  margin-right: 1rem;
+}
+
+.input-group{
+  margin-bottom: 0;
+}
+.menu-text{
+  color: #eee;
+}
+a{
+  color: white;
+}
+input{
+  background-color: rgba(59, 120, 231, 0.84);
+  border: #aaa;
+}
+
+.top-bar-search-button{
+  background-color: rgba(59, 120, 231, 0.84);
+  border: 2px bold darkslateblue;
+}
+
+.top-bar-search-button::hover{
+  color: white;
+}
+.text-white{
+  color: white;
+}
+
+.fa-search{
+  display: table-cell;
+}
+
+.top-bar-search-label{
+  background-color: rgba(59, 120, 231, 0.84);
+  border: none;
+  box-shadow: inset 0 0px 1px 1px rgb(47, 109, 220);
+}
