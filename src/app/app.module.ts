@@ -5,11 +5,17 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { StoreModule } from '@ngrx/store';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
+import { routes } from './app.routes';
+import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { AuthenticationService } from './services/authentication';
+import { reducer } from './reducers/index';
+import { UserAuthEffects } from './effects/user-auth';
 
 // Must export the config
 export const firebaseConfig = {
@@ -34,8 +40,11 @@ export const firebaseConfig = {
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
     }),
-    StoreModule.provideStore({ router: routerReducer }),
-    RouterStoreModule.connectRouter()
+    RouterModule.forRoot(routes, { useHash: true }),
+    StoreModule.provideStore(reducer),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    RouterStoreModule.connectRouter(),
+    EffectsModule.run(UserAuthEffects)
   ],
   providers: [
     AuthenticationService

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication';
 import { User } from '../../../models/user';
 import { Store } from '@ngrx/store';
-import { State } from '../../../reducers/user-auth';
-import { LoginAction, LogoutAction } from '../../../actions/user-auth';
+import { AppState } from '../../../reducers';
+import { LoginAction, LogoutAction, LogoutSuccessAction } from '../../../actions/user-auth';
 import * as fromRoot from '../../../reducers';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'pin-header',
@@ -13,13 +14,15 @@ import * as fromRoot from '../../../reducers';
 })
 export class HeaderComponent implements OnInit {
   title = 'Pinterest';
-  user: {};
+  user: Observable<User>;
+  userIsAuthenticated: Observable<boolean>;
 
   constructor(
     private authService: AuthenticationService,
-    private store: Store<State>
+    private store: Store<AppState>
   ) {
-    this.user = store.let(fromRoot)
+    this.user = store.let(fromRoot.getUser);
+    this.userIsAuthenticated = store.let(fromRoot.getUserAuthStatus);
   }
 
   ngOnInit() {

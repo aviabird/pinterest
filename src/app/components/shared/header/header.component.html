@@ -18,7 +18,7 @@
           </div>
         </li>
         <li class="large-1 small-1 columns text-right">
-          <ul class="dropdown menu" data-dropdown-menu [ngClass]="{hide: user}">
+          <ul class="dropdown menu" data-dropdown-menu [ngClass]="{hide: (userIsAuthenticated | async)}">
             <li>
               <a href="#">Login</a>
               <ul class="menu vertical">
@@ -31,9 +31,12 @@
               </ul>
             </li>
           </ul>
-          <a (click)="logout()" [ngClass]="{hide: !user}">Logout</a>
+          <a (click)="logout()" [ngClass]="{hide: !(userIsAuthenticated | async)}">Logout</a>
         </li>
       </ul>
     </section>
   </nav>
 </div>
+<p>
+  {{userIsAuthenticated | async}} {{user | async | json}}
+</p>

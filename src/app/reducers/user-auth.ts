@@ -1,5 +1,7 @@
 import { User } from '../models/user';
 import * as userAuth from '../actions/user-auth';
+import { Observable } from 'rxjs/Observable';
+import { ActionTypes } from '../actions/user-auth';
 
 export interface State {
   isAuthenticated: boolean;
@@ -13,9 +15,23 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: userAuth.Actions): State {
   switch(action.type) {
-    case userAuth.ActionTypes.LOGIN_SUCCESS: {
-      console.log(action.payload)
+    case userAuth.ActionTypes.LOGIN_SUCCESS:
+    case userAuth.ActionTypes.LOGOUT_SUCCESS: {
+      return Object.assign({}, state, {
+        isAuthenticated: action.payload.isAuthenticated,
+        user: action.payload.user
+      })
+    }
+    default: {
       return state;
     }
   }
+}
+
+export function getAuthStatus(state$: Observable<State>) {
+  return state$.select(state => state.isAuthenticated);
+}
+
+export function getUser(state$: Observable<State>) {
+  return state$.select(state => state.user);
 }

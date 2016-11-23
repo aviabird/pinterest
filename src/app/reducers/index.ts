@@ -38,12 +38,13 @@ import { combineReducers, ActionReducer } from '@ngrx/store';
  */
 import * as fromUserAuth from './user-auth';
 import { User } from '../models/user';
+import { routerReducer } from '@ngrx/router-store';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
-export interface State {
+export interface AppState {
   userAuth: fromUserAuth.State;
 }
 
@@ -55,11 +56,12 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-  users: fromUserAuth.reducer
+  userAuth: fromUserAuth.reducer,
+  router: routerReducer
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<State> = combineReducers(reducers);
+const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
+const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
   if (environment.production) {
@@ -96,6 +98,24 @@ export function reducer(state: any, action: any) {
  * ```
  *
  */
- export function getUserAuthState(state$: Observable<State>) {
+ export function getUserAuthState(state$: Observable<AppState>) {
   return state$.select(state => state.userAuth);
 }
+
+/**
+ * Every reducer module exports selector functions, however child reducers
+ * have no knowledge of the overall state tree. To make them useable, we
+ * need to make new selectors that wrap them.
+ *
+ * Once again our compose function comes in handy. From right to left, we
+ * first select the books state then we pass the state to the book
+ * reducer's getBooks selector, finally returning an observable
+ * of search results.
+ *
+ * Share memoizes the selector functions and published the result. This means
+ * every time you call the selector, you will get back the same result
+ * observable. Each subscription to the resultant observable
+ * is shared across all subscribers.
+ */
+ export const getUser = compose(fromUserAuth.getUser, getUserAuthState);
+ export const getUserAuthStatus = compose(fromUserAuth.getAuthStatus, getUserAuthState);

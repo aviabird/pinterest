@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders } from 'angularfire2';
 import { User } from '../models/user';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
-  user: User;
-  isAuthenticated = false;
+  userAuth: Observable<any>;
 
   constructor(
     public af: AngularFire
   ) {
-    this.af.auth.subscribe(
+    this.userAuth = this.af.auth.map(
       user => this._changeState(user),
       error => console.trace(error)
     );
@@ -20,20 +20,26 @@ export class AuthenticationService {
     this.af.auth.login({
       provider: this._getProvider(from)
     });
+    return this.userAuth
   }
 
   logout() {
     this.af.auth.logout();
+    return this.userAuth;
   }
 
   private _changeState(user: any = null) {
     if(user) {
-      this.isAuthenticated = true;
-      this.user = this._getUserInfo(user)
+      return {
+        user: this._getUserInfo(user),
+        isAuthenticated: true
+      }
     }
     else {
-      this.isAuthenticated = false;
-      this.user = null;
+      return {
+        user: null,
+        isAuthenticated: false
+      }
     }
   }
 
