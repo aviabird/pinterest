@@ -18,12 +18,12 @@
           </div>
         </li>
         <li class="large-1 small-1 columns text-right">
-          <ul class="dropdown menu" data-dropdown-menu>
+          <ul class="dropdown menu" data-dropdown-menu [ngClass]="{hide: user}">
             <li>
               <a href="#">Login</a>
               <ul class="menu vertical">
                 <li class="text-left">
-                  <a href="#">
+                  <a (click)="login('google')">
                     <i class="fa fa-google-plus-square fa-2x text-left alert"></i>
                     <strong>Google</strong>
                   </a>
@@ -31,6 +31,7 @@
               </ul>
             </li>
           </ul>
+          <a (click)="logout()" [ngClass]="{hide: !user}">Logout</a>
         </li>
       </ul>
     </section>

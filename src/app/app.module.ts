@@ -9,6 +9,7 @@ import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { AuthenticationService } from './services/authentication';
 
 // Must export the config
 export const firebaseConfig = {
@@ -36,7 +37,9 @@ export const firebaseConfig = {
     StoreModule.provideStore({ router: routerReducer }),
     RouterStoreModule.connectRouter()
   ],
-  providers: [],
+  providers: [
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

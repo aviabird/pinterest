@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { type } from '../util';
-import { LoadAction } from './user-auth';
 import { User } from '../models/user';
 
 /**
@@ -14,6 +13,8 @@ import { User } from '../models/user';
 export const ActionTypes = {
   LOGIN:                    type('[User-Auth] Login'),
   LOGIN_SUCCESS:            type('[User-Auth] Login Success'),
+  LOGOUT:                   type('[User-Auth] Logout'),
+  LOGOUT_SUCCESS:           type('[User-Auth] Logout Success'),
 };
 
 
@@ -27,13 +28,25 @@ export const ActionTypes = {
 export class LoginAction implements Action {
   type = ActionTypes.LOGIN;
 
-  constructor() { }
+  constructor(public payload: string) { };
 }
 
 export class LoginSuccessAction implements Action {
   type = ActionTypes.LOGIN_SUCCESS;
 
-  constructor(public payload: User) { }
+  constructor(public payload: any) { };
+}
+
+export class LogoutAction implements Action {
+  type = ActionTypes.LOGOUT;
+  
+  constructor() {};
+}
+
+export class LogoutSuccessAction implements Action {
+  type = ActionTypes.LOGOUT_SUCCESS;
+  
+  constructor(payload: any) {};
 }
 
 /**
@@ -43,3 +56,5 @@ export class LoginSuccessAction implements Action {
 export type Actions
   = LoginAction
   | LoginSuccessAction
+  | LogoutAction
+  | LogoutSuccessAction
