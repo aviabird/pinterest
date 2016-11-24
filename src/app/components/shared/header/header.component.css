@@ -46,3 +46,9 @@ input{
   border: none;
   box-shadow: inset 0 0px 1px 1px rgb(47, 109, 220);
 }
+
+.avatar{
+  width: 20%;
+  border-radius: 99px;
+  margin: -40px 0;
+}

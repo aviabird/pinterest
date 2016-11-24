@@ -3,9 +3,10 @@ import { AuthenticationService } from '../../../services/authentication';
 import { User } from '../../../models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../reducers';
-import { LoginAction, LogoutAction, LogoutSuccessAction } from '../../../actions/user-auth';
+import * as userAuth from '../../../actions/user-auth';
 import * as fromRoot from '../../../reducers';
 import { Observable } from 'rxjs/Observable';
+import { LoginSuccessAction } from '../../../actions/user-auth';
 
 @Component({
   selector: 'pin-header',
@@ -26,14 +27,15 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new userAuth.CheckAuthAction());
   }
 
   login(provider: string) {
-    this.store.dispatch(new LoginAction(provider));
+    this.store.dispatch(new userAuth.LoginAction(provider));
   }
   
   logout() {
-    this.store.dispatch(new LogoutAction());
+    this.store.dispatch(new userAuth.LogoutAction());
   }
 
 }

@@ -7,7 +7,7 @@
             {{title}}
           </a>
         </li>
-        <li class="large-10 small-10 columns text-center">
+        <li class="large-9 small-9 columns text-center">
           <div class="input-group">
             <span class="input-group-label fa fa-search top-bar-search-label text-white">
             </span>
@@ -17,8 +17,9 @@
             </div>
           </div>
         </li>
-        <li class="large-1 small-1 columns text-right">
-          <ul class="dropdown menu" data-dropdown-menu [ngClass]="{hide: (userIsAuthenticated | async)}">
+        <li class="large-2 small-2 columns text-right"
+           [ngClass]="{hide: (userIsAuthenticated | async)}">
+          <ul class="dropdown menu text-center" data-dropdown-menu>
             <li>
               <a href="#">Login</a>
               <ul class="menu vertical">
@@ -31,12 +32,26 @@
               </ul>
             </li>
           </ul>
-          <a (click)="logout()" [ngClass]="{hide: !(userIsAuthenticated | async)}">Logout</a>
+        </li>
+        <li class="large-2 small-2 columns text-right"
+            [ngClass]="{hide: !(userIsAuthenticated | async)}">
+          <ul class="dropdown menu text-center" data-dropdown-menu>
+            <li>
+              <a href="#">
+                <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+                {{(user | async)?.name}}
+              </a>
+              <ul class="menu vertical">
+                <li class="text-left">
+                  <a (click)="logout()">
+                    <strong>Logout</strong>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
       </ul>
     </section>
   </nav>
 </div>
-<p>
-  {{userIsAuthenticated | async}} {{user | async | json}}
-</p>

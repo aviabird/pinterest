@@ -26,5 +26,10 @@ export class UserAuthEffects {
     .ofType(userAuth.ActionTypes.LOGOUT)
     .switchMap(() => this.authService.logout())
     .map((payload) => new userAuth.LogoutSuccessAction(payload))
+  
+  @Effect() checkAuth$: Observable<Action> = this.actions$
+    .ofType(userAuth.ActionTypes.CHECK_AUTH)
+    .switchMap(() => this.authService.authStatus())
+    .map((payload) => new userAuth.CheckAuthSuccessAction(payload))
 
 }

@@ -15,6 +15,8 @@ export const ActionTypes = {
   LOGIN_SUCCESS:            type('[User-Auth] Login Success'),
   LOGOUT:                   type('[User-Auth] Logout'),
   LOGOUT_SUCCESS:           type('[User-Auth] Logout Success'),
+  CHECK_AUTH:               type('[User-Auth] Check Auth'),  
+  CHECK_AUTH_SUCCESS:       type('[User-Auth] Check Auth Success'),
 };
 
 
@@ -49,6 +51,18 @@ export class LogoutSuccessAction implements Action {
   constructor(public payload: any) {};
 }
 
+export class CheckAuthAction implements Action {
+  type = ActionTypes.CHECK_AUTH;
+
+  constructor() {}
+}
+
+export class CheckAuthSuccessAction implements Action {
+  type = ActionTypes.CHECK_AUTH_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -58,3 +72,5 @@ export type Actions
   | LoginSuccessAction
   | LogoutAction
   | LogoutSuccessAction
+  | CheckAuthAction
+  | CheckAuthSuccessAction

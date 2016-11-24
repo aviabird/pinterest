@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders } from 'angularfire2';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
+import * as fromUserAuth from '../reducers/user-auth';
 
 @Injectable()
 export class AuthenticationService {
-  userAuth: Observable<any>;
+  userAuth: Observable<fromUserAuth.State>;
 
   constructor(
     public af: AngularFire
@@ -25,6 +26,10 @@ export class AuthenticationService {
 
   logout() {
     this.af.auth.logout();
+    return this.userAuth;
+  }
+
+  authStatus() {
     return this.userAuth;
   }
 

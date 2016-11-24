@@ -16,6 +16,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { AuthenticationService } from './services/authentication';
 import { reducer } from './reducers/index';
 import { UserAuthEffects } from './effects/user-auth';
+import { PinsComponent } from './components/pins/pins.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -30,7 +31,8 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PinsComponent
   ],
   imports: [
     BrowserModule,
