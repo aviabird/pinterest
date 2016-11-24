@@ -17,6 +17,7 @@ import { AuthenticationService } from './services/authentication';
 import { reducer } from './reducers/index';
 import { UserAuthEffects } from './effects/user-auth';
 import { PinsComponent } from './components/pins/pins.component';
+import { PinItemComponent } from './components/pins/pin-item/pin-item.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -32,7 +33,8 @@ export const firebaseConfig = {
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    PinsComponent
+    PinsComponent,
+    PinItemComponent
   ],
   imports: [
     BrowserModule,

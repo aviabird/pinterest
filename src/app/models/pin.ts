@@ -1,7 +1,9 @@
 import { Base } from './base';
 
 export class Pin extends Base{
-  userId: string;
-  boardId: string;
+  name: string;
   imagePath: string;
+  url: string;
+  tags: Array<string>;
+  userId: string;
 }
