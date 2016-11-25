@@ -6,4 +6,5 @@ export class Pin extends Base{
   url: string;
   tags: Array<string>;
   userId: string;
+  description: string;
 }

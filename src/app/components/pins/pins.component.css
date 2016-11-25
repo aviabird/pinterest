@@ -1,0 +1,10 @@
+.brick {
+  height: auto;
+  width: 18vw;
+  display: inline-block;
+}
+
+.dashboard-grid{
+  margin: 1% 3.5vw;
+  text-align: center;
+}

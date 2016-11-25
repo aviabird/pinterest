@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MasonryModule } from 'angular2-masonry';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -48,7 +49,8 @@ export const firebaseConfig = {
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
-    EffectsModule.run(UserAuthEffects)
+    EffectsModule.run(UserAuthEffects),
+    MasonryModule
   ],
   providers: [
     AuthenticationService

@@ -1,18 +1,8 @@
-<div class="row">
-  <br>
-  <h5>
-     New Pins for Today
-  </h5>
-  <hr>
-</div>
-
-<div class="row">
-  <div class="large-12 small-12 columns">
-    <div class="small-up-2 medium-up-3 large-up-4">
-      <div class="column text-center" *ngFor="let pin of pins">
-        <pin-pin-item [pin]="pin">
-        </pin-pin-item>
-      </div>
-    </div>
-  </div>
+<div class="dashboard-grid large-12 columns">
+  <masonry id="container">
+    <masonry-brick class="brick" *ngFor="let pin of pins">
+      <pin-pin-item [pin]="pin">
+      </pin-pin-item> 
+    </masonry-brick>
+  </masonry>
 </div>
