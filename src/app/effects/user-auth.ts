@@ -22,6 +22,7 @@ export class UserAuthEffects {
     .map((action: userAuth.LoginAction) => action.payload)
     .switchMap((provider) => this.authService.login(provider))
     .filter((payload) => payload.user != null)
+    .map((payload) => this.authService.storeNewUser(payload))
     .map((payload) => new userAuth.LoginSuccessAction(payload))
   
   @Effect() logout$: Observable<Action> = this.actions$

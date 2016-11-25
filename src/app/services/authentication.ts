@@ -33,6 +33,28 @@ export class AuthenticationService {
     return this.userAuth;
   }
 
+  findbyEmail(email: string){
+    return  this.af.database.list('/users', {
+      query: {
+        orderByChild: 'email',
+        equalTo: email,
+        limitToFirst: 1,
+      }
+    })
+  }
+
+  storeNewUser(userAuth: fromUserAuth.State){
+    let user = userAuth.user;
+    this.findbyEmail(user.email).subscribe(
+      users => {
+        if(!users.length) {
+          this.af.database.list('/users').push(user);
+        }
+      }
+    )
+    return userAuth;
+  }
+
   private _changeState(user: any = null) {
     if(user) {
       return {
