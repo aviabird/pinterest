@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication';
 import { User } from '../../../models/user';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,8 @@ import { LoginSuccessAction } from '../../../actions/user-auth';
 @Component({
   selector: 'pin-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
   title = 'Pinterest';

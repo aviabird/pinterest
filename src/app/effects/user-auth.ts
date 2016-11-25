@@ -1,4 +1,5 @@
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { AuthenticationService } from '../services/authentication';
@@ -20,16 +21,19 @@ export class UserAuthEffects {
     .ofType(userAuth.ActionTypes.LOGIN)
     .map((action: userAuth.LoginAction) => action.payload)
     .switchMap((provider) => this.authService.login(provider))
+    .filter((payload) => payload.user != null)
     .map((payload) => new userAuth.LoginSuccessAction(payload))
   
   @Effect() logout$: Observable<Action> = this.actions$
     .ofType(userAuth.ActionTypes.LOGOUT)
     .switchMap(() => this.authService.logout())
+    .filter((payload) => payload.user == null)    
     .map((payload) => new userAuth.LogoutSuccessAction(payload))
   
   @Effect() checkAuth$: Observable<Action> = this.actions$
     .ofType(userAuth.ActionTypes.CHECK_AUTH)
     .switchMap(() => this.authService.authStatus())
+    .filter((payload) => payload.user != null)
     .map((payload) => new userAuth.CheckAuthSuccessAction(payload))
 
 }

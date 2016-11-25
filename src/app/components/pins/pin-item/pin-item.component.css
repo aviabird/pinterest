@@ -10,10 +10,4 @@
 
 .pin-image img{
   border-radius: 10px;
-  transition-duration: 0.5s;
-}
-
-.callout:hover > .pin-image img{
-  box-shadow: 5px 5px 10px #aaa;
-  z-index: 1000;
 }
