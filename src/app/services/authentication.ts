@@ -51,7 +51,7 @@ export class AuthenticationService {
           this.af.database.list('/users').push(user);
         }
       }
-    )
+    ).unsubscribe();
     return userAuth;
   }
 
