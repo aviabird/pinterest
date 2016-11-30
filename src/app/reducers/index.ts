@@ -37,9 +37,10 @@ import { combineReducers, ActionReducer } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import * as fromUserAuth from './user-auth';
-import * as fromPin from './pin'
+import * as fromPins from './pins'
 import { User } from '../models/user';
 import { routerReducer } from '@ngrx/router-store';
+import { createSelector } from 'reselect';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -47,7 +48,7 @@ import { routerReducer } from '@ngrx/router-store';
  */
 export interface AppState {
   userAuth: fromUserAuth.State;
-  pin: fromPin.State;
+  pins: fromPins.State
 }
 
 /**
@@ -59,7 +60,7 @@ export interface AppState {
  */
 const reducers = {
   userAuth: fromUserAuth.reducer,
-  pin: fromPin.reducer,
+  pin: fromPins.reducer,
   router: routerReducer
 };
 
@@ -101,12 +102,8 @@ export function reducer(state: any, action: any) {
  * ```
  *
  */
-export function getUserAuthState(state$: Observable<AppState>) {
-  return state$.select(state => state.userAuth);
-}
-export function getPinsState(state$: Observable<AppState>) {
-  return state$.select(state => state.pin);
-}
+export const getUserAuthState = (appState: AppState) => appState.userAuth;
+export const getPinsState = (appState: AppState) => appState.pins;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -123,8 +120,28 @@ export function getPinsState(state$: Observable<AppState>) {
  * observable. Each subscription to the resultant observable
  * is shared across all subscribers.
  */
+
+
+
+// ************************************
 // Authentication
-export const getUser = compose(fromUserAuth.getUser, getUserAuthState);
-export const getUserAuthStatus = compose(fromUserAuth.getAuthStatus, getUserAuthState);
-// Pin
-export const getPins = compose(fromPin.getPins, getPinsState);
+// ************************************
+export const getUser = createSelector(getUserAuthState, fromUserAuth.getUser);
+export const getUserAuthStatus = createSelector(getUserAuthState, fromUserAuth.getAuthStatus);
+// ------------------------------------
+
+
+
+// ************************************
+// Pins State Funcations
+// ************************************
+export const getPinEntities = createSelector(getPinsState, fromPins.getEntities);
+export const getPinIds = createSelector(getPinsState, fromPins.getIds);
+/**
+ * Some selector functions create joins across parts of state. This selector
+ * composes the search result IDs to return an array of books in the store.
+ */
+export const getPins = createSelector(getPinEntities, getPinIds, (pins, ids) => {
+  return ids.map(id => pins[id]);
+});
+// ------------------------------------

@@ -32,6 +32,7 @@
     "font-awesome": "^4.7.0",
     "foundation-sites": "^6.2.4",
     "imagesloaded": "^4.1.1",
+    "reselect": "^2.5.4",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.6.23"

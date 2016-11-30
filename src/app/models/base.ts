@@ -1,11 +1,7 @@
 export class Base {
-  public $key;
-
+  public $key: string;
+  
   constructor(attributes?) {
     Object.assign(this, attributes);
-  }
-
-  id() {
-    this.$key;
   }
 }

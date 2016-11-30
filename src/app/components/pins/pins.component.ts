@@ -1,8 +1,8 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {Pin} from '../../models/pin';
-import {AuthenticationService} from '../../services/authentication';
-import {Observable} from 'rxjs/Observable';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Pin } from '../../models/pin';
+import { AuthenticationService } from '../../services/authentication';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as pin from '../../actions/pin'
 
@@ -14,21 +14,17 @@ import * as pin from '../../actions/pin'
 })
 
 export class PinsComponent implements OnInit {
-  pins : Observable < Pin[] >;
+  pins: Observable<Pin[]>;
 
   constructor(
-    private authService : AuthenticationService,
-    private store : Store < fromRoot.AppState >
+    private authService: AuthenticationService,
+    private store: Store<fromRoot.AppState>
   ) {
-    this.pins = this
-      .store
-      .let(fromRoot.getPins)
+    this.pins = this.store.select(fromRoot.getPins);
   }
 
   ngOnInit() {
-    this
-      .store
-      .dispatch(new pin.GetPinsAction({}))
+    this.store.dispatch(new pin.GetPinsAction({}));
   }
 
 }

@@ -26,10 +26,6 @@ export function reducer(state = initialState, action: userAuth.Actions): State {
   }
 }
 
-export function getAuthStatus(state$: Observable<State>) {
-  return state$.select(state => state.isAuthenticated);
-}
+export const getAuthStatus = (state: State) => state.isAuthenticated;
 
-export function getUser(state$: Observable<State>) {
-  return state$.select(state => state.user);
-}
+export const getUser = (state: State) => state.user;
