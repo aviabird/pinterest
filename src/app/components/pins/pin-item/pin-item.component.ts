@@ -5,11 +5,12 @@ import { Pin } from '../../../models/pin';
   selector: 'pin-pin-item',
   templateUrl: './pin-item.component.html',
   styleUrls: ['./pin-item.component.css'],
-  inputs: ['pin'],
+  inputs: ['pin', 'pinId'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PinItemComponent implements OnInit {
   pin : Pin;
+  pinId: string;
 
   constructor() {}
 

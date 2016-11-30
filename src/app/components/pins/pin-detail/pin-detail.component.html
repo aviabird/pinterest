@@ -1,0 +1,6 @@
+<div>
+  <h1>{{(pin | async).name}}</h1>
+  <div class="pin-image text-center">
+    <img [src]="(pin | async).imagePath" alt="">
+  </div>
+</div>

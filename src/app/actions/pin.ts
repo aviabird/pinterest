@@ -15,7 +15,8 @@ export const ActionTypes = {
   GET_PINS:                     type('[Pins] Get Pins'),
   GET_PINS_SUCESS:              type('[Pins] Get Pins Success'),
   GET_USER_PINS:                type('[Pins] Get User Pins'),
-  GET_USER_PINS_SUCESS:         type('[Pins] Get User Pins Sucess')
+  GET_USER_PINS_SUCESS:         type('[Pins] Get User Pins Sucess'),
+  SELECT_PIN:                   type('[Pins] Select Pin'),
 };
 
 
@@ -38,6 +39,12 @@ export class GetPinsSuccessAction implements Action {
   constructor(public payload: Pin[]){};
 }
 
+export class SelectPinAction implements Action {
+  type = ActionTypes.SELECT_PIN;
+
+  constructor(public payload: string){};
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -45,3 +52,4 @@ export class GetPinsSuccessAction implements Action {
 export type Actions
   = GetPinsAction
   | GetPinsSuccessAction
+  | SelectPinAction

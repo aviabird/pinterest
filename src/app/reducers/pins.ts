@@ -37,6 +37,11 @@ export function reducer(state = initialState, action: pin.Actions): State {
         selectedPinId: state.selectedPinId
       })
     }
+    case pin.ActionTypes.SELECT_PIN: {
+      return Object.assign({}, state, {
+        selectedPinId: action.payload
+      });
+    }
     default: {
       return state;
     }

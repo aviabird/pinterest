@@ -2,6 +2,7 @@ import { AppComponent } from './app.component';
 import { PinsComponent } from './components/pins/pins.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PINS_ROUTES } from './components/pins/pins.routes';
 
 export const routes: Routes = [
   {
@@ -11,7 +12,8 @@ export const routes: Routes = [
   },
   {
     path: 'pins',
-    component: PinsComponent
+    component: PinsComponent,
+    children: PINS_ROUTES
   }
 ];
 
