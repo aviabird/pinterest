@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers'
 import * as pin from '../../../actions/pin';
 
+declare var $:any;
+
 @Component({
   selector: 'pin-pin-detail',
   templateUrl: './pin-detail.component.html',
@@ -25,7 +27,9 @@ export class PinDetailComponent implements OnInit {
     private store: Store<fromRoot.AppState>
   ) {
     this.pin = this.store.select(fromRoot.getSelectedPin);
-    this.store.select(fromRoot.getSelectedPin).subscribe(pin => $('body .reveal').foundation('toggle'));
+    this.store
+      .select(fromRoot.getSelectedPin)
+      .subscribe(pin => $('body .reveal').foundation('toggle'));
   }
 
   ngOnInit() {
