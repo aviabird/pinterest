@@ -22,12 +22,12 @@ export function reducer(state = initialState, action: pin.Actions): State {
   switch(action.type) {
     case pin.ActionTypes.GET_PINS_SUCESS: {
       const pins = action.payload;
-      const newPins = pins.filter(pin => !state.entities[pin.$key])
+      const newPins = pins.filter(pin => !state.entities[pin.id])
 
       const newPinIds = newPins.map(pin => pin.$key);
       const newPinEntities = newPins.reduce((entities: { [id: string]: Pin }, pin: Pin) => {
         return Object.assign(entities, {
-          [pin.$key]: pin
+          [pin.id]: pin
         });
       }, {});
       

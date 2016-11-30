@@ -8,6 +8,7 @@ import * as pin from '../actions/pin';
 import { AppState } from '../reducers/index';
 import { LoginSuccessAction, LogoutAction } from '../actions/user-auth';
 import { PinDataService } from '../services/pin-data';
+import { Pin } from '../models/pin';
 
 @Injectable()
 export class PinEffects {

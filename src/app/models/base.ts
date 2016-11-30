@@ -4,4 +4,8 @@ export class Base {
   constructor(attributes?) {
     Object.assign(this, attributes);
   }
+
+  get id():string {
+    return this.$key
+  }
 }

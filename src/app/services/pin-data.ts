@@ -15,6 +15,7 @@ export class PinDataService {
   };
 
   getPins() {
-    return this.db.list('pins').map((pins: Pin[]) => pins);
+    return this.db.list('pins')
+      .map(pins => pins.map(pin => new Pin(pin)));
   }
 }
