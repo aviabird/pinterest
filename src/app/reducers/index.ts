@@ -60,7 +60,7 @@ export interface AppState {
  */
 const reducers = {
   userAuth: fromUserAuth.reducer,
-  pin: fromPins.reducer,
+  pins: fromPins.reducer,
   router: routerReducer
 };
 
