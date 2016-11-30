@@ -24,7 +24,8 @@
       ],
       "scripts": [
         "../node_modules/foundation-sites/vendor/jquery/dist/jquery.min.js",
-        "../node_modules/foundation-sites/dist/foundation.min.js"
+        "../node_modules/foundation-sites/dist/foundation.min.js",
+        "../node_modules/imagesloaded/imagesloaded.pkgd.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

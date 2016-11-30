@@ -9,11 +9,10 @@ import { Pin } from '../../../models/pin';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PinItemComponent implements OnInit {
-  pin: Pin;
+  pin : Pin;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

@@ -37,6 +37,7 @@ import { combineReducers, ActionReducer } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import * as fromUserAuth from './user-auth';
+import * as fromPin from './pin'
 import { User } from '../models/user';
 import { routerReducer } from '@ngrx/router-store';
 
@@ -46,6 +47,7 @@ import { routerReducer } from '@ngrx/router-store';
  */
 export interface AppState {
   userAuth: fromUserAuth.State;
+  pin: fromPin.State;
 }
 
 /**
@@ -57,6 +59,7 @@ export interface AppState {
  */
 const reducers = {
   userAuth: fromUserAuth.reducer,
+  pin: fromPin.reducer,
   router: routerReducer
 };
 
@@ -98,8 +101,11 @@ export function reducer(state: any, action: any) {
  * ```
  *
  */
- export function getUserAuthState(state$: Observable<AppState>) {
+export function getUserAuthState(state$: Observable<AppState>) {
   return state$.select(state => state.userAuth);
+}
+export function getPinsState(state$: Observable<AppState>) {
+  return state$.select(state => state.pin);
 }
 
 /**
@@ -117,5 +123,8 @@ export function reducer(state: any, action: any) {
  * observable. Each subscription to the resultant observable
  * is shared across all subscribers.
  */
- export const getUser = compose(fromUserAuth.getUser, getUserAuthState);
- export const getUserAuthStatus = compose(fromUserAuth.getAuthStatus, getUserAuthState);
+// Authentication
+export const getUser = compose(fromUserAuth.getUser, getUserAuthState);
+export const getUserAuthStatus = compose(fromUserAuth.getAuthStatus, getUserAuthState);
+// Pin
+export const getPins = compose(fromPin.getPins, getPinsState);

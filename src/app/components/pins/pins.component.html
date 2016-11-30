@@ -1,6 +1,6 @@
 <div class="dashboard-grid large-12 columns">
-  <masonry id="container">
-    <masonry-brick class="brick" *ngFor="let pin of pins">
+  <masonry id="container" [useImagesLoaded]="true">
+    <masonry-brick class="brick" *ngFor="let pin of pins | async">
       <pin-pin-item [pin]="pin">
       </pin-pin-item> 
     </masonry-brick>

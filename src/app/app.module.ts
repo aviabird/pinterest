@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { StoreModule } from '@ngrx/store';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
-import { routes } from './app.routes';
+import { routes, AppRoutes } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -19,6 +19,8 @@ import { reducer } from './reducers/index';
 import { UserAuthEffects } from './effects/user-auth';
 import { PinsComponent } from './components/pins/pins.component';
 import { PinItemComponent } from './components/pins/pin-item/pin-item.component';
+import { PinEffects } from './effects/pin';
+import { PinDataService } from './services/pin-data';
 
 // Must export the config
 export const firebaseConfig = {
@@ -41,6 +43,7 @@ export const firebaseConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutes,
     AngularFireModule.initializeApp(firebaseConfig, {
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
@@ -50,10 +53,12 @@ export const firebaseConfig = {
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(UserAuthEffects),
+    EffectsModule.run(PinEffects),
     MasonryModule
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    PinDataService
   ],
   bootstrap: [AppComponent]
 })
