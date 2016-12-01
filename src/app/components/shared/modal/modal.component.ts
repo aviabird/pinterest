@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers/index';
 
+declare var $:any;
+
 @Component({
   selector: 'pin-modal',
   templateUrl: './modal.component.html',
