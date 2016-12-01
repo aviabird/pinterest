@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Pin } from '../../../models/pin';
+import { User } from '../../../models/user';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../reducers';
 
 declare var $:any;
 declare var Foundation:any;
@@ -13,8 +16,10 @@ declare var Foundation:any;
 })
 export class PinItemComponent implements OnInit {
   pin : Pin;
+  user: User;
 
-  constructor() {}
+  constructor(private store: Store<fromRoot.AppState>) {
+  }
 
   ngOnInit() {}
 

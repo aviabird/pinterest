@@ -6,6 +6,7 @@ import { Pin } from '../../../models/pin';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers'
 import * as pin from '../../../actions/pin';
+import { User } from '../../../models/user';
 
 declare var $:any;
 declare var Foundation:any;
@@ -20,6 +21,7 @@ export class PinDetailComponent implements OnInit {
   private subscription: Subscription;
   private pinIndex: string;
   private pin: Observable<Pin>;
+  private user: Observable<User>;
 
   constructor(
     private router: Router, 
@@ -27,6 +29,7 @@ export class PinDetailComponent implements OnInit {
     private store: Store<fromRoot.AppState>
   ) {
     this.pin = this.store.select(fromRoot.getSelectedPin);
+    this.user = this.store.select(fromRoot.getPinUser);
   }
 
   ngOnInit() {

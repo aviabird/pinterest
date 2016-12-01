@@ -6,11 +6,13 @@ import { ActionTypes } from '../actions/user-auth';
 export interface State {
   isAuthenticated: boolean;
   user: User | null;
+  users: User[];
 }
 
 const initialState: State = {
   isAuthenticated: false,
-  user: null
+  user: null,
+  users: []
 };
 
 export function reducer(state = initialState, action: userAuth.Actions): State {
@@ -19,6 +21,11 @@ export function reducer(state = initialState, action: userAuth.Actions): State {
     case userAuth.ActionTypes.LOGOUT_SUCCESS:
     case userAuth.ActionTypes.CHECK_AUTH_SUCCESS: {
       return Object.assign({}, state, action.payload)
+    }
+    case userAuth.ActionTypes.FIND_USERS_SUCCESS: {
+      return Object.assign({}, state, {
+        users: action.payload
+      })
     }
     default: {
       return state;
@@ -29,3 +36,5 @@ export function reducer(state = initialState, action: userAuth.Actions): State {
 export const getAuthStatus = (state: State) => state.isAuthenticated;
 
 export const getUser = (state: State) => state.user;
+
+export const getUsers = (state: State) => state.users;

@@ -1,9 +1,24 @@
-<pin-modal title='Pin Detail' klass='pinModal-{{pinIndex}}' size='small'>
+<pin-modal title='' klass='pinModal-{{pinIndex}}' size='small'>
   <div *ngIf="(pin | async)">
-    <h1>{{(pin | async).name}}</h1>
+    <h5>
+      {{(pin | async).name}}
+    </h5>
     <div class="pin-image text-center">
-      <img [src]="(pin | async).imagePath" alt="">
+      <img [src]="(pin | async).imagePath" alt="" width="300">
     </div>
+
+    <small>
+      {{(pin | async).description}}
+    </small>
+
+    <h5>
+      From {{(user | async)?.name}}
+      <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+    </h5>
+
+    <a [href]="(pin | async).url" class="button hollow expanded">
+      Visit Me
+    </a>
   </div>
   <div>
     <h4 class="text-center" *ngIf="!(pin | async)">Loading ...</h4>

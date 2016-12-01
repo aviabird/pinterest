@@ -128,6 +128,7 @@ export const getPinsState = (appState: AppState) => appState.pins;
 // ************************************
 export const getUser = createSelector(getUserAuthState, fromUserAuth.getUser);
 export const getUserAuthStatus = createSelector(getUserAuthState, fromUserAuth.getAuthStatus);
+export const getUsers = createSelector(getUserAuthState, fromUserAuth.getUsers);
 // ------------------------------------
 
 
@@ -148,4 +149,7 @@ export const getPins = createSelector(getPinEntities, getPinIds, (pins, ids) => 
 export const getSelectedPin = createSelector(getPinEntities, getSelectedPinId, (pins, selectedId) => {
   return pins[selectedId];
 })
+export const getPinUser = createSelector(getUsers, getSelectedPin, (users, pin) => {
+  return users.filter(user => user.$key == pin.userId)[0]
+});
 // ------------------------------------

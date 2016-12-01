@@ -13,7 +13,7 @@ export class AuthenticationService {
   ) {
     this.userAuth = this.af.auth.map(
       user => this._changeState(user),
-      error => console.trace(error)
+      error => console.trace(error),
     );
   };
 
@@ -31,6 +31,12 @@ export class AuthenticationService {
 
   authStatus() {
     return this.userAuth;
+  }
+
+  findbyIds(ids: string[]) {
+    return  this.af.database.list('/users').map(
+      users => users.filter(user => ids.indexOf(user.$key) > -1)
+    )
   }
 
   findbyEmail(email: string){
@@ -59,13 +65,15 @@ export class AuthenticationService {
     if(user) {
       return {
         user: this._getUserInfo(user),
-        isAuthenticated: true
+        isAuthenticated: true,
+        users: [user]
       }
     }
     else {
       return {
         user: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        users: null
       }
     }
   }

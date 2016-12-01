@@ -7,7 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import { Action, Store } from '@ngrx/store';
 import * as userAuth from '../actions/user-auth';
 import { AppState } from '../reducers/index';
-import { LoginSuccessAction, LogoutAction } from '../actions/user-auth';
+import { LoginSuccessAction, LogoutAction, ActionTypes } from '../actions/user-auth';
+import { User } from '../models/user';
 
 @Injectable()
 export class UserAuthEffects {
@@ -36,5 +37,11 @@ export class UserAuthEffects {
     .switchMap(() => this.authService.authStatus())
     .filter((payload) => payload.user != null)
     .map((payload) => new userAuth.CheckAuthSuccessAction(payload))
-
+  
+  @Effect() findUsers$: Observable<Action> = this.actions$
+    .ofType(userAuth.ActionTypes.FIND_USERS)
+    .map((action) => action.payload)
+    .switchMap((ids) => this.authService.findbyIds(ids))
+    .filter((users) =>  users.length)
+    .map((users: User[]) => new userAuth.FindUsersSuccessAction(users))
 }
