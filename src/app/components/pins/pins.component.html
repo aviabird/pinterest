@@ -1,12 +1,14 @@
+<div *ngIf="!(pins | async).length">
+  Loading Pins ...
+</div>
+
 <div class="dashboard-grid large-12 columns">
   <masonry id="container" [useImagesLoaded]="true">
     <masonry-brick class="brick" *ngFor="let pin of pins | async">
-      <pin-pin-item [pin]="pin" [pinId]="pin.$key">
+      <pin-pin-item [pin]="pin">
       </pin-pin-item> 
     </masonry-brick>
   </masonry>
 </div>
 
-<div class="small reveal" id="exampleModal" data-reveal="true">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>

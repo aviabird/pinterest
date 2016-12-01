@@ -22,6 +22,7 @@ import { PinItemComponent } from './components/pins/pin-item/pin-item.component'
 import { PinEffects } from './effects/pin';
 import { PinDataService } from './services/pin-data';
 import { PinDetailComponent } from './components/pins/pin-detail/pin-detail.component';
+import { ModalComponent } from './components/shared/modal/modal.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -39,7 +40,8 @@ export const firebaseConfig = {
     FooterComponent,
     PinsComponent,
     PinItemComponent,
-    PinDetailComponent
+    PinDetailComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

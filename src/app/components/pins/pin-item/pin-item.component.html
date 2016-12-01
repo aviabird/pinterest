@@ -1,4 +1,4 @@
-<div class="callout" [routerLink]="[pinId]">
+<div class="callout" [routerLink]="[pin.id]" (click)="onClick()">
   <div class="pin-image">
     <img [src]="pin.imagePath" alt="">
   </div>

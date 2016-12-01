@@ -1,6 +1,11 @@
-<div>
-  <h1>{{(pin | async).name}}</h1>
-  <div class="pin-image text-center">
-    <img [src]="(pin | async).imagePath" alt="">
+<pin-modal title='Pin Detail' klass='pinModal-{{pinIndex}}' size='small'>
+  <div *ngIf="(pin | async)">
+    <h1>{{(pin | async).name}}</h1>
+    <div class="pin-image text-center">
+      <img [src]="(pin | async).imagePath" alt="">
+    </div>
   </div>
-</div>
+  <div>
+    <h4 class="text-center" *ngIf="!(pin | async)">Loading ...</h4>
+  </div>
+</pin-modal>

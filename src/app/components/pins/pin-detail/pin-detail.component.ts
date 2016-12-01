@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/rx'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,7 @@ import * as fromRoot from '../../../reducers'
 import * as pin from '../../../actions/pin';
 
 declare var $:any;
+declare var Foundation:any;
 
 @Component({
   selector: 'pin-pin-detail',
@@ -23,13 +24,9 @@ export class PinDetailComponent implements OnInit {
   constructor(
     private router: Router, 
     private route: ActivatedRoute,
-    private eleref: ElementRef,
     private store: Store<fromRoot.AppState>
   ) {
     this.pin = this.store.select(fromRoot.getSelectedPin);
-    this.store
-      .select(fromRoot.getSelectedPin)
-      .subscribe(pin => $('body .reveal').foundation('toggle'));
   }
 
   ngOnInit() {
@@ -37,6 +34,25 @@ export class PinDetailComponent implements OnInit {
       (params: any) => {
         this.pinIndex = params['id'];
         this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
+      }
+    );
+    this.loadModal()
+  }
+
+  loadModal() {
+    this.pin.subscribe(
+      pin => {
+        try{
+          let el = $(`.pinModal-${this.pinIndex}`);
+          if (el.length) {
+            if (el.data('zfPlugin')) {
+              el.foundation('open');
+            }else{
+              new Foundation.Reveal(el);
+              el.foundation('open');
+            }
+          }
+        }catch(e){console.log(e)};
       }
     );
   }
