@@ -1,44 +1,38 @@
 import { User } from '../models/user';
-import * as pin from '../actions/pin';
+import * as comment from '../actions/comment';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { createSelector } from 'reselect';
 import { Pin } from '../models/pin';
+import { Comment } from '../models/comment';
 
 export interface State {
   ids: string[];
-  entities: { [id: string]: Pin };
-  selectedPinId: string;
+  entities: { [id: string]: Comment };
 }
 
 const initialState: State = {
   ids: [],
-  entities: {},
-  selectedPinId: null
+  entities: {}
 };
 
-export function reducer(state = initialState, action: pin.Actions): State {
+export function reducer(state = initialState, action: comment.Actions): State {
   switch(action.type) {
-    case pin.ActionTypes.GET_PINS_SUCESS: {
-      const pins = action.payload;
-      const newPins = pins.filter(pin => !state.entities[pin.id])
+    case comment.ActionTypes.LOAD_COMMENTS_SUCCESS: {
+      const comments = action.payload;
+      const newComments = comments.filter(comment => !state.entities[comment.id])
 
-      const newPinIds = newPins.map(pin => pin.id);
-      const newEntities = newPins.reduce((entities: { [id: string]: Pin }, pin: Pin) => {
+      const newCommentIds = newComments.map(comment => comment.id);
+      const newEntities = newComments.reduce((entities: { [id: string]: Comment }, comment: Comment) => {
         return Object.assign(entities, {
-          [pin.id]: pin
+          [comment.id]: comment
         });
       }, {});
       
       return Object.assign({}, state, {
-        ids: [ ...state.ids, ...newPinIds ],
+        ids: [ ...state.ids, ...newCommentIds ],
         entities: Object.assign({}, state.entities, newEntities)
       })
-    }
-    case pin.ActionTypes.SELECT_PIN: {
-      return Object.assign({}, state, {
-        selectedPinId: action.payload
-      });
     }
     default: {
       return state;
@@ -59,9 +53,3 @@ export function reducer(state = initialState, action: pin.Actions): State {
 export const getEntities = (state: State) => state.entities;
 
 export const getIds = (state: State) => state.ids;
-
-export const getSelectedId = (state: State) => state.selectedPinId;
-
-export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
-  return entities[selectedId];
-});

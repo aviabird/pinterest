@@ -6,7 +6,9 @@ import { Pin } from '../../../models/pin';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers'
 import * as pin from '../../../actions/pin';
+import * as comment from '../../../actions/comment';
 import { User } from '../../../models/user';
+import { Comment } from '../../../models/comment';
 
 declare var $:any;
 declare var Foundation:any;
@@ -22,6 +24,8 @@ export class PinDetailComponent implements OnInit {
   private pinIndex: string;
   private pin: Observable<Pin>;
   private user: Observable<User>;
+  private comments: Observable<Comment[]>;
+  // private userIsAuthenticated: Observable<boolean>;
 
   constructor(
     private router: Router, 
@@ -30,6 +34,8 @@ export class PinDetailComponent implements OnInit {
   ) {
     this.pin = this.store.select(fromRoot.getSelectedPin);
     this.user = this.store.select(fromRoot.getPinUser);
+    this.comments = this.store.select(fromRoot.getSelectedPinComments);
+    // this.userIsAuthenticated = store.select(fromRoot.getUserAuthStatus);
   }
 
   ngOnInit() {
@@ -37,6 +43,7 @@ export class PinDetailComponent implements OnInit {
       (params: any) => {
         this.pinIndex = params['id'];
         this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
+        this.store.dispatch(new comment.LoadCommentsAction(this.pinIndex));
       }
     );
     this.loadModal()
@@ -62,6 +69,10 @@ export class PinDetailComponent implements OnInit {
 
   onOnDestroy(){
     this.subscription.unsubscribe()
+  }
+
+  getUser(id) {
+    this.store.select(fromRoot.getUserById(id))
   }
 
 }

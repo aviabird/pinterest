@@ -23,6 +23,7 @@ import { PinEffects } from './effects/pin';
 import { PinDataService } from './services/pin-data';
 import { PinDetailComponent } from './components/pins/pin-detail/pin-detail.component';
 import { ModalComponent } from './components/shared/modal/modal.component';
+import { CommentEffects } from './effects/comment';
 
 // Must export the config
 export const firebaseConfig = {
@@ -58,6 +59,7 @@ export const firebaseConfig = {
     RouterStoreModule.connectRouter(),
     EffectsModule.run(UserAuthEffects),
     EffectsModule.run(PinEffects),
+    EffectsModule.run(CommentEffects),
     MasonryModule
   ],
   providers: [

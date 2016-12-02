@@ -27,9 +27,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this
-      .store
-      .dispatch(new userAuth.CheckAuthAction());
+    // this
+    //   .store
+    //   .dispatch(new userAuth.CheckAuthAction());
   }
 
   login(provider : string) {

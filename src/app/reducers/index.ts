@@ -38,6 +38,7 @@ import { combineReducers, ActionReducer } from '@ngrx/store';
  */
 import * as fromUserAuth from './user-auth';
 import * as fromPins from './pins'
+import * as fromComments from './comments'
 import { User } from '../models/user';
 import { routerReducer } from '@ngrx/router-store';
 import { createSelector } from 'reselect';
@@ -48,7 +49,8 @@ import { createSelector } from 'reselect';
  */
 export interface AppState {
   userAuth: fromUserAuth.State;
-  pins: fromPins.State
+  pins: fromPins.State;
+  comments: fromComments.State
 }
 
 /**
@@ -61,6 +63,7 @@ export interface AppState {
 const reducers = {
   userAuth: fromUserAuth.reducer,
   pins: fromPins.reducer,
+  comments: fromComments.reducer,
   router: routerReducer
 };
 
@@ -104,6 +107,7 @@ export function reducer(state: any, action: any) {
  */
 export const getUserAuthState = (appState: AppState) => appState.userAuth;
 export const getPinsState = (appState: AppState) => appState.pins;
+export const getCommentState = (appState: AppState) => appState.comments;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -160,10 +164,29 @@ export const getSelectedPinId = createSelector(getPinsState, fromPins.getSelecte
 export const getPins = createSelector(getPinEntities, getPinIds, (pins, ids) => {
   return ids.map(id => pins[id]);
 });
+
 export const getSelectedPin = createSelector(getPinEntities, getSelectedPinId, (pins, selectedId) => {
   return pins[selectedId];
-})
+});
+
 export const getPinUser = createSelector(getUsers, getSelectedPin, (users, pin) => {
   return users.filter(user => user.id == pin.userId)[0]
 });
+// ------------------------------------
+
+
+
+// ************************************
+// Comment State Funcations
+// ************************************
+export const getCommentEntities = createSelector(getCommentState, fromComments.getEntities);
+export const getCommentIds = createSelector(getCommentState, fromComments.getIds);
+
+export const getComments = createSelector(getCommentEntities, getCommentIds, (comments, ids) => {
+  return ids.map(id => comments[id]);
+});
+
+export const getSelectedPinComments = createSelector(getComments, getSelectedPinId, (comments, pinId) => {
+  return comments.filter(comment => comment.pinId == pinId)
+})
 // ------------------------------------

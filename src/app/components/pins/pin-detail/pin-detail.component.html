@@ -1,6 +1,6 @@
 <pin-modal title='' klass='pinModal-{{pinIndex}}' size='tiny'>
   <div *ngIf="(pin | async)">
-    <h5>
+    <h5 href="(pin | async).url">
       {{(pin | async).name}}
     </h5>
     
@@ -17,10 +17,27 @@
       <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
     </h5>
 
-    <a [href]="(pin | async).url" class="button hollow expanded large-6 large-offset-3" target="_blank">
-      Visit Me
-    </a>
+    <div>
+      <div class="input-group">
+        <span class="input-group-label comment-user-img">
+          <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+        </span>
+        <textarea class="input-group-field"></textarea>
+      </div>
+    </div>
+
+    <div class="input-group" *ngFor="let comment of comments | async">
+      <span class="input-group-label comment-user-img">
+        <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
+      </span>
+      <div class="input-group-field">
+        {{comment.msg}}
+      </div>
+    </div>
+
+
   </div>
+
   <div>
     <h4 class="text-center" *ngIf="!(pin | async)">Loading ...</h4>
   </div>

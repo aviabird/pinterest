@@ -1,8 +1,20 @@
 .pin-image img{
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .avatar{
-  width: 2.5rem;
+  width: 2rem;
   border-radius: 99px;
+}
+
+.comment-user-img {
+  text-align: left;
+  padding: 0;
+  background: none;
+  color: #0a0a0a;
+  border: none;
+  white-space: nowrap;
+  width: 11%;
+  vertical-align: top;
 }
