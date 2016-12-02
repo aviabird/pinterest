@@ -11,3 +11,45 @@
 .pin-image img{
   border-radius: 10px;
 }
+
+.pin-image{
+  position: relative;
+}
+
+.avatar{
+  width: 1.5rem;
+  border-radius: 99px;
+}
+
+.callout:hover > .pin-image > .pin-url-wrapper{
+  display: block;
+}
+
+.pin-url-wrapper{
+  display: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(85,85,85,0.5) 50%);
+  border-radius: 0 0 8px 8px;
+  padding-top: 20px !important;
+  position: absolute;
+  bottom: 0;
+}
+
+.pin-url{
+  color: white;
+  margin-left: 0.8rem;
+  font-size: 11px;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.user-profile-link{
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.pin-desc{
+  color: black;
+  font-weight: 400;
+}

@@ -3,6 +3,7 @@
     <h5>
       {{(pin | async).name}}
     </h5>
+    
     <div class="pin-image text-center">
       <img [src]="(pin | async).imagePath" alt="" width="300">
     </div>
@@ -16,7 +17,7 @@
       <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
     </h5>
 
-    <a [href]="(pin | async).url" class="button hollow expanded">
+    <a [href]="(pin | async).url" class="button hollow expanded large-6 large-offset-3" target="_blank">
       Visit Me
     </a>
   </div>

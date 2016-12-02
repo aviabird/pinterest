@@ -6,7 +6,7 @@ import * as fromUserAuth from '../reducers/user-auth';
 
 @Injectable()
 export class AuthenticationService {
-  userAuth: Observable<fromUserAuth.State>;
+  userAuth: Observable<any>;
 
   constructor(
     public af: AngularFire
@@ -37,6 +37,7 @@ export class AuthenticationService {
     return  this.af.database.list('/users').map(
       users => users.filter(user => ids.indexOf(user.$key) > -1)
     )
+    .map(users => users.map(user => new User(user)))
   }
 
   findbyEmail(email: string){

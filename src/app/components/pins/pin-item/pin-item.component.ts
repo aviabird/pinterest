@@ -3,6 +3,7 @@ import { Pin } from '../../../models/pin';
 import { User } from '../../../models/user';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers';
+import { Observable } from 'rxjs/Observable';
 
 declare var $:any;
 declare var Foundation:any;
@@ -16,12 +17,14 @@ declare var Foundation:any;
 })
 export class PinItemComponent implements OnInit {
   pin : Pin;
-  user: User;
+  user: Observable<User>;
 
   constructor(private store: Store<fromRoot.AppState>) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = this.store.select(fromRoot.getUserById(this.pin && this.pin.userId))
+  }
 
   onClick() {
     try{

@@ -1,15 +1,31 @@
-<div class="callout" [routerLink]="[pin.id]" (click)="onClick()">
+<div class="callout" (click)="onClick()">
   <div class="pin-image">
-    <img [src]="pin.imagePath" alt="">
+    <div class="pin-url-wrapper">
+      <a [href]="pin.url" class="pin-url" target="_blank">
+        <strong>
+          Learn More Here
+        </strong>
+      </a>
+    </div>
+    <img [src]="pin.imagePath" alt="" [routerLink]="[pin.id]">
   </div>
 
-  <h5>
-    {{pin.name}}
-  </h5>
+  <h6>
+    <strong>
+      {{pin.name}}
+    </strong>
+  </h6>
 
-  <small>
-    {{pin.description}}
-  </small>
+  <p>
+    <small class="pin-desc">
+      {{pin.description}}
+    </small>
+  </p>
 
-  <strong></strong>
+  <p class="user-profile-link">
+    <small href="#">
+      <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+      {{(user | async)?.name | uppercase}}
+    </small>
+  </p>
 </div>

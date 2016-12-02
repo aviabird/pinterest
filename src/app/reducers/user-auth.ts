@@ -2,17 +2,22 @@ import { User } from '../models/user';
 import * as userAuth from '../actions/user-auth';
 import { Observable } from 'rxjs/Observable';
 import { ActionTypes } from '../actions/user-auth';
+import { createSelector } from 'reselect';
 
 export interface State {
   isAuthenticated: boolean;
   user: User | null;
-  users: User[];
+  entities: {[id: string]: User};
+  ids: string[];
+  selectedUserId: string;
 }
 
 const initialState: State = {
   isAuthenticated: false,
   user: null,
-  users: []
+  entities: {},
+  ids: [],
+  selectedUserId: null
 };
 
 export function reducer(state = initialState, action: userAuth.Actions): State {
@@ -23,8 +28,19 @@ export function reducer(state = initialState, action: userAuth.Actions): State {
       return Object.assign({}, state, action.payload)
     }
     case userAuth.ActionTypes.FIND_USERS_SUCCESS: {
+      const users = action.payload;
+      const newUsers = users.filter(user => !state.entities[user.id])
+
+      const newUserIds = newUsers.map(user => user.id);
+      const newEntities = newUsers.reduce((entities: { [id: string]: User }, user: User) => {
+        return Object.assign(entities, {
+          [user.id]: user
+        });
+      }, {});
+
       return Object.assign({}, state, {
-        users: action.payload
+        ids: [ ...state.ids, ...newUserIds ],
+        entities: newEntities
       })
     }
     default: {
@@ -33,8 +49,17 @@ export function reducer(state = initialState, action: userAuth.Actions): State {
   }
 }
 
+
+export const getEntities = (state: State) => state.entities;
+
+export const getIds = (state: State) => state.ids;
+
+export const getSelectedId = (state: State) => state.selectedUserId;
+
 export const getAuthStatus = (state: State) => state.isAuthenticated;
 
 export const getUser = (state: State) => state.user;
 
-export const getUsers = (state: State) => state.users;
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});

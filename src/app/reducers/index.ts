@@ -126,9 +126,23 @@ export const getPinsState = (appState: AppState) => appState.pins;
 // ************************************
 // Authentication
 // ************************************
+export const getUserEntities = createSelector(getUserAuthState, fromUserAuth.getEntities);
+export const getUserIds = createSelector(getUserAuthState, fromUserAuth.getIds);
 export const getUser = createSelector(getUserAuthState, fromUserAuth.getUser);
 export const getUserAuthStatus = createSelector(getUserAuthState, fromUserAuth.getAuthStatus);
-export const getUsers = createSelector(getUserAuthState, fromUserAuth.getUsers);
+/**
+ * Some selector functions create joins across parts of state. This selector
+ * composes the search result IDs to return an array of users in the store.
+ */
+export const getUsers = createSelector(getUserEntities, getUserIds, (userEntities, ids) => {
+  return ids.map(id => userEntities[id]);
+});
+
+export function getUserById(id) {
+  return createSelector(getUserEntities, (userEntities)=> {
+    return userEntities[id]
+  })
+}
 // ------------------------------------
 
 
@@ -141,7 +155,7 @@ export const getPinIds = createSelector(getPinsState, fromPins.getIds);
 export const getSelectedPinId = createSelector(getPinsState, fromPins.getSelectedId);
 /**
  * Some selector functions create joins across parts of state. This selector
- * composes the search result IDs to return an array of books in the store.
+ * composes the search result IDs to return an array of pins in the store.
  */
 export const getPins = createSelector(getPinEntities, getPinIds, (pins, ids) => {
   return ids.map(id => pins[id]);
@@ -150,6 +164,6 @@ export const getSelectedPin = createSelector(getPinEntities, getSelectedPinId, (
   return pins[selectedId];
 })
 export const getPinUser = createSelector(getUsers, getSelectedPin, (users, pin) => {
-  return users.filter(user => user.$key == pin.userId)[0]
+  return users.filter(user => user.id == pin.userId)[0]
 });
 // ------------------------------------
