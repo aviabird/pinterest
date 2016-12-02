@@ -1,24 +1,24 @@
-<div class="callout" (click)="onClick()">
+<div class="callout" (click)="onClick()" [routerLink]="[pin?.id]">
   <div class="pin-image">
     <div class="pin-url-wrapper">
-      <a [href]="pin.url" class="pin-url" target="_blank">
+      <a [href]="pin?.url" class="pin-url" target="_blank">
         <strong>
           Learn More Here
         </strong>
       </a>
     </div>
-    <img [src]="pin.imagePath" alt="" [routerLink]="[pin.id]">
+    <img [src]="pin?.imagePath" alt="">
   </div>
 
   <h6>
     <strong>
-      {{pin.name}}
+      {{pin?.name}}
     </strong>
   </h6>
 
   <p>
     <small class="pin-desc">
-      {{pin.description}}
+      {{pin?.description}}
     </small>
   </p>
 

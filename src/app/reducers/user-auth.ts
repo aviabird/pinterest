@@ -40,7 +40,7 @@ export function reducer(state = initialState, action: userAuth.Actions): State {
 
       return Object.assign({}, state, {
         ids: [ ...state.ids, ...newUserIds ],
-        entities: newEntities
+        entities: Object.assign({}, state.entities, newEntities)
       })
     }
     default: {

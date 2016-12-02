@@ -25,7 +25,7 @@ export function reducer(state = initialState, action: pin.Actions): State {
       const newPins = pins.filter(pin => !state.entities[pin.id])
 
       const newPinIds = newPins.map(pin => pin.id);
-      const newPinEntities = newPins.reduce((entities: { [id: string]: Pin }, pin: Pin) => {
+      const newEntities = newPins.reduce((entities: { [id: string]: Pin }, pin: Pin) => {
         return Object.assign(entities, {
           [pin.id]: pin
         });
@@ -33,7 +33,7 @@ export function reducer(state = initialState, action: pin.Actions): State {
       
       return Object.assign({}, state, {
         ids: [ ...state.ids, ...newPinIds ],
-        entities: newPinEntities
+        entities: Object.assign({}, state.entities, newEntities)
       })
     }
     case pin.ActionTypes.SELECT_PIN: {
