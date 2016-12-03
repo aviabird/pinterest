@@ -5,6 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { Action, Store } from '@ngrx/store';
 import * as comment from '../actions/comment';
+import * as userAuth from '../actions/user-auth';
 import { AppState } from '../reducers/index';
 import { PinDataService } from '../services/pin-data';
 import { Comment } from '../models/comment';
@@ -22,6 +23,17 @@ export class CommentEffects {
     .map(action => action.payload)
     .switchMap((pinId) => this.pinDataService.getComments(pinId))
     .filter((comments: Comment[]) => comments.length > 0)
+    .map(comments => {
+      let userIds = comments.map(comment => comment.userId);
+      this.store.dispatch(new userAuth.FindUsersAction(userIds));
+      return comments;
+    })
     .map((comments) => new comment.LoadCommentsSuccessAction(comments))
+
+  @Effect() addComment$: Observable<Action> = this.actions$
+    .ofType(comment.ActionTypes.ADD_COMMENT)
+    .map<Comment>(action => action.payload)
+    .map(comment => this.pinDataService.addComment(comment))
+    .map(() => new comment.AddCommentSuccessAction())
 
 }

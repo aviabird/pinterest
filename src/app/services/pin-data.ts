@@ -28,4 +28,8 @@ export class PinDataService {
           .filter((comment) => comment.pinId == pinId)
       })
   }
+
+  addComment(comment: Comment) {
+    this.db.list('comments').push(new Comment(comment));
+  }
 }

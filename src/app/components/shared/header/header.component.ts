@@ -22,14 +22,14 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authService : AuthenticationService, private store : Store < AppState >)
   {
-    this.user = store.select(fromRoot.getUser);
+    this.user = store.select(fromRoot.getAuthUser);
     this.userIsAuthenticated = store.select(fromRoot.getUserAuthStatus);
   }
 
   ngOnInit() {
-    // this
-    //   .store
-    //   .dispatch(new userAuth.CheckAuthAction());
+    this
+      .store
+      .dispatch(new userAuth.CheckAuthAction());
   }
 
   login(provider : string) {

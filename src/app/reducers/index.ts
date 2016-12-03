@@ -42,6 +42,7 @@ import * as fromComments from './comments'
 import { User } from '../models/user';
 import { routerReducer } from '@ngrx/router-store';
 import { createSelector } from 'reselect';
+import { Pin } from '../models/pin';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -132,7 +133,7 @@ export const getCommentState = (appState: AppState) => appState.comments;
 // ************************************
 export const getUserEntities = createSelector(getUserAuthState, fromUserAuth.getEntities);
 export const getUserIds = createSelector(getUserAuthState, fromUserAuth.getIds);
-export const getUser = createSelector(getUserAuthState, fromUserAuth.getUser);
+export const getAuthUser = createSelector(getUserAuthState, fromUserAuth.getUser);
 export const getUserAuthStatus = createSelector(getUserAuthState, fromUserAuth.getAuthStatus);
 /**
  * Some selector functions create joins across parts of state. This selector
@@ -144,7 +145,7 @@ export const getUsers = createSelector(getUserEntities, getUserIds, (userEntitie
 
 export function getUserById(id) {
   return createSelector(getUserEntities, (userEntities)=> {
-    return userEntities[id]
+    return new User(userEntities[id])
   })
 }
 // ------------------------------------
@@ -166,7 +167,7 @@ export const getPins = createSelector(getPinEntities, getPinIds, (pins, ids) => 
 });
 
 export const getSelectedPin = createSelector(getPinEntities, getSelectedPinId, (pins, selectedId) => {
-  return pins[selectedId];
+  return new Pin(pins[selectedId]);
 });
 
 export const getPinUser = createSelector(getUsers, getSelectedPin, (users, pin) => {

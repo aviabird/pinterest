@@ -17,22 +17,42 @@
       <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
     </h5>
 
-    <div>
+    <form [formGroup]="commentForm" (ngSubmit)="onCommentSave()" *ngIf="userIsAuthenticated | async">
       <div class="input-group">
         <span class="input-group-label comment-user-img">
-          <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+          <img aria-hidden=true [src]="(authUser | async)?.avatar" class="avatar"/>
         </span>
-        <textarea class="input-group-field"></textarea>
+        <textarea
+          type="text"
+          id="msg"
+          class="input-group-field"
+          formControlName="msg">
+        </textarea>
+        <input type="hidden" formControlName="userId" [ngModel]="(authUser | async).id">
+        <input type="hidden" formControlName="pinId" [ngModel]="(pin | async).id">
       </div>
-    </div>
+      <div class="row">
+        <div class="large-10 large-offset-1">
+          <div class="button-group">
+            <button type="submit" class="primary button" *ngIf="commentForm.valid">Save</button>
+            <a class="warning button" (click)="onCancel()" *ngIf="commentForm.valid">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </form>
+
 
     <div class="input-group" *ngFor="let comment of comments | async">
       <span class="input-group-label comment-user-img">
         <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
       </span>
+      <i class="text-left">
+        {{comment.createdAt | date}}
+      </i>
       <div class="input-group-field">
         {{comment.msg}}
       </div>
+      <br>
     </div>
 
 

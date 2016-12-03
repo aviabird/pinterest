@@ -3,7 +3,6 @@ import * as comment from '../actions/comment';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { createSelector } from 'reselect';
-import { Pin } from '../models/pin';
 import { Comment } from '../models/comment';
 
 export interface State {

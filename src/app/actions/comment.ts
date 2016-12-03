@@ -46,7 +46,7 @@ export class AddCommentAction implements Action {
 }
 
 export class AddCommentSuccessAction implements Action {
-  type = ActionTypes.ADD_COMMENT;
+  type = ActionTypes.ADD_COMMENT_SUCCESS;
 
   constructor() { };
 }
@@ -58,7 +58,7 @@ export class SaveCommentAction implements Action {
 }
 
 export class SaveCommentSuccessAction implements Action {
-  type = ActionTypes.SAVE_COMMENT;
+  type = ActionTypes.SAVE_COMMENT_SUCCESS;
 
   constructor() { };
 }

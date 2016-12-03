@@ -23,7 +23,20 @@ export class UserAuthEffects {
     .map((action: userAuth.LoginAction) => action.payload)
     .switchMap((provider) => this.authService.login(provider))
     .filter((payload) => payload.user != null)
-    .map((payload) => this.authService.storeNewUser(payload))
+    .switchMap(payload => {
+      return this.authService.findbyEmail(payload.user.email)
+        .switchMap(users => {
+          if(!users.length) {
+            // return this.authService.storeNewUser(payload);
+          }
+          return this.authService.updateUserAuth(payload);
+        })
+    })
+    .map((payload) => {
+      // Add user to users list
+      this.store.dispatch(new userAuth.FindUsersSuccessAction([payload.user]));
+      return payload;
+    })
     .map((payload) => new userAuth.LoginSuccessAction(payload))
   
   @Effect() logout$: Observable<Action> = this.actions$
@@ -36,6 +49,12 @@ export class UserAuthEffects {
     .ofType(userAuth.ActionTypes.CHECK_AUTH)
     .switchMap(() => this.authService.authStatus())
     .filter((payload) => payload.user != null)
+    .switchMap((payload) => this.authService.updateUserAuth(payload))
+    .map((payload) => {
+      // Add user to users list
+      this.store.dispatch(new userAuth.FindUsersSuccessAction([payload.user]));
+      return payload;
+    })
     .map((payload) => new userAuth.CheckAuthSuccessAction(payload))
   
   @Effect() findUsers$: Observable<Action> = this.actions$

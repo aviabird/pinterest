@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders } from 'angularfire2';
+import { AngularFire, AuthProviders, AngularFireDatabase } from 'angularfire2';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
-import * as fromUserAuth from '../reducers/user-auth';
 
 @Injectable()
 export class AuthenticationService {
   userAuth: Observable<any>;
 
   constructor(
-    public af: AngularFire
+    public af: AngularFire,
+    public db: AngularFireDatabase
   ) {
     this.userAuth = this.af.auth.map(
       user => this._changeState(user),
@@ -34,14 +34,14 @@ export class AuthenticationService {
   }
 
   findbyIds(ids: string[]) {
-    return  this.af.database.list('/users').map(
+    return  this.db.list('users').map(
       users => users.filter(user => ids.indexOf(user.$key) > -1)
     )
     .map(users => users.map(user => new User(user)))
   }
 
   findbyEmail(email: string){
-    return  this.af.database.list('/users', {
+    return this.db.list('/users', {
       query: {
         orderByChild: 'email',
         equalTo: email,
@@ -50,31 +50,36 @@ export class AuthenticationService {
     })
   }
 
-  storeNewUser(userAuth: fromUserAuth.State){
+  storeNewUser(userAuth){
     let user = userAuth.user;
-    this.findbyEmail(user.email).subscribe(
+    this.db.list('users').push(user);
+    
+    return this.updateUserAuth(userAuth);;
+  }
+
+  updateUserAuth(userAuth) {
+    let user = userAuth.user;
+
+    return this.findbyEmail(user.email).map(
       users => {
-        if(!users.length) {
-          this.af.database.list('/users').push(user);
-        }
+        return Object.assign({}, userAuth, {
+          user: new User(users[0])
+        });
       }
-    ).unsubscribe();
-    return userAuth;
+    );
   }
 
   private _changeState(user: any = null) {
     if(user) {
       return {
         user: this._getUserInfo(user),
-        isAuthenticated: true,
-        users: [user]
+        isAuthenticated: true
       }
     }
     else {
       return {
         user: null,
-        isAuthenticated: false,
-        users: null
+        isAuthenticated: false
       }
     }
   }

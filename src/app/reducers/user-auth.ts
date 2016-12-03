@@ -57,7 +57,7 @@ export const getSelectedId = (state: State) => state.selectedUserId;
 
 export const getAuthStatus = (state: State) => state.isAuthenticated;
 
-export const getUser = (state: State) => state.user;
+export const getUser = (state: State) => new User(state.user);
 
 export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
   return entities[selectedId];
