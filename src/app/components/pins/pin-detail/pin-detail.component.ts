@@ -75,8 +75,10 @@ export class PinDetailComponent implements OnInit {
 
   onCommentSave() {
     const newComment = this.commentForm.value;
-    this.store.dispatch(new comment.AddCommentAction(newComment));
-    this.resetForm();
+    if(this.commentForm.valid){
+      this.store.dispatch(new comment.AddCommentAction(newComment));
+      this.resetForm();
+    }
   }
 
   onCommentDelete(id) {
@@ -105,6 +107,12 @@ export class PinDetailComponent implements OnInit {
 
   resetForm() {
     this.commentForm.controls['msg'].reset();
+  }
+
+  onKeyPressed(keyCode){
+    if(keyCode == 13){
+      this.onCommentSave();
+    }
   }
 
 }

@@ -13,10 +13,10 @@
       {{(pin | async).description}}
     </small>
     
-    <h5>
+    <h6>
       From {{(user | async)?.name}}
       <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
-    </h5>
+    </h6>
     
     <hr>
 
@@ -24,7 +24,7 @@
       <span class="input-group-label comment-user-img">
         <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
       </span>
-      <div class="input-group-field comment-user-wrapper">
+      <div class="comment-user-wrapper">
         <h6>
           <strong class="text-left">
             {{(getUser(comment.userId) | async)?.name}}
@@ -44,7 +44,7 @@
           </small> 
         </h6>
 
-        <p>
+        <p class="comment-text">
           {{comment.msg}}
         </p>
         
@@ -61,16 +61,18 @@
           type="text"
           id="msg"
           class="input-group-field"
-          formControlName="msg">
+          formControlName="msg"
+          placeholder="Add Comment"
+          (keypress)="onKeyPressed($event.keyCode)">
         </textarea>
         <input type="hidden" formControlName="userId" [ngModel]="(authUser | async).id">
         <input type="hidden" formControlName="pinId" [ngModel]="(pin | async).id">
       </div>
       <div class="row">
-        <div class="large-10 large-offset-1">
+        <div class="text-right">
           <div class="button-group">
-            <button type="submit" class="primary button" *ngIf="commentForm.valid">Save</button>
-            <a class="warning button" (click)="onCancel()" *ngIf="commentForm.valid">Cancel</a>
+            <button type="submit" class="primary button fa fa-paper-plane" *ngIf="commentForm.valid"></button>
+            <a class="warning button fa fa-times" (click)="onCancel()" *ngIf="commentForm.valid"></a>
           </div>
         </div>
       </div>

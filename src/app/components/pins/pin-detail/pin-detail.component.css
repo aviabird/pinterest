@@ -32,3 +32,17 @@
 p{
   line-height: 1;
 }
+
+.comment-text {
+  line-height: 1.6;
+}
+
+.comment-wrapper{
+  margin-bottom: -1rem;
+}
+
+#msg{
+  background: rgba(0, 0, 0, 0.03);
+  border: none;
+  border-radius: 27px;
+}
