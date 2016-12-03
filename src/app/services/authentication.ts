@@ -34,27 +34,49 @@ export class AuthenticationService {
   }
 
   findbyIds(ids: string[]) {
-    return  this.db.list('users').map(
-      users => users.filter(user => ids.indexOf(user.$key) > -1)
-    )
-    .map(users => users.map(user => new User(user)))
+    return  this.db.list('users')
+      .map(users => users.filter(user => ids.indexOf(user.$key) > -1))
+      .map(users => users.map(user => new User(user)))
+  }
+
+  userExists(user:User):Promise<boolean> {
+    let promise = new Promise<boolean>((resolve, failed) => {
+      this.findbyEmail(user.email).subscribe(values => {
+
+        let found = values.filter(value => value.email == user.email);
+
+        if(found.length > 0){
+          resolve(true);
+        } else {
+          failed(false);
+        }
+
+      });
+    });
+    return promise;
+  }
+
+  storeNewUser(userAuth){
+    let user = userAuth.user;
+    
+    this
+      .userExists(user)
+      .then((userExists) => console.log('Existing User' + userExists))
+      .catch((e) => {
+          console.log(e);
+          // this.db.list('users').push(user);
+      })
+
+    return this.updateUserAuth(userAuth);;
   }
 
   findbyEmail(email: string){
     return this.db.list('/users', {
       query: {
         orderByChild: 'email',
-        equalTo: email,
-        limitToFirst: 1,
+        equalTo: email
       }
     })
-  }
-
-  storeNewUser(userAuth){
-    let user = userAuth.user;
-    this.db.list('users').push(user);
-    
-    return this.updateUserAuth(userAuth);;
   }
 
   updateUserAuth(userAuth) {

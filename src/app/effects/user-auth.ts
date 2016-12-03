@@ -23,15 +23,7 @@ export class UserAuthEffects {
     .map((action: userAuth.LoginAction) => action.payload)
     .switchMap((provider) => this.authService.login(provider))
     .filter((payload) => payload.user != null)
-    .switchMap(payload => {
-      return this.authService.findbyEmail(payload.user.email)
-        .switchMap(users => {
-          if(!users.length) {
-            // return this.authService.storeNewUser(payload);
-          }
-          return this.authService.updateUserAuth(payload);
-        })
-    })
+    .switchMap(payload => this.authService.storeNewUser(payload))
     .map((payload) => {
       // Add user to users list
       this.store.dispatch(new userAuth.FindUsersSuccessAction([payload.user]));
