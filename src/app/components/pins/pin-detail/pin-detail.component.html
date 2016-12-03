@@ -5,18 +5,53 @@
     </h5>
     
     <div class="pin-image text-center">
-      <img [src]="(pin | async).imagePath" alt="" width="300">
+      <img [src]="(pin | async).imagePath" alt="" width="500">
     </div>
 
+    <br>
     <small>
       {{(pin | async).description}}
     </small>
-
+    
     <h5>
       From {{(user | async)?.name}}
       <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
     </h5>
+    
+    <hr>
 
+    <div class="input-group comment-wrapper" *ngFor="let comment of comments | async">
+      <span class="input-group-label comment-user-img">
+        <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
+      </span>
+      <div class="input-group-field comment-user-wrapper">
+        <h6>
+          <strong class="text-left">
+            {{(getUser(comment.userId) | async)?.name}}
+          </strong>
+
+          <small class="text-right">
+            <i class="text-left">
+              {{comment.createdAt | date:fullDate}}
+            </i>
+            
+            <button
+              class='delete-comment'
+              (click)="onCommentDelete(comment.id)"
+              *ngIf="(authUser | async).id == comment.userId">
+              <i class="fa fa-times"></i>
+            </button>
+          </small> 
+        </h6>
+
+        <p>
+          {{comment.msg}}
+        </p>
+        
+      </div>
+      <br>
+    </div>
+    
     <form [formGroup]="commentForm" (ngSubmit)="onCommentSave()" *ngIf="userIsAuthenticated | async">
       <div class="input-group">
         <span class="input-group-label comment-user-img">
@@ -40,25 +75,6 @@
         </div>
       </div>
     </form>
-
-
-    <div class="input-group" *ngFor="let comment of comments | async">
-      <span class="input-group-label comment-user-img">
-        <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
-      </span>
-      <i class="text-left">
-        {{comment.createdAt | date}}
-      </i>
-      <div class="input-group-field">
-        {{comment.msg}}
-        <button
-          (click)="onCommentDelete(comment.id)"
-          *ngIf="(authUser | async).id == comment.userId">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
-      <br>
-    </div>
 
 
   </div>

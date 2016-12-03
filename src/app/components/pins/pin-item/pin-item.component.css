@@ -53,3 +53,7 @@
   color: black;
   font-weight: 400;
 }
+
+p{
+  line-height: 1;
+}

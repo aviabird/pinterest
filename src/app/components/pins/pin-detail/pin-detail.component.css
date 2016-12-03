@@ -4,7 +4,7 @@
 }
 
 .avatar{
-  width: 2rem;
+  width: 2.2rem;
   border-radius: 99px;
 }
 
@@ -17,4 +17,18 @@
   white-space: nowrap;
   width: 11%;
   vertical-align: top;
+}
+
+.comment-wrapper:hover .delete-comment {
+  display: inherit;
+  font-size: 1.2rem;
+  color: red;
+}
+
+.delete-comment {
+  display: none;
+}
+
+p{
+  line-height: 1;
 }
