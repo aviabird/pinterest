@@ -32,4 +32,8 @@ export class PinDataService {
   addComment(comment: Comment) {
     this.db.list('comments').push(new Comment(comment));
   }
+
+  deleteComment(id) {
+    this.db.list('comments').remove(id)
+  }
 }

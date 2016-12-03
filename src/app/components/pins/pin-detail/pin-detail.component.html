@@ -51,6 +51,11 @@
       </i>
       <div class="input-group-field">
         {{comment.msg}}
+        <button
+          (click)="onCommentDelete(comment.id)"
+          *ngIf="(authUser | async).id == comment.userId">
+          <i class="fa fa-times"></i>
+        </button>
       </div>
       <br>
     </div>

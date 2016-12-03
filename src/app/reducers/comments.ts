@@ -33,6 +33,21 @@ export function reducer(state = initialState, action: comment.Actions): State {
         entities: Object.assign({}, state.entities, newEntities)
       })
     }
+    case comment.ActionTypes.DELETE_COMMENT_SUCCESS: {
+      const id = action.payload;
+      const newIds = state.ids.filter(val => val != id)
+      
+      const newEntities = newIds.reduce((entities: { [id: string]: Comment }, id: string) => {
+        return Object.assign(entities, {
+          [id]: state.entities[id]
+        });
+      }, {});
+      
+      return Object.assign({}, state, {
+        entities: newEntities,
+        ids: newIds
+      })
+    }
     default: {
       return state;
     }

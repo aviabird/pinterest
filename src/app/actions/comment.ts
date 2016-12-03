@@ -17,6 +17,8 @@ export const ActionTypes = {
   ADD_COMMENT_SUCCESS:              type('[Comment] Add Comment Success'),
   SAVE_COMMENT:                     type('[Comment] Save Comment'),
   SAVE_COMMENT_SUCCESS:             type('[Comment] Save Comment Success'),
+  DELETE_COMMENT:                   type('[Comment] Delete Comment'),
+  DELETE_COMMENT_SUCCESS:           type('[Comment] Delete Comment Success'),
 };
 
 
@@ -63,6 +65,18 @@ export class SaveCommentSuccessAction implements Action {
   constructor() { };
 }
 
+export class DeleteCommentAction implements Action {
+  type = ActionTypes.DELETE_COMMENT
+
+  constructor(public payload: Comment){};
+}
+
+export class DeleteCommentSuccessAction implements Action {
+  type = ActionTypes.DELETE_COMMENT_SUCCESS
+
+  constructor(public payload: string){};
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -74,3 +88,5 @@ export type Actions
   | AddCommentSuccessAction
   | SaveCommentAction
   | SaveCommentSuccessAction
+  | DeleteCommentAction
+  | DeleteCommentSuccessAction

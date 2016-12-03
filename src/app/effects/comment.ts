@@ -24,8 +24,10 @@ export class CommentEffects {
     .switchMap((pinId) => this.pinDataService.getComments(pinId))
     .filter((comments: Comment[]) => comments.length > 0)
     .map(comments => {
-      let userIds = comments.map(comment => comment.userId);
-      this.store.dispatch(new userAuth.FindUsersAction(userIds));
+      setTimeout(() => {
+        let userIds = comments.map(comment => comment.userId);
+        this.store.dispatch(new userAuth.FindUsersAction(userIds));
+      }, 1000)
       return comments;
     })
     .map((comments) => new comment.LoadCommentsSuccessAction(comments))
@@ -35,5 +37,14 @@ export class CommentEffects {
     .map<Comment>(action => action.payload)
     .map(comment => this.pinDataService.addComment(comment))
     .map(() => new comment.AddCommentSuccessAction())
+
+  @Effect() deleteComment$: Observable<Action> = this.actions$
+    .ofType(comment.ActionTypes.DELETE_COMMENT)
+    .map<string>(action => action.payload)
+    .map(id => {
+      this.pinDataService.deleteComment(id)
+      return id;
+    })
+    .map((id) => new comment.DeleteCommentSuccessAction(id))
 
 }

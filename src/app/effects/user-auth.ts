@@ -53,6 +53,6 @@ export class UserAuthEffects {
     .ofType(userAuth.ActionTypes.FIND_USERS)
     .map((action) => action.payload)
     .switchMap((ids) => this.authService.findbyIds(ids))
-    .filter((users) =>  users.length)
+    .filter((users) =>  users.length > 0)
     .map((users: User[]) => new userAuth.FindUsersSuccessAction(users))
 }

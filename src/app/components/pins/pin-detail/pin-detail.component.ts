@@ -79,6 +79,10 @@ export class PinDetailComponent implements OnInit {
     this.resetForm();
   }
 
+  onCommentDelete(id) {
+    this.store.dispatch(new comment.DeleteCommentAction(id))
+  }
+
   onOnDestroy(){
     this.subscription.unsubscribe()
   }
@@ -100,7 +104,7 @@ export class PinDetailComponent implements OnInit {
   }
 
   resetForm() {
-    this.commentForm.reset({msg: ''});
+    this.commentForm.controls['msg'].reset();
   }
 
 }
