@@ -1,84 +1,96 @@
-<pin-modal title='' klass='pinModal-{{pinIndex}}' size='tiny'>
-  <div *ngIf="(pin | async)">
-    <h5 href="(pin | async).url">
-      {{(pin | async).name}}
-    </h5>
-    
-    <div class="pin-image text-center">
-      <img [src]="(pin | async).imagePath" alt="" width="500">
-    </div>
-
-    <br>
-    <small>
-      {{(pin | async).description}}
-    </small>
-    
-    <h6>
-      From {{(user | async)?.name}}
-      <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
-    </h6>
-    
-    <hr>
-
-    <div class="input-group comment-wrapper" *ngFor="let comment of comments | async">
-      <span class="input-group-label comment-user-img">
-        <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
-      </span>
-      <div class="comment-user-wrapper">
-        <h6>
-          <strong class="text-left">
-            {{(getUser(comment.userId) | async)?.name}}
-          </strong>
-
-          <small class="text-right">
-            <i class="text-left">
-              {{comment.createdAt | date:fullDate}}
-            </i>
-            
-            <button
-              class='delete-comment'
-              (click)="onCommentDelete(comment.id)"
-              *ngIf="(authUser | async).id == comment.userId">
-              <i class="fa fa-times"></i>
-            </button>
-          </small> 
-        </h6>
-
-        <p class="comment-text">
-          {{comment.msg}}
-        </p>
+<pin-modal title='' klass='pinModal-{{pinIndex}}' size='large'>
+  <div *ngIf="(pin | async)" class="row">
+    <div class="large-6 columns">
+      <a [href]="(pin | async).url" target="_blank">
+        <h5>
+          {{(pin | async).name}}
+        </h5>
         
-      </div>
+        <div class="pin-image">
+          <img [src]="(pin | async).imagePath" alt="" width="500">
+        </div>
+      </a>
       <br>
     </div>
-    
-    <form [formGroup]="commentForm" (ngSubmit)="onCommentSave()" *ngIf="userIsAuthenticated | async">
-      <div class="input-group">
+
+    <div class="large-6 columns">
+      <br>
+      <p>
+        {{(pin | async).description}}
+      </p>
+      
+      <h6>
+        From {{(user | async)?.name}}
+        <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+      </h6>
+
+      <hr>
+
+      <h6 class="text-center">
+        <strong>
+          Comments
+        </strong>
+        <br>
+      </h6>
+
+      <div class="input-group comment-wrapper" *ngFor="let comment of comments | async">
         <span class="input-group-label comment-user-img">
-          <img aria-hidden=true [src]="(authUser | async)?.avatar" class="avatar"/>
+          <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
         </span>
-        <textarea
-          type="text"
-          id="msg"
-          class="input-group-field"
-          formControlName="msg"
-          placeholder="Add Comment"
-          (keypress)="onKeyPressed($event.keyCode)">
-        </textarea>
-        <input type="hidden" formControlName="userId" [ngModel]="(authUser | async).id">
-        <input type="hidden" formControlName="pinId" [ngModel]="(pin | async).id">
+        <div class="comment-user-wrapper">
+          <h6>
+            <strong class="text-left">
+              {{(getUser(comment.userId) | async)?.name}}
+            </strong>
+
+            <small class="text-right">
+              <i class="text-left">
+                {{comment.createdAt | date:fullDate}}
+              </i>
+              
+              <button
+                class='delete-comment'
+                (click)="onCommentDelete(comment.id)"
+                *ngIf="(authUser | async).id == comment.userId">
+                <i class="fa fa-times"></i>
+              </button>
+            </small> 
+          </h6>
+
+          <p class="comment-text">
+            {{comment.msg}}
+          </p>
+          
+        </div>
+        <br>
       </div>
-      <div class="row">
-        <div class="text-right">
-          <div class="button-group">
-            <button type="submit" class="primary button fa fa-paper-plane" *ngIf="commentForm.valid"></button>
-            <a class="warning button fa fa-times" (click)="onCancel()" *ngIf="commentForm.valid"></a>
+      
+      <form [formGroup]="commentForm" (ngSubmit)="onCommentSave()" *ngIf="userIsAuthenticated | async">
+        <div class="input-group">
+          <span class="input-group-label comment-user-img">
+            <img aria-hidden=true [src]="(authUser | async)?.avatar" class="avatar"/>
+          </span>
+          <textarea
+            type="text"
+            id="msg"
+            class="input-group-field"
+            formControlName="msg"
+            placeholder="Add Comment"
+            (keypress)="onKeyPressed($event.keyCode)">
+          </textarea>
+          <input type="hidden" formControlName="userId" [ngModel]="(authUser | async).id">
+          <input type="hidden" formControlName="pinId" [ngModel]="(pin | async).id">
+        </div>
+        <div class="row">
+          <div class="text-right">
+            <div class="button-group">
+              <button type="submit" class="primary button fa fa-paper-plane" *ngIf="commentForm.valid"></button>
+              <a class="warning button fa fa-times" (click)="onCancel()" *ngIf="commentForm.valid"></a>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
-
-
+      </form>
+    </div>
   </div>
 
   <div>
