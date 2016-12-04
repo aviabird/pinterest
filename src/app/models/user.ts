@@ -5,4 +5,5 @@ export class User extends Base{
   photoURL:     string;
   email:        string;
   provider:     string;
+  uid:          string;
 }

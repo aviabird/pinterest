@@ -39,56 +39,38 @@ export class AuthenticationService {
       .map(users => users.map(user => new User(user)))
   }
 
-  userExists(user:User):Promise<boolean> {
-    let promise = new Promise<boolean>((resolve, failed) => {
-      this.findbyEmail(user.email).subscribe(values => {
-
-        let found = values.filter(value => value.email == user.email);
-
-        if(found.length > 0){
-          resolve(true);
-        } else {
-          failed(false);
-        }
-
-      });
-    });
-    return promise;
-  }
-
   storeNewUser(userAuth){
     let user = userAuth.user;
-    
-    this
-      .userExists(user)
-      .then((userExists) => console.log('Existing User' + userExists))
-      .catch((e) => {
-          console.log(e);
-          // this.db.list('users').push(user);
-      })
 
-    return this.updateUserAuth(userAuth);;
+    return this.findbyUID(user.uid).map(
+      obj => {
+        if(!obj.$value){
+          this.db
+            .object(`users/${user.uid}`)
+            .set(user)
+          .then(() => console.log('New User Added to DB'))
+          .catch(() => console.clear());
+        }
+        return this.updateUserAuth(userAuth);
+      }
+    )
+    .switchMap(_userAuth => _userAuth)
   }
 
-  findbyEmail(email: string){
-    return this.db.list('/users', {
-      query: {
-        orderByChild: 'email',
-        equalTo: email
-      }
-    })
+  findbyUID(uid: string){
+    return this.db.object(`users/${uid}`)
   }
 
   updateUserAuth(userAuth) {
     let user = userAuth.user;
 
-    return this.findbyEmail(user.email).map(
-      users => {
+    return this.findbyUID(user.uid).map(
+      user => {
         return Object.assign({}, userAuth, {
-          user: new User(users[0])
+          user: new User(user)
         });
       }
-    );
+    )
   }
 
   private _changeState(user: any = null) {
@@ -115,7 +97,8 @@ export class AuthenticationService {
       name: data.displayName,
       avatar: data.photoURL,
       email: data.email,
-      provider: data.providerId
+      provider: data.providerId,
+      uid: user.auth.uid
     };
   }
 
