@@ -1,8 +1,12 @@
-<div *ngIf="!(pins | async).length">
+<div *ngIf="!(pins | async).length;">
   Loading Pins ...
 </div>
 
-<div class="dashboard-grid large-12 columns">
+<div class="dashboard-grid large-12 columns"
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()">
   <masonry id="container" [useImagesLoaded]="true">
     <masonry-brick class="brick" *ngFor="let pin of pins | async">
       <pin-pin-item [pin]="pin"></pin-pin-item> 

@@ -24,7 +24,17 @@ export class PinsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new pin.GetPinsAction({}));
+    this.loadPins()
+  }
+
+  onScroll(pinsCount){
+    this.loadPins()
+  }
+  
+  loadPins(){
+    this
+      .store
+      .dispatch(new pin.GetPinsAction());
   }
 
 }

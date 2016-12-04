@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { type } from '../util';
 import { User } from '../models/user';
 import { Pin } from '../models/pin';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * For each action type in an action group, make a simple
@@ -30,7 +31,7 @@ export const ActionTypes = {
 export class GetPinsAction implements Action {
   type = ActionTypes.GET_PINS;
 
-  constructor(public payload) { };
+  constructor() { };
 }
 
 export class GetPinsSuccessAction implements Action {

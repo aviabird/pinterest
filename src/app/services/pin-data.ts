@@ -9,6 +9,7 @@ import { Comment } from '../models/comment';
 @Injectable()
 export class PinDataService {
   PinState: Observable<fromPins.State>;
+  pinsCount: number = 0;
 
   constructor(
     public db: AngularFireDatabase
@@ -16,7 +17,13 @@ export class PinDataService {
   };
 
   getPins() {
-    return this.db.list('pins')
+    this.pinsCount += 20
+    return this.db
+      .list('pins/', {
+        query: {
+          limitToFirst: this.pinsCount,
+        }
+      })
       .map(pins => pins.map(pin => new Pin(pin)));
   }
 
