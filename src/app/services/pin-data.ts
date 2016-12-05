@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import * as fromPins from '../reducers/pins';
 import { Pin } from '../models/pin';
 import { Comment } from '../models/comment';
+import { HttpModule, Http } from '@angular/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class PinDataService {
@@ -12,19 +14,25 @@ export class PinDataService {
   pinsCount: number = 0;
 
   constructor(
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public http: Http
   ) {
   };
 
   getPins() {
-    this.pinsCount += 20
-    return this.db
-      .list('pins/', {
-        query: {
-          limitToFirst: this.pinsCount,
-        }
-      })
-      .map(pins => pins.map(pin => new Pin(pin)));
+    return this
+      .http.get(`${environment.api}/pins`)
+      .map(res => res.json().data)
+      .map(pins => pins.map(pin => new Pin(pin)))
+
+    // this.pinsCount += 20
+    // return this.db
+    //   .list('pins/', {
+    //     query: {
+    //       limitToFirst: this.pinsCount,
+    //     }
+    //   })
+    //   .map(pins => pins.map(pin => new Pin(pin)));
   }
 
   getComments(pinId: string) {

@@ -23,7 +23,7 @@ export class PinEffects {
     .ofType(pin.ActionTypes.GET_PINS)
     .switchMap(() => this.pinDataService.getPins())
     .map((pins: Pin[]) => {
-      let userIds = pins.map(pin => pin.userId)
+      let userIds = pins.map(pin => pin.user_id)
       this.store.dispatch(new userAuth.FindUsersAction(userIds))
       return pins
     })

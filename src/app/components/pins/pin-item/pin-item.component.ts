@@ -23,7 +23,7 @@ export class PinItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.store.select(fromRoot.getUserById(this.pin && this.pin.userId))
+    this.user = this.store.select(fromRoot.getUserById(this.pin && this.pin.user_id))
   }
 
   onClick() {

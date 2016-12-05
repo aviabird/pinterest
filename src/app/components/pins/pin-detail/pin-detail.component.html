@@ -5,9 +5,11 @@
         <h5>
           {{(pin | async).name}}
         </h5>
+
+        {{pin | async | json}}
         
         <div class="pin-image">
-          <img [src]="(pin | async).imagePath" alt="" width="500">
+          <img [src]="(pin | async).image_url" alt="" width="500">
         </div>
       </a>
       <br>
