@@ -1,8 +1,8 @@
 import { Base } from './base';
 
 export class User extends Base{
-  displayName:  string;
-  photoURL:     string;
+  name:  string;
+  avatar:     string;
   email:        string;
   provider:     string;
   uid:          string;

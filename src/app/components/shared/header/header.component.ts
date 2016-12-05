@@ -11,7 +11,7 @@ import {LoginSuccessAction} from '../../../actions/user-auth';
 @Component({
   selector: 'pin-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

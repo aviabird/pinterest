@@ -17,7 +17,7 @@ declare var Foundation:any;
 @Component({
   selector: 'pin-pin-detail',
   templateUrl: './pin-detail.component.html',
-  styleUrls: ['./pin-detail.component.css'],
+  styleUrls: ['./pin-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PinDetailComponent implements OnInit {

@@ -35,13 +35,20 @@
             </li>
           </ul>
         </li>
-        <li class="large-2 small-2 columns text-right"
+
+        <li class="large-1 small-1 columns text-right"
+            [ngClass]="{hide: !(userIsAuthenticated | async)}">
+          <a [routerLink]="['pins', 'new']" class="new-Pin-btn">
+            <span class="fa fa-plus fa-2x"></span>
+          </a>
+        </li>
+        
+        <li class="large-1 small-1 columns text-right"
             [ngClass]="{hide: !(userIsAuthenticated | async)}">
           <ul class="dropdown menu text-center" data-dropdown-menu>
             <li>
               <a href="#">
                 <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
-                {{(user | async)?.name}}
               </a>
               <ul class="menu vertical">
                 <li class="text-left">

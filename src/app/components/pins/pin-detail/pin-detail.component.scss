@@ -19,10 +19,12 @@
   vertical-align: top;
 }
 
-.comment-wrapper:hover .delete-comment {
-  display: inherit;
-  font-size: 1.2rem;
-  color: red;
+.comment-wrapper:hover {
+  .delete-comment {
+    display: inherit;
+    font-size: 1.2rem;
+    color: red;
+  }
 }
 
 .delete-comment {
