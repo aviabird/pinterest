@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend, RequestOptions, Http } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { StoreModule } from '@ngrx/store';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
@@ -26,6 +26,8 @@ import { PinDetailComponent } from './components/pins/pin-detail/pin-detail.comp
 import { ModalComponent } from './components/shared/modal/modal.component';
 import { CommentEffects } from './effects/comment';
 import { PinEditComponent } from './components/pins/pin-edit/pin-edit.component';
+import { HttpService } from './services/http';
+import { LoaderService } from './services/loader';
 
 // Must export the config
 export const firebaseConfig = {
@@ -69,7 +71,14 @@ export const firebaseConfig = {
   ],
   providers: [
     AuthenticationService,
-    PinDataService
+    PinDataService,
+    {
+      provide: HttpService,
+      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+        return new HttpService(backend, defaultOptions);
+      },
+      deps: [ XHRBackend, RequestOptions]
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -81,7 +81,7 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
 
     if (!this.isNew) {
       pinName = this.pin.name;
-      pinImageUrl = this.pin.imagePath;
+      pinImageUrl = this.pin.image_url;
       pinDescription = this.pin.description;
     }
 

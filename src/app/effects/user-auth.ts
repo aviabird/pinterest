@@ -23,7 +23,7 @@ export class UserAuthEffects {
     .map((action: userAuth.LoginAction) => action.payload)
     .switchMap((provider) => this.authService.login(provider))
     .filter((payload) => payload.user != null)
-    .switchMap(payload => this.authService.storeNewUser(payload))
+    .switchMap(payload => this.authService.getAccessToken(payload))
     .map((payload) => {
       // Add user to users list
       this.store.dispatch(new userAuth.FindUsersSuccessAction([payload.user]));
@@ -41,6 +41,7 @@ export class UserAuthEffects {
     .ofType(userAuth.ActionTypes.CHECK_AUTH)
     .switchMap(() => this.authService.authStatus())
     .filter((payload) => payload.user != null)
+    .switchMap(payload => this.authService.getAccessToken(payload))
     .switchMap((payload) => this.authService.updateUserAuth(payload))
     .map((payload) => {
       // Add user to users list
@@ -52,6 +53,10 @@ export class UserAuthEffects {
   @Effect() findUsers$: Observable<Action> = this.actions$
     .ofType(userAuth.ActionTypes.FIND_USERS)
     .map((action) => action.payload)
+    .filter(payload => {
+      console.log('access_token', localStorage.getItem('access_token'))
+      return localStorage.getItem('access_token') != null
+    })
     .switchMap((ids) => this.authService.findbyIds(ids))
     .filter((users) =>  users.length > 0)
     .map((users: User[]) => new userAuth.FindUsersSuccessAction(users))

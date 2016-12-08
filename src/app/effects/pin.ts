@@ -22,11 +22,7 @@ export class PinEffects {
   @Effect() getPins$: Observable<Action> = this.actions$
     .ofType(pin.ActionTypes.GET_PINS)
     .switchMap(() => this.pinDataService.getPins())
-    .map((pins: Pin[]) => {
-      let userIds = pins.map(pin => pin.userId)
-      this.store.dispatch(new userAuth.FindUsersAction(userIds))
-      return pins
-    })
+    .map<Pin[]>((pins) => pins)
     .map((pins) => new pin.GetPinsSuccessAction(pins))
 
 }

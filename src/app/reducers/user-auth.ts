@@ -9,6 +9,7 @@ export interface State {
   entities: {[id: string]: User};
   ids: string[];
   selectedUserId: string;
+  access_token: string;
 }
 
 const initialState: State = {
@@ -16,7 +17,8 @@ const initialState: State = {
   user: null,
   entities: {},
   ids: [],
-  selectedUserId: null
+  selectedUserId: null,
+  access_token: localStorage.getItem('access_token')
 };
 
 export function reducer(state = initialState, action: userAuth.Actions): State {
@@ -55,7 +57,7 @@ export const getIds = (state: State) => state.ids;
 
 export const getSelectedId = (state: State) => state.selectedUserId;
 
-export const getAuthStatus = (state: State) => state.isAuthenticated;
+export const getAuthStatus = (state: State) => state.isAuthenticated && state.access_token != null;
 
 export const getUser = (state: State) => new User(state.user);
 
