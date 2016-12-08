@@ -7,7 +7,7 @@ import { Action, Store } from '@ngrx/store';
 import * as pin from '../actions/pin';
 import * as userAuth from '../actions/user-auth';
 import { AppState } from '../reducers/index';
-import { LoginSuccessAction, LogoutAction } from '../actions/user-auth';
+import { LoginSuccessAction, LogoutAction, FindUsersSuccessAction } from '../actions/user-auth';
 import { PinDataService } from '../services/pin-data';
 import { Pin } from '../models/pin';
 
@@ -22,7 +22,11 @@ export class PinEffects {
   @Effect() getPins$: Observable<Action> = this.actions$
     .ofType(pin.ActionTypes.GET_PINS)
     .switchMap(() => this.pinDataService.getPins())
-    .map<Pin[]>((pins) => pins)
-    .map((pins) => new pin.GetPinsSuccessAction(pins))
+    .map((pins: Pin[]) => {
+      let users = pins.map(pin => pin.user)
+      this.store.dispatch(new userAuth.FindUsersSuccessAction(users))
+      return pins
+    })
+    .map(pins => new pin.GetPinsSuccessAction(pins))
 
 }

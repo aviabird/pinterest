@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MasonryModule } from 'angular2-masonry';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -67,7 +68,8 @@ export const firebaseConfig = {
     EffectsModule.run(PinEffects),
     EffectsModule.run(CommentEffects),
     MasonryModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    SlimLoadingBarModule.forRoot()
   ],
   providers: [
     AuthenticationService,

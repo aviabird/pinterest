@@ -187,7 +187,7 @@ export const getComments = createSelector(getCommentEntities, getCommentIds, (co
   return ids.map(id => comments[id]);
 });
 
-export const getSelectedPinComments = createSelector(getComments, getSelectedPinId, (comments, pinId) => {
-  return comments.filter(comment => comment.pinId == pinId)
+export const getSelectedPinComments = createSelector(getComments, getSelectedPinId, (comments, pin_id) => {
+  return comments.filter(comment => comment.pin_id == pin_id)
 })
 // ------------------------------------

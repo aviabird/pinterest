@@ -21,9 +21,8 @@ export class CommentEffects {
   @Effect() loadComments$: Observable<Action> = this.actions$
     .ofType(comment.ActionTypes.LOAD_COMMENTS)
     .map(action => action.payload)
-    .switchMap((pinId) => this.pinDataService.getComments(pinId))
+    .switchMap((pin_id) => this.pinDataService.getComments(pin_id))
     .filter((comments: Comment[]) => comments.length > 0)
-    .map(comments => comments)
     .map((comments) => new comment.LoadCommentsSuccessAction(comments))
 
   @Effect() addComment$: Observable<Action> = this.actions$
