@@ -5,23 +5,28 @@ import { Observable } from 'rxjs/Observable';
 import * as fromPins from '../reducers/pins';
 import { Pin } from '../models/pin';
 import { Comment } from '../models/comment';
-import { HttpModule, Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { ApiUrl } from '../app.api-url';
 
 @Injectable()
 export class PinDataService {
   PinState: Observable<fromPins.State>;
   pinsCount: number = 0;
+  private headers = new Headers();
 
   constructor(
     public db: AngularFireDatabase,
     public http: Http
   ) {
+    this.headers.append('Authorization', `Basic ${environment.basic_auth_token}`);
   };
 
   getPins() {
+    let options = new RequestOptions({ headers: this.headers });
+
     return this
-      .http.get(`${environment.api}/pins`)
+      .http.get(ApiUrl.pins_path, options)
       .map(res => res.json().data)
       .map(pins => pins.map(pin => new Pin(pin)))
 

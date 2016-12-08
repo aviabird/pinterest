@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders, AngularFireDatabase } from 'angularfire2';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
+import { ApiUrl } from '../app.api-url';
+import { HttpService } from './http';
 
 @Injectable()
 export class AuthenticationService {
@@ -9,7 +12,8 @@ export class AuthenticationService {
 
   constructor(
     public af: AngularFire,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public http: HttpService,
   ) {
     this.userAuth = this.af.auth.map(
       user => this._changeState(user),
@@ -26,6 +30,7 @@ export class AuthenticationService {
 
   logout() {
     this.af.auth.logout();
+    localStorage.removeItem('access_token')
     return this.userAuth;
   }
 
@@ -34,37 +39,35 @@ export class AuthenticationService {
   }
 
   findbyIds(ids: string[]) {
-    return  this.db.list('users')
-      .map(users => users.filter(user => ids.indexOf(user.$key) > -1))
+    return  this.http.get('users')
+      .map(res => res.json().data)
+      .map(users => users.filter(user => ids.indexOf(user.id) > -1))
       .map(users => users.map(user => new User(user)))
   }
 
-  storeNewUser(userAuth){
-    let user = userAuth.user;
-
-    return this.findbyUID(user.uid).map(
-      obj => {
-        if(!obj.$value){
-          this.db
-            .object(`users/${user.uid}`)
-            .set(user)
-          .then(() => console.log('New User Added to DB'))
-          .catch(() => console.clear());
-        }
-        return this.updateUserAuth(userAuth);
-      }
-    )
-    .switchMap(_userAuth => _userAuth)
+  findbyUID(id: string){
+    return this.http.get(`users/${id}`)
+      .map(res => res.json().data)
   }
 
-  findbyUID(uid: string){
-    return this.db.object(`users/${uid}`)
+  getAccessToken(userAuth) {
+    return this.http.post("users/auth", userAuth)
+      .map(res => res.json())
+      .map(data => {
+        let token = data.token;
+        localStorage.setItem('access_token', token);
+
+        return Object.assign(userAuth, {
+          access_token: token,
+          user: data.user
+        })
+      })
   }
 
   updateUserAuth(userAuth) {
     let user = userAuth.user;
 
-    return this.findbyUID(user.uid).map(
+    return this.findbyUID(user.id).map(
       user => {
         return Object.assign({}, userAuth, {
           user: new User(user)

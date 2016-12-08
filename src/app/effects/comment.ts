@@ -23,13 +23,7 @@ export class CommentEffects {
     .map(action => action.payload)
     .switchMap((pinId) => this.pinDataService.getComments(pinId))
     .filter((comments: Comment[]) => comments.length > 0)
-    .map(comments => {
-      setTimeout(() => {
-        let userIds = comments.map(comment => comment.userId);
-        this.store.dispatch(new userAuth.FindUsersAction(userIds));
-      }, 1000)
-      return comments;
-    })
+    .map(comments => comments)
     .map((comments) => new comment.LoadCommentsSuccessAction(comments))
 
   @Effect() addComment$: Observable<Action> = this.actions$

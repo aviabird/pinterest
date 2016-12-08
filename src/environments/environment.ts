@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:4000/api'
+  apiEndpoint: 'http://localhost:4000/api/',
+  basic_auth_token: btoa('api:password')
 };
