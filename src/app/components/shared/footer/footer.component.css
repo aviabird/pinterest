@@ -3,10 +3,10 @@
 }
 
 .footer {
-  background-color: #2980b9;
+  background-color: rgba(140, 125, 125, 0.07);
   padding: 2rem 4rem;
   text-align: center;
-  color: #fff;
+  color: #555;
   margin-top: 50vh;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .footer h4 {
-  color: #fff;
+  color: #555;
   font-size: 1rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -23,13 +23,13 @@
   margin-bottom: 10px;
 }
 .footer p {
-  font-weight: 300; 
-  font-size: .8rem;
+  font-weight: 400; 
+  font-size: 1.2rem;
 }
 
 @media only screen and (min-width: 40.063em) {
   .footer .columns:nth-child(n+2) {
-    border-left: 1px solid scale-color(#fff);
+    border-left: 1px solid scale-color(#555);
     min-height: 280px;
   }
 }
@@ -39,10 +39,14 @@
 }
 
 .footer-links a {
-  color: #fff;
-  font-weight: 300;
-  font-size: .8rem;
+  color: #555;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 .footer-links li {
   margin-top: .5rem;
+}
+
+.dropdown.menu > li.is-dropdown-submenu-parent > a::after{
+  border-color: #805840 transparent transparent;
 }

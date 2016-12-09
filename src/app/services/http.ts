@@ -12,14 +12,15 @@ import { Observable } from 'rxjs/Observable';
 import { LoaderService } from "./loader";
 import 'rxjs/Rx';
 import { environment } from '../../environments/environment';
+import { AppState } from '../reducers/index';
 
 @Injectable()
 export class HttpService extends Http {
-  loaderService = new LoaderService;
 
   constructor(
     backend: ConnectionBackend,
-    defaultOptions: RequestOptions
+    defaultOptions: RequestOptions,
+    public loaderService: LoaderService
   ) {
     super(backend, defaultOptions);
   }
@@ -169,6 +170,7 @@ export class HttpService extends Http {
    * @returns {ErrorObservable}
    */
   private onCatch(error: any, caught: Observable<any>): Observable<any> {
+    this.loaderService.popError();
     return Observable.throw(error);
   }
 
@@ -184,6 +186,7 @@ export class HttpService extends Http {
    * @param error
    */
   private onSubscribeError(error: any): void {
+    this.loaderService.popError();
   }
 
   /**

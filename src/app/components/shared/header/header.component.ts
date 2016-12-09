@@ -16,7 +16,7 @@ import {LoginSuccessAction} from '../../../actions/user-auth';
 })
 
 export class HeaderComponent implements OnInit {
-  title = 'Pinterest';
+  title = 'PinWork';
   user : Observable < User >;
   userIsAuthenticated : Observable < boolean >;
 

@@ -23,7 +23,9 @@ export class UserAuthEffects {
     .map((action: userAuth.LoginAction) => action.payload)
     .switchMap((provider) => this.authService.login(provider))
     .filter((payload) => payload.user != null)
-    .switchMap(payload => this.authService.getAccessToken(payload))
+    .switchMap(payload => {
+      return this.authService.getAccessToken(payload)
+    })
     .map((payload) => {
       // Add user to users list
       this.store.dispatch(new userAuth.FindUsersSuccessAction([payload.user]));

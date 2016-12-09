@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions, Http } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, Store } from '@ngrx/store';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 import { routes, AppRoutes } from './app.routes';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { AuthenticationService } from './services/authentication';
-import { reducer } from './reducers/index';
+import { reducer, AppState } from './reducers/index';
 import { UserAuthEffects } from './effects/user-auth';
 import { PinsComponent } from './components/pins/pins.component';
 import { PinItemComponent } from './components/pins/pin-item/pin-item.component';
@@ -29,6 +29,8 @@ import { CommentEffects } from './effects/comment';
 import { PinEditComponent } from './components/pins/pin-edit/pin-edit.component';
 import { HttpService } from './services/http';
 import { LoaderService } from './services/loader';
+import { NotificationEffects } from './effects/notification';
+import { ToasterService, ToasterModule } from 'angular2-toaster/angular2-toaster';
 
 // Must export the config
 export const firebaseConfig = {
@@ -67,20 +69,26 @@ export const firebaseConfig = {
     EffectsModule.run(UserAuthEffects),
     EffectsModule.run(PinEffects),
     EffectsModule.run(CommentEffects),
+    EffectsModule.run(NotificationEffects),
     MasonryModule,
     InfiniteScrollModule,
-    SlimLoadingBarModule.forRoot()
+    SlimLoadingBarModule.forRoot(),
+    ToasterModule
   ],
   providers: [
     AuthenticationService,
     PinDataService,
+    LoaderService,
     {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
-        return new HttpService(backend, defaultOptions);
+      useFactory:
+        (backend: XHRBackend, defaultOptions: RequestOptions, loaderService: LoaderService, store: Store<AppState>) => {
+        loaderService = new LoaderService(store)
+        return new HttpService(backend, defaultOptions, loaderService);
       },
-      deps: [ XHRBackend, RequestOptions]
-    }
+      deps: [ XHRBackend, RequestOptions, LoaderService, Store]
+    },
+    ToasterService,
   ],
   bootstrap: [AppComponent]
 })
