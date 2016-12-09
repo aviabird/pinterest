@@ -35,19 +35,19 @@ export class AppComponent implements OnInit {
     this.subscribeToNotifications();
   }
 
-  private afterModalClosed() {
+  afterModalClosed() {
     $(document).on('closed.zf.reveal', '[data-reveal]', () => {
       this.router.navigate(['../'])
     });
   }
 
-  private subscribeToProgress() {
+  subscribeToProgress() {
     this.store.select(getProgressStatus).subscribe(
       (status) => {
         if(status == true){
           this.slimLoadingBarService.start();
         }
-        else{
+        else {
           this.slimLoadingBarService.complete();
         }
       }
