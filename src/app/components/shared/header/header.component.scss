@@ -1,5 +1,5 @@
 .top-bar, .top-bar ul {
-  background-color: transparent;
+  background-color: white;
 }
 
 .top-bar input {
@@ -11,10 +11,10 @@
   margin-bottom: 0;
 }
 .menu-text{
-  color: #8c7d7d;
+  color: rgb(123, 120, 126);
 }
 a{
-  color: #8c7d7d;
+  color: rgb(123, 120, 126);
 }
 input{
   border: none;
@@ -29,10 +29,10 @@ input{
 }
 
 .top-bar-search-button::hover{
-  color: #8c7d7d;;
+  color: rgb(123, 120, 126);;
 }
 .text-brown{
-  color: #8c7d7d;
+  color: rgb(123, 120, 126);
 }
 
 .fa-search{
@@ -53,7 +53,7 @@ input{
 }
 
 .fa-plus{
-  color: #8c7d7d;
+  color: rgb(123, 120, 126);
   top: -28px;
   right: -34px;
   position: relative;

@@ -11,6 +11,7 @@ export class LoaderService {
   
   showPreloader(){
     this.store.dispatch(new notification.ShowProgressAction());
+    this.popMessage();
   }
 
   hidePreloader(){
@@ -25,7 +26,7 @@ export class LoaderService {
 
   popMessage() {
     this.store.dispatch(new PopNotificationAction(new Toastr({
-      type: 'info', tilte: 'Wait a Second ..', body: 'Loading in Progress ..'
+      type: 'info', body: 'Loading ..'
     })))
   }
 }

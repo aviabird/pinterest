@@ -17,7 +17,8 @@ declare var $:any;
 })
 export class AppComponent implements OnInit {
   public toasterconfig : ToasterConfig = new ToasterConfig({
-    preventDuplicates: true
+    preventDuplicates: true,
+    positionClass: 'toast-bottom-right'
   });
 
   constructor(
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit {
   private subscribeToProgress() {
     this.store.select(getProgressStatus).subscribe(
       (status) => {
-        if(status){
+        if(status == true){
           this.slimLoadingBarService.start();
         }
         else{
