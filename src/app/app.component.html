@@ -1,10 +1,10 @@
-<ng2-slim-loading-bar [color]="'#7cd37c'" [height]="'4px'"></ng2-slim-loading-bar>
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <header>
+  <ng2-slim-loading-bar [color]="'#7cd37c'" [height]="'4px'"></ng2-slim-loading-bar>
   <pin-header></pin-header>
 </header>
 
-<section>
+<section class="main">
   <router-outlet></router-outlet>
 </section>
 
