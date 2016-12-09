@@ -5,8 +5,6 @@
         <h5>
           {{(pin | async).name}}
         </h5>
-
-        {{pin | async | json}}
         
         <div class="pin-image">
           <img [src]="(pin | async).image_url" alt="" width="500">
@@ -60,7 +58,7 @@
           </h6>
 
           <p class="comment-text">
-            {{comment.msg}}
+            {{comment.message}}
           </p>
           
         </div>

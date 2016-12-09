@@ -39,6 +39,7 @@ import { combineReducers, ActionReducer } from '@ngrx/store';
 import * as fromUserAuth from './user-auth';
 import * as fromPins from './pins'
 import * as fromComments from './comments'
+import * as fromNotifcation from './notification'
 import { User } from '../models/user';
 import { routerReducer } from '@ngrx/router-store';
 import { createSelector } from 'reselect';
@@ -52,6 +53,7 @@ export interface AppState {
   userAuth: fromUserAuth.State;
   pins: fromPins.State;
   comments: fromComments.State
+  notification: fromNotifcation.State
 }
 
 /**
@@ -65,6 +67,7 @@ const reducers = {
   userAuth: fromUserAuth.reducer,
   pins: fromPins.reducer,
   comments: fromComments.reducer,
+  notification: fromNotifcation.reducer,
   router: routerReducer
 };
 
@@ -109,6 +112,7 @@ export function reducer(state: any, action: any) {
 export const getUserAuthState = (appState: AppState) => appState.userAuth;
 export const getPinsState = (appState: AppState) => appState.pins;
 export const getCommentState = (appState: AppState) => appState.comments;
+export const getNotificationState = (appState: AppState) => appState.notification;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -187,7 +191,15 @@ export const getComments = createSelector(getCommentEntities, getCommentIds, (co
   return ids.map(id => comments[id]);
 });
 
-export const getSelectedPinComments = createSelector(getComments, getSelectedPinId, (comments, pinId) => {
-  return comments.filter(comment => comment.pinId == pinId)
+export const getSelectedPinComments = createSelector(getComments, getSelectedPinId, (comments, pin_id) => {
+  return comments.filter(comment => comment.pin_id == pin_id)
 })
+// ------------------------------------
+
+
+// ************************************
+// Notification State Funcations
+// ************************************
+export const getNotifications = createSelector(getNotificationState, fromNotifcation.getNotifications);
+export const getProgressStatus = createSelector(getNotificationState, fromNotifcation.getProgressStatus); 
 // ------------------------------------

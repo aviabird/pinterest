@@ -1,5 +1,3 @@
-<a href="https://github.com/aviabird/pinterest"><img style="position: absolute; top: 3.5rem; z-index: 1; left: 0; border: 0;" src="https://camo.githubusercontent.com/121cd7cbdc3e4855075ea8b558508b91ac463ac2/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png"></a>
-
 <div class="top-bar">
   <nav>
     <section>
@@ -11,15 +9,30 @@
         </li>
         <li class="large-9 small-9 columns text-center">
           <div class="input-group">
-            <span class="input-group-label fa fa-search top-bar-search-label text-white">
+            <span class="input-group-label fa fa-search top-bar-search-label text-brown">
             </span>
             <input id= "top-bar-search-input" class="input-group-field" type="text" placeholder='So, What are you looking for?'>
             <div class="input-group-button">
-              <input type="submit" class="top-bar-search-button button hollow text-white" value="Search">
+              <input type="submit" class="top-bar-search-button text-brown" value="Search">
             </div>
           </div>
         </li>
-        <li class="large-2 small-2 columns text-right"
+        
+        <li class="large-1 small-1 columns text-right">
+          <div class="large-6 small-6">
+            <a href="https://github.com/aviabird/pinterest">
+              <span class="fa fa-github fa-2x"  aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <div class="large-6 small-6" [ngClass]="{hide: !(userIsAuthenticated | async)}">
+            <a [routerLink]="['pins', 'new']" class="new-Pin-btn">
+              <span class="fa fa-plus fa-2x"></span>
+            </a>
+          </div>
+        </li>
+
+        <li class="large-1 small-1 columns text-right"
            [ngClass]="{hide: (userIsAuthenticated | async)}">
           <ul class="dropdown menu text-center" data-dropdown-menu>
             <li>
@@ -34,13 +47,6 @@
               </ul>
             </li>
           </ul>
-        </li>
-
-        <li class="large-1 small-1 columns text-right"
-            [ngClass]="{hide: !(userIsAuthenticated | async)}">
-          <a [routerLink]="['pins', 'new']" class="new-Pin-btn">
-            <span class="fa fa-plus fa-2x"></span>
-          </a>
         </li>
         
         <li class="large-1 small-1 columns text-right"
