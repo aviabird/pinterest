@@ -12,12 +12,13 @@ declare var $:any;
 @Component({
   selector: 'pin-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   public toasterconfig : ToasterConfig = new ToasterConfig({
-    preventDuplicates: true
+    preventDuplicates: true,
+    positionClass: 'toast-bottom-right'
   });
 
   constructor(
@@ -34,19 +35,19 @@ export class AppComponent implements OnInit {
     this.subscribeToNotifications();
   }
 
-  private afterModalClosed() {
+  afterModalClosed() {
     $(document).on('closed.zf.reveal', '[data-reveal]', () => {
       this.router.navigate(['../'])
     });
   }
 
-  private subscribeToProgress() {
+  subscribeToProgress() {
     this.store.select(getProgressStatus).subscribe(
       (status) => {
-        if(status){
+        if(status == true){
           this.slimLoadingBarService.start();
         }
-        else{
+        else {
           this.slimLoadingBarService.complete();
         }
       }

@@ -24,14 +24,13 @@ export class PinDetailComponent implements OnInit {
   private subscription: Subscription;
   private pinIndex: string;
   private pin: Observable<Pin>;
-  private user: Observable<User>;
   private comments: Observable<Comment[]>;
   private userIsAuthenticated: Observable<boolean>;
   private authUser: Observable<User>;
   private commentForm: FormGroup;
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromRoot.AppState>,
     private formBuilder: FormBuilder
@@ -48,7 +47,6 @@ export class PinDetailComponent implements OnInit {
         this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
         this.store.dispatch(new comment.LoadCommentsAction(this.pinIndex));
         this.pin = this.store.select(fromRoot.getSelectedPin);
-        this.user = this.store.select(fromRoot.getPinUser);
       }
     );
     this.loadModal()
@@ -95,9 +93,9 @@ export class PinDetailComponent implements OnInit {
 
   initCommentForm(){
     this.commentForm = this.formBuilder.group({
-      msg: ['', Validators.required],
-      userId: ['', Validators.required],
-      pinId: ['', Validators.required]
+      message: ['', Validators.required],
+      user_id: ['', Validators.required],
+      pin_id: ['', Validators.required]
     });
   }
 
@@ -106,7 +104,7 @@ export class PinDetailComponent implements OnInit {
   }
 
   resetForm() {
-    this.commentForm.controls['msg'].reset();
+    this.commentForm.controls['message'].reset();
   }
 
   onKeyPressed(keyCode){

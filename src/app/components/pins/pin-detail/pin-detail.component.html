@@ -5,7 +5,7 @@
         <h5>
           {{(pin | async).name}}
         </h5>
-        
+
         <div class="pin-image">
           <img [src]="(pin | async).image_url" alt="" width="500">
         </div>
@@ -18,10 +18,10 @@
       <p>
         {{(pin | async).description}}
       </p>
-      
+
       <h6>
-        From {{(user | async)?.name}}
-        <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
+        From {{(pin | async).user?.name}}
+        <img aria-hidden=true [src]="(pin | async).user?.avatar" class="avatar"/>
       </h6>
 
       <hr>
@@ -35,36 +35,36 @@
 
       <div class="input-group comment-wrapper" *ngFor="let comment of comments | async">
         <span class="input-group-label comment-user-img">
-          <img aria-hidden=true [src]="(getUser(comment.userId) | async)?.avatar" class="avatar"/>
+          <img aria-hidden=true [src]="comment.user.avatar" class="avatar"/>
         </span>
         <div class="comment-user-wrapper">
           <h6>
             <strong class="text-left">
-              {{(getUser(comment.userId) | async)?.name}}
+              {{comment.user.name}}
             </strong>
 
             <small class="text-right">
               <i class="text-left">
-                {{comment.createdAt | date:fullDate}}
+                {{comment.inserted_at | date:fullDate}}
               </i>
-              
+
               <button
                 class='delete-comment'
                 (click)="onCommentDelete(comment.id)"
-                *ngIf="(authUser | async).id == comment.userId">
+                *ngIf="(authUser | async).id == comment.user_id">
                 <i class="fa fa-times"></i>
               </button>
-            </small> 
+            </small>
           </h6>
 
           <p class="comment-text">
             {{comment.message}}
           </p>
-          
+
         </div>
         <br>
       </div>
-      
+
       <form [formGroup]="commentForm" (ngSubmit)="onCommentSave()" *ngIf="userIsAuthenticated | async">
         <div class="input-group">
           <span class="input-group-label comment-user-img">
@@ -72,14 +72,14 @@
           </span>
           <textarea
             type="text"
-            id="msg"
+            id="message"
             class="input-group-field"
-            formControlName="msg"
+            formControlName="message"
             placeholder="Add Comment"
             (keypress)="onKeyPressed($event.keyCode)">
           </textarea>
-          <input type="hidden" formControlName="userId" [ngModel]="(authUser | async).id">
-          <input type="hidden" formControlName="pinId" [ngModel]="(pin | async).id">
+          <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
+          <input type="hidden" formControlName="pin_id" [ngModel]="(pin | async).id">
         </div>
         <div class="row">
           <div class="text-right">

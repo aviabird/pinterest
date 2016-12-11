@@ -12,7 +12,7 @@ import { HttpService } from './http';
 @Injectable()
 export class PinDataService {
   PinState: Observable<fromPins.State>;
-  pinsCount: number = 0;
+  pinsOffset: number = 0;
 
   constructor(
     public db: AngularFireDatabase,
@@ -22,9 +22,12 @@ export class PinDataService {
 
   getPins() {
     return this
-      .http.get("pins")
+      .http.get(`pins?limit=20&offset=${this.pinsOffset}`)
       .map(res => res.json().data)
-      .map(pins => pins.map(pin => new Pin(pin)))
+      .map(pins => {
+        this.pinsOffset += pins.length;
+        return pins.map(pin => new Pin(pin));
+      })
 
     // this.pinsCount += 20
     // return this.db
@@ -44,10 +47,14 @@ export class PinDataService {
   }
 
   addComment(comment: Comment) {
-    this.db.list('comments').push(new Comment(comment));
+    return this
+      .http.post('comments', {comment: comment})
+      .map(res => res.json().data);
   }
 
   deleteComment(id) {
-    this.db.list('comments').remove(id)
+    return this
+      .http.delete(`comments/${id}`)
+      .map(() => id);
   }
 }

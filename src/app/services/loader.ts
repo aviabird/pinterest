@@ -22,10 +22,4 @@ export class LoaderService {
       type: 'error', tilte: 'Ouchh !!', body: 'Something Went Wrong'
     })))
   }
-
-  popMessage() {
-    this.store.dispatch(new PopNotificationAction(new Toastr({
-      type: 'info', tilte: 'Wait a Second ..', body: 'Loading in Progress ..'
-    })))
-  }
 }
