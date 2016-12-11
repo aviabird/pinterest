@@ -83,7 +83,7 @@ export const firebaseConfig = {
       provide: HttpService,
       useFactory:
         (backend: XHRBackend, defaultOptions: RequestOptions, loaderService: LoaderService, store: Store<AppState>) => {
-        loaderService = new LoaderService(store)
+        loaderService = new LoaderService(store);
         return new HttpService(backend, defaultOptions, loaderService);
       },
       deps: [ XHRBackend, RequestOptions, LoaderService, Store]

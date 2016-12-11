@@ -4,4 +4,5 @@ export class Base {
   constructor(attributes?) {
     Object.assign(this, attributes);
   }
+
 }

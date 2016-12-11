@@ -173,10 +173,6 @@ export const getPins = createSelector(getPinEntities, getPinIds, (pins, ids) => 
 export const getSelectedPin = createSelector(getPinEntities, getSelectedPinId, (pins, selectedId) => {
   return new Pin(pins[selectedId]);
 });
-
-export const getPinUser = createSelector(getUsers, getSelectedPin, (users, pin) => {
-  return users.filter(user => user.id == pin.user_id)[0]
-});
 // ------------------------------------
 
 

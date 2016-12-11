@@ -109,7 +109,7 @@ export class HttpService extends Http {
    */
   delete(url: string, options?: RequestOptionsArgs): Observable<any> {
     this.requestInterceptor();
-    return super.delete(this.getFullUrl(url), options)
+    return super.delete(this.getFullUrl(url), this.requestOptions(options))
       .catch(this.onCatch)
       .do((res: Response) => {
         this.onSubscribeSuccess(res);
