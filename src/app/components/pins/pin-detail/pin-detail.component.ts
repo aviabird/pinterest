@@ -35,6 +35,7 @@ export class PinDetailComponent implements OnInit {
     private store: Store<fromRoot.AppState>,
     private formBuilder: FormBuilder
   ) {
+    this.pin = this.store.select(fromRoot.getSelectedPin);
     this.comments = this.store.select(fromRoot.getSelectedPinComments);
     this.userIsAuthenticated = this.store.select(fromRoot.getUserAuthStatus);
     this.authUser = this.store.select(fromRoot.getAuthUser);
@@ -45,8 +46,11 @@ export class PinDetailComponent implements OnInit {
       (params: any) => {
         this.pinIndex = params['id'];
         this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
+        
+        // Incase Pin is not in store. Load it from api.
+        setTimeout(() => this.store.dispatch(new pin.GetSelectedPinAction(this.pinIndex)), 3000);
+        
         this.store.dispatch(new comment.LoadCommentsAction(this.pinIndex));
-        this.pin = this.store.select(fromRoot.getSelectedPin);
       }
     );
     this.loadModal()

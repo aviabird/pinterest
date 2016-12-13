@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as pin from '../../../actions/pin';
 import { Observable } from 'rxjs/Observable';
+import { User } from '../../../models/user';
+ import { back } from '@ngrx/router-store';
 
 declare var $:any;
 declare var Foundation:any;
@@ -22,6 +24,7 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
   private pin: Pin;
   private pinIndex: string;
   private subscription: Subscription;
+  private authUser: Observable<User>;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +32,7 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
     private store: Store<fromRoot.AppState>,
     private formBuilder: FormBuilder
   ) {
+    this.authUser = this.store.select(fromRoot.getAuthUser);
   }
 
   ngOnInit() {
@@ -49,6 +53,21 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
         this.initForm();
       }
     );
+  }
+
+  onPinSave() {
+    const newPin = this.pinForm.value;
+    if(this.pinForm.valid){
+      this.store.dispatch(new pin.AddPinAction(newPin));
+    }
+  }
+
+  onPinDelete(id) {
+    this.store.dispatch(new pin.DeletePinAction(id))
+  }
+
+  onCancel() {
+    this.store.dispatch(back());
   }
 
   ngAfterViewChecked(){
@@ -77,18 +96,25 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
   private initForm() {
     let pinName= "";
     let pinImageUrl= "";
+    let pinUrl = "";
     let pinDescription= "";
+    let pinTags = "";
 
     if (!this.isNew) {
       pinName = this.pin.name;
       pinImageUrl = this.pin.image_url;
+      pinUrl = this.pin.url;
       pinDescription = this.pin.description;
+      pinTags = this.pin.tags;
     }
 
     this.pinForm = this.formBuilder.group({
       name: [pinName, Validators.required],
-      imagePath: [pinImageUrl, Validators.required],
-      description: [pinDescription, Validators.required]
+      image_url: [pinImageUrl, Validators.required],
+      url: [pinUrl, Validators.required],
+      description: [pinDescription, Validators.required],
+      tags: [pinTags, Validators.required],
+      user_id: ['', Validators.required]
     });
   }
 

@@ -63,7 +63,11 @@ export const firebaseConfig = {
       method: AuthMethods.Popup
     }),
     RouterModule.forRoot(routes, { useHash: true }),
-    StoreModule.provideStore(reducer),
+    StoreModule.provideStore(reducer, {
+      router: {
+        path: window.location.pathname + window.location.search
+      }
+    }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(UserAuthEffects),

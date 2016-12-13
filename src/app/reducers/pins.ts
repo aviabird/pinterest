@@ -40,6 +40,44 @@ export function reducer(state = initialState, action: pin.Actions): State {
         selectedPinId: action.payload
       });
     }
+    case pin.ActionTypes.GET_SELECTED_PIN_SUCCESS: {
+      const pin = action.payload;
+
+      if(state.entities[pin.id]) { return state }
+
+      return Object.assign({}, state, {
+        ids: [ ...state.ids, pin.id],
+        entities: Object.assign({}, state.entities, {
+          [pin.id]: pin
+        })
+      })
+    }
+    case pin.ActionTypes.DELETE_PIN_SUCCESS: {
+      const id = action.payload;
+      const newIds = state.ids.filter(val => val != id)
+
+      const newEntities = newIds.reduce((entities: { [id: string]: Pin }, id: string) => {
+        return Object.assign(entities, {
+          [id]: state.entities[id]
+        });
+      }, {});
+
+      return Object.assign({}, state, {
+        entities: newEntities,
+        ids: newIds
+      })
+    }
+
+    case pin.ActionTypes.ADD_PIN_SUCCESS: {
+      let newPin = action.payload;
+
+      return Object.assign({}, state, {
+        entities: Object.assign({}, state.entities,
+                                {[newPin.id]: newPin}
+                               ),
+        ids: [ ...state.ids, newPin.id ]
+      })
+    }
     default: {
       return state;
     }

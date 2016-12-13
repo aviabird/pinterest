@@ -1,5 +1,86 @@
-<pin-modal title='' klass='pinEditModal' size='large'>
-  <p>
-    pin-edit works!
-  </p>
+<pin-modal title='New Pin' klass='pinEditModal' size='large'>
+  <div class="large-6 columns">
+    <a [href]="pin?.url" target="_blank">
+      <h5>
+        {{pin?.name}}
+      </h5>
+
+      <div class="pin-image">
+        <img [src]="pin?.image_url" alt="" width="500">
+      </div>
+    </a>
+    <br>
+    <p>
+      {{pin?.description}}
+    </p>
+
+    <h6>
+      From {{pin?.user?.name}}
+      <img aria-hidden=true [src]="pin?.user?.avatar" class="avatar"/>
+    </h6>
+
+    <hr>
+  </div>
+
+  <form [formGroup]="pinForm" class="large-6 columns" (ngSubmit)="onPinSave()">
+    <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
+    
+    <div class="input-group">
+      <input
+        type="text"
+        id="pin-name"
+        class="input-group-field"
+        formControlName="name"
+        placeholder="Title">
+    </div>
+
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="image_url"
+        placeholder="Image Url"
+        class="input-group-field">
+    </div>
+
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="url"
+        placeholder="Work/Blog Url"
+        class="input-group-field">
+    </div>
+
+    <div class="input-group">
+      <textarea
+        type="text"
+        formControlName="description"
+        placeholder="Small Description"
+        class="input-group-field">
+      </textarea>
+    </div>
+
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="tags"
+        placeholder="Tags"
+        class="input-group-field">
+    </div>
+
+    <div class="row">
+      <div class="text-right">
+        <div class="button-group">
+          <button type="submit" class="large hollow success button" [disabled]="!pinForm.valid">
+            Save
+            <span class="fa fa-save"></span>
+          </button>
+          <button class="large hollow alert button" (click)="onCancel()">
+            Cancel
+            <span class="fa fa-times"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </form>
 </pin-modal>
