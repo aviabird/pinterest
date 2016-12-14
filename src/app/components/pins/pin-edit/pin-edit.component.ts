@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as pin from '../../../actions/pin';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../models/user';
- import { back } from '@ngrx/router-store';
+import { replace } from '@ngrx/router-store';
 
 declare var $:any;
 declare var Foundation:any;
@@ -22,7 +22,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
   private pinForm: FormGroup;
   private title: string;
   private isNew = true;
-  private pin: Pin;
+  private pin: any;
   private pinIndex: string;
   private subscription: Subscription;
   private authUser: Observable<User>;
@@ -47,7 +47,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
         
           this.store.select(fromRoot.getSelectedPin).subscribe(
             pin => {
-              this.pin = pin
+              this.pin = pin;
               this.initForm();
             }
           );
@@ -55,7 +55,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
           this.title = "Update Pin";
         } else {
           this.isNew = true;
-          this.pin = null;
+          this.pin = {};
           this.title = "Create Pin";
           this.initForm();
         }
@@ -71,15 +71,22 @@ export class PinEditComponent implements OnInit, AfterViewInit {
     const newPin = this.pinForm.value;
     if(this.pinForm.valid){
       this.store.dispatch(new pin.AddPinAction(newPin));
+      this.closeModal();
     }
   }
 
   onPinDelete(id) {
-    this.store.dispatch(new pin.DeletePinAction(id))
+    this.store.dispatch(new pin.DeletePinAction(id));
+    this.closeModal();
   }
 
-  onCancel() {
-    this.store.dispatch(back());
+  onCancel(){
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.store.dispatch(replace(['']));
+    $('body').toggleClass('is-reveal-open');
   }
 
   loadModal() {
@@ -102,26 +109,12 @@ export class PinEditComponent implements OnInit, AfterViewInit {
   }
 
   private initForm() {
-    let pinName= "";
-    let pinImageUrl= "";
-    let pinUrl = "";
-    let pinDescription= "";
-    let pinTags = "";
-
-    if (!this.isNew) {
-      pinName = this.pin.name;
-      pinImageUrl = this.pin.image_url;
-      pinUrl = this.pin.url;
-      pinDescription = this.pin.description;
-      pinTags = this.pin.tags;
-    }
-
     this.pinForm = this.formBuilder.group({
-      name: [pinName, Validators.required],
-      image_url: [pinImageUrl, Validators.required],
-      url: [pinUrl, Validators.required],
-      description: [pinDescription, Validators.required],
-      tags: [pinTags, Validators.required],
+      name: [, Validators.required],
+      image_url: [, Validators.required],
+      url: [, Validators.required],
+      description: [, Validators.required],
+      tags: [, Validators.required],
       user_id: ['', Validators.required]
     });
   }

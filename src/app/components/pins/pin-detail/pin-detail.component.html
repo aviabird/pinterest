@@ -1,6 +1,6 @@
 <pin-modal title='' klass='pinModal-{{pinIndex}}' size='large'>
   <div *ngIf="(pin | async)" class="row">
-    <div class="large-6 columns">
+    <div class="large-5 columns">
       <a [href]="(pin | async).url" target="_blank">
         <h5>
           {{(pin | async).name}}
@@ -13,7 +13,22 @@
       <br>
     </div>
 
-    <div class="large-6 columns">
+    <div class="large-7 columns">
+      <ul class="dropdown menu pull-right" data-dropdown-menu="" *ngIf="canAccessPin | async">
+        <li class="is-dropdown-submenu-parent">
+          <div>
+            ...
+            <span class="fa fa-cog"></span>
+          </div>
+          <ul class="menu">
+            <li>
+              <a (click)="onEditPin()">
+                Edit
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
       <br>
       <p>
         {{(pin | async).description}}

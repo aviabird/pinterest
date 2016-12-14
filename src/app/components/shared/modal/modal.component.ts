@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers/index';
 
@@ -11,7 +11,7 @@ declare var $:any;
   inputs: ["title", "klass", "size"]
 })
 
-export class ModalComponent implements OnInit, OnDestroy {
+export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
   title: string;
   klass: string;
   size: string;
@@ -20,6 +20,10 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    $(document).foundation();
   }
 
   ngOnDestroy() {

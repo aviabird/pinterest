@@ -1,26 +1,26 @@
 <pin-modal [title]='title' klass='pinEditModal' size='large'>
-  <div class="large-4 columns callout">
+  <div class="large-5 columns callout">
     <legend>Preview Pin</legend>
     <div class="pin-image">
       <div class="pin-url-wrapper">
-        <a [href]="url" class="pin-url" target="_blank">
+        <a href="{{pin.url || '#'}}" class="pin-url" target="_blank">
           <strong>
             Learn More Here
           </strong>
         </a>
       </div>
-      <img [src]="image_url" alt="Image Preview">
+      <img src="{{pin.image_url || 'http://www.worsleymemorials.co.uk/wp-content/uploads/2015/11/image-placeholder.png'}}" alt="Image Preview">
     </div>
 
     <h6>
       <strong>
-        {{name}}
+        {{pin.name || 'Title'}}
       </strong>
     </h6>
 
     <p>
       <small class="pin-desc">
-        {{description}}
+        {{pin.description || 'What is it about'}}
       </small>
     </p>
 
@@ -32,7 +32,7 @@
     </p>
   </div>
 
-  <form [formGroup]="pinForm" class="large-8 columns" (ngSubmit)="onPinSave()">
+  <form [formGroup]="pinForm" class="large-7 columns" (ngSubmit)="onPinSave()">
     <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
     
     <div class="input-group">
@@ -41,7 +41,7 @@
         id="pin-name"
         class="input-group-field"
         formControlName="name"
-        [(ngModel)]="name"
+        [(ngModel)]="pin.name"
         placeholder="Title">
     </div>
 
@@ -49,7 +49,7 @@
       <input
         type="text"
         formControlName="image_url"
-        [(ngModel)]="image_url"
+        [(ngModel)]="pin.image_url"
         placeholder="Image Url"
         class="input-group-field">
     </div>
@@ -59,7 +59,7 @@
         type="text"
         formControlName="url"
         placeholder="Work/Blog Url"
-        [(ngModel)]="url"
+        [(ngModel)]="pin.url"
         class="input-group-field">
     </div>
 
@@ -68,7 +68,7 @@
         type="text"
         formControlName="description"
         placeholder="Small Description"
-        [(ngModel)]="description"
+        [(ngModel)]="pin.description"
         class="input-group-field">
       </textarea>
     </div>
@@ -78,21 +78,24 @@
         type="text"
         formControlName="tags"
         placeholder="Tags"
+        [(ngModel)]="pin.tags"
         class="input-group-field">
     </div>
 
     <div class="row">
       <div class="text-right">
-        <div class="button-group">
-          <button type="submit" class="large hollow success button" [disabled]="!pinForm.valid">
-            Save
-            <span class="fa fa-save"></span>
-          </button>
-          <button class="large hollow alert button" (click)="onCancel()">
-            Cancel
-            <span class="fa fa-times"></span>
-          </button>
-        </div>
+        <button type="submit" class="button" [disabled]="!pinForm.valid">
+          Save
+          <span class="fa fa-save"></span>
+        </button>
+        <button class="warning button" (click)="onCancel()">
+          Cancel
+          <span class="fa fa-times"></span>
+        </button>
+        <button class="alert button" (click)="onPinDelete(pin.id)" *ngIf="!isNew">
+          Delete
+          <span class="fa fa-trash"></span>
+        </button>
       </div>
     </div>
     

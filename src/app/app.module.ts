@@ -31,6 +31,8 @@ import { HttpService } from './services/http';
 import { LoaderService } from './services/loader';
 import { NotificationEffects } from './effects/notification';
 import { ToasterService, ToasterModule } from 'angular2-toaster/angular2-toaster';
+import { CanActivateViaAuthGuard } from './guards/authenticated';
+import { CanEditPinGuard } from './guards/can-edit-pin';
 
 // Must export the config
 export const firebaseConfig = {
@@ -93,6 +95,8 @@ export const firebaseConfig = {
       deps: [ XHRBackend, RequestOptions, LoaderService, Store]
     },
     ToasterService,
+    CanActivateViaAuthGuard,
+    CanEditPinGuard
   ],
   bootstrap: [AppComponent]
 })
