@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  // apiEndpoint: 'https://pinwork-api.herokuapp.com/api/',
   apiEndpoint: 'http://localhost:4000/api/',
   basic_auth_token: btoa('api:password')
 };

@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@mixin make_blur() {
+  -webkit-filter: blur(5px); /* Safari */
+  filter: blur(5px);
+}
+
+.is-reveal-open{
+  header{
+    @include make_blur();
+  }
+  .main {
+    @include make_blur();
+  }
+}
+
+.reveal {
+  background: rgba(white, 0.9);
+}

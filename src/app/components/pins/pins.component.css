@@ -4,6 +4,30 @@
   display: inline-block;
 }
 
+@media screen and (max-width: 1328px) {
+    .brick {
+      height: auto;
+      width: 23vw;
+      display: inline-block;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .brick {
+      height: auto;
+      width: 30vw;
+      display: inline-block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .brick {
+      height: auto;
+      width: 93vw;
+      display: inline-block;
+    }
+}
+
 .dashboard-grid{
   margin: 1% 3.5vw;
 }

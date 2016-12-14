@@ -28,5 +28,34 @@ export class PinEffects {
       return pins
     })
     .map(pins => new pin.GetPinsSuccessAction(pins))
+  
+  @Effect() getPin$: Observable<Action> = this.actions$
+    .ofType(pin.ActionTypes.GET_SELECTED_PIN)
+    .map(action => action.payload)
+    .switchMap((id) => this.pinDataService.getPin(id))
+    .map((pin: Pin) => {
+      let users = [pin.user]
+      this.store.dispatch(new userAuth.FindUsersSuccessAction(users))
+      return pin
+    })
+    .map(_pin => new pin.GetSelectedPinSuccessAction(_pin))
+
+  @Effect() addPin$: Observable<Action> = this.actions$
+    .ofType(pin.ActionTypes.ADD_PIN)
+    .map<Pin>(action => action.payload)
+    .switchMap(_pin => this.pinDataService.addPin(_pin))
+    .map((_pin) => new pin.AddPinSuccessAction(_pin))
+  
+  @Effect() savePin$: Observable<Action> = this.actions$
+    .ofType(pin.ActionTypes.SAVE_PIN)
+    .map<Pin>(action => action.payload)
+    .switchMap(_pin => this.pinDataService.savePin(_pin))
+    .map((_pin) => new pin.SavePinSuccessAction(_pin))
+
+  @Effect() deletePin$: Observable<Action> = this.actions$
+    .ofType(pin.ActionTypes.DELETE_PIN)
+    .map<string>(action => action.payload)
+    .switchMap(id => this.pinDataService.deletePin(id))
+    .map((id) => new pin.DeletePinSuccessAction(id))
 
 }

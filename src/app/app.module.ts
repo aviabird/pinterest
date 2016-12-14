@@ -31,6 +31,8 @@ import { HttpService } from './services/http';
 import { LoaderService } from './services/loader';
 import { NotificationEffects } from './effects/notification';
 import { ToasterService, ToasterModule } from 'angular2-toaster/angular2-toaster';
+import { CanActivateViaAuthGuard } from './guards/authenticated';
+import { CanEditPinGuard } from './guards/can-edit-pin';
 
 // Must export the config
 export const firebaseConfig = {
@@ -63,7 +65,11 @@ export const firebaseConfig = {
       method: AuthMethods.Popup
     }),
     RouterModule.forRoot(routes, { useHash: true }),
-    StoreModule.provideStore(reducer),
+    StoreModule.provideStore(reducer, {
+      router: {
+        path: window.location.pathname + window.location.search
+      }
+    }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(UserAuthEffects),
@@ -89,6 +95,8 @@ export const firebaseConfig = {
       deps: [ XHRBackend, RequestOptions, LoaderService, Store]
     },
     ToasterService,
+    CanActivateViaAuthGuard,
+    CanEditPinGuard
   ],
   bootstrap: [AppComponent]
 })

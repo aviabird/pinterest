@@ -10,6 +10,7 @@ import * as comment from '../../../actions/comment';
 import { User } from '../../../models/user';
 import { Comment } from '../../../models/comment';
 import { FormArray, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { go } from '@ngrx/router-store';
 
 declare var $:any;
 declare var Foundation:any;
@@ -28,6 +29,7 @@ export class PinDetailComponent implements OnInit {
   private userIsAuthenticated: Observable<boolean>;
   private authUser: Observable<User>;
   private commentForm: FormGroup;
+  private canAccessPin: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -35,9 +37,11 @@ export class PinDetailComponent implements OnInit {
     private store: Store<fromRoot.AppState>,
     private formBuilder: FormBuilder
   ) {
+    this.pin = this.store.select(fromRoot.getSelectedPin);
     this.comments = this.store.select(fromRoot.getSelectedPinComments);
     this.userIsAuthenticated = this.store.select(fromRoot.getUserAuthStatus);
     this.authUser = this.store.select(fromRoot.getAuthUser);
+    this.canAccessPin = this.store.select(fromRoot.getPinAccessStatus);
   }
 
   ngOnInit() {
@@ -45,8 +49,11 @@ export class PinDetailComponent implements OnInit {
       (params: any) => {
         this.pinIndex = params['id'];
         this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
+        
+        // Incase Pin is not in store. Load it from api.
+        setTimeout(() => this.store.dispatch(new pin.GetSelectedPinAction(this.pinIndex)), 3000);
+        
         this.store.dispatch(new comment.LoadCommentsAction(this.pinIndex));
-        this.pin = this.store.select(fromRoot.getSelectedPin);
       }
     );
     this.loadModal()
@@ -111,6 +118,10 @@ export class PinDetailComponent implements OnInit {
     if(keyCode == 13){
       this.onCommentSave();
     }
+  }
+
+  onEditPin() {
+    this.store.dispatch(go(`/pins/${this.pinIndex}/edit`))
   }
 
 }
