@@ -40,13 +40,19 @@ export class PinEffects {
     })
     .map(_pin => new pin.GetSelectedPinSuccessAction(_pin))
 
-  @Effect() addComment$: Observable<Action> = this.actions$
+  @Effect() addPin$: Observable<Action> = this.actions$
     .ofType(pin.ActionTypes.ADD_PIN)
     .map<Pin>(action => action.payload)
     .switchMap(_pin => this.pinDataService.addPin(_pin))
     .map((_pin) => new pin.AddPinSuccessAction(_pin))
+  
+  @Effect() savePin$: Observable<Action> = this.actions$
+    .ofType(pin.ActionTypes.SAVE_PIN)
+    .map<Pin>(action => action.payload)
+    .switchMap(_pin => this.pinDataService.savePin(_pin))
+    .map((_pin) => new pin.SavePinSuccessAction(_pin))
 
-  @Effect() deleteComment$: Observable<Action> = this.actions$
+  @Effect() deletePin$: Observable<Action> = this.actions$
     .ofType(pin.ActionTypes.DELETE_PIN)
     .map<string>(action => action.payload)
     .switchMap(id => this.pinDataService.deletePin(id))

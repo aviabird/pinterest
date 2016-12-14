@@ -87,7 +87,7 @@ export class SavePinAction implements Action {
 export class SavePinSuccessAction implements Action {
   type = ActionTypes.SAVE_PIN_SUCCESS;
 
-  constructor() { };
+  constructor(public payload: Pin) { };
 }
 
 export class DeletePinAction implements Action {

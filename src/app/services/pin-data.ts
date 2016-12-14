@@ -44,6 +44,13 @@ export class PinDataService {
       .map(pin => new Pin(pin));
   }
 
+  savePin(pin: Pin): Observable<Pin> {
+    return this
+      .http.put(`pins/${pin.id}`, { pin: pin })
+      .map(res => res.json().data)
+      .map(pin => new Pin(pin));
+  }
+
   deletePin(id): Observable<string> {
     return this
       .http.delete(`pins/${id}`)

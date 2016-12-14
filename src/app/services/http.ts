@@ -87,7 +87,7 @@ export class HttpService extends Http {
    * @param options
    * @returns {Observable<>}
    */
-  put(url: string, body: string, options?: RequestOptionsArgs): Observable<any> {
+  put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
     this.requestInterceptor();
     return super.put(this.getFullUrl(url), body, this.requestOptions(options))
       .catch(this.onCatch)

@@ -34,6 +34,7 @@
 
   <form [formGroup]="pinForm" class="large-7 columns" (ngSubmit)="onPinSave()">
     <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
+    <input type="hidden" formControlName="id" [ngModel]="pin.id">
     
     <div class="input-group">
       <input

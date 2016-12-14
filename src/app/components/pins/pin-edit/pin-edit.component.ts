@@ -70,7 +70,11 @@ export class PinEditComponent implements OnInit, AfterViewInit {
   onPinSave() {
     const newPin = this.pinForm.value;
     if(this.pinForm.valid){
-      this.store.dispatch(new pin.AddPinAction(newPin));
+      if(this.isNew){
+        this.store.dispatch(new pin.AddPinAction(newPin));
+      } else {
+        this.store.dispatch(new pin.SavePinAction(newPin))
+      }
       this.closeModal();
     }
   }
@@ -115,8 +119,15 @@ export class PinEditComponent implements OnInit, AfterViewInit {
       url: [, Validators.required],
       description: [, Validators.required],
       tags: [, Validators.required],
-      user_id: ['', Validators.required]
+      user_id: ['', Validators.required],
+      id: ['', this.checkForNew()]
     });
+  }
+
+  checkForNew() {
+    if (!this.isNew){
+      Validators.required
+    }
   }
 
 }

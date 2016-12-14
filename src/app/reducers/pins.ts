@@ -78,6 +78,17 @@ export function reducer(state = initialState, action: pin.Actions): State {
         ids: [ ...state.ids, newPin.id ]
       })
     }
+
+    case pin.ActionTypes.SAVE_PIN_SUCCESS: {
+      let updatedPin = action.payload;
+
+      return Object.assign({}, state, {
+        entities: Object.assign({}, state.entities,
+                                {[updatedPin.id]: updatedPin}
+                               )
+      })
+    }
+
     default: {
       return state;
     }
