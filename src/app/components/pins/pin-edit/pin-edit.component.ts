@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Pin } from '../../../models/pin';
 import { Subscription } from 'rxjs/rx';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,7 +18,7 @@ declare var Foundation:any;
   templateUrl: './pin-edit.component.html',
   styleUrls: ['./pin-edit.component.scss']
 })
-export class PinEditComponent implements OnInit, AfterViewChecked {
+export class PinEditComponent implements OnInit, AfterViewInit {
   private pinForm: FormGroup;
   private title: string;
   private isNew = true;
@@ -37,6 +37,7 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.loadModal();
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         if (params.hasOwnProperty('id')) {
@@ -45,7 +46,10 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
           this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
         
           this.store.select(fromRoot.getSelectedPin).subscribe(
-            pin => this.pin = pin
+            pin => {
+              this.pin = pin
+              this.initForm();
+            }
           );
 
           this.title = "Update Pin";
@@ -53,10 +57,14 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
           this.isNew = true;
           this.pin = null;
           this.title = "Create Pin";
+          this.initForm();
         }
-        this.initForm();
       }
     );
+  }
+
+  ngAfterViewInit() {
+    this.loadModal();
   }
 
   onPinSave() {
@@ -72,10 +80,6 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
 
   onCancel() {
     this.store.dispatch(back());
-  }
-
-  ngAfterViewChecked(){
-    this.loadModal();
   }
 
   loadModal() {

@@ -4,7 +4,7 @@
   display: inline-block;
 }
 
-@media screen and (max-width: 1028px) {
+@media screen and (max-width: 1328px) {
     .brick {
       height: auto;
       width: 23vw;
@@ -12,7 +12,7 @@
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1024px) {
     .brick {
       height: auto;
       width: 30vw;
