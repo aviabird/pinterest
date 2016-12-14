@@ -32,9 +32,19 @@ export class PinsComponent implements OnInit {
   }
   
   loadPins(){
-    this
-      .store
-      .dispatch(new pin.GetPinsAction());
+    setTimeout(() => {
+      this
+        .store
+        .dispatch(new pin.GetPinsAction());
+    }, 1000);
+  }
+
+  createRange(len=20) {
+    let arr = [];
+    for(let i = 0; i < len ; i++) {
+      arr.push(i);
+    }
+    return arr;
   }
 
 }
