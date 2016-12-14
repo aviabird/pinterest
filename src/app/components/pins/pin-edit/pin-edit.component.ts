@@ -20,6 +20,7 @@ declare var Foundation:any;
 })
 export class PinEditComponent implements OnInit, AfterViewChecked {
   private pinForm: FormGroup;
+  private title: string;
   private isNew = true;
   private pin: Pin;
   private pinIndex: string;
@@ -46,9 +47,12 @@ export class PinEditComponent implements OnInit, AfterViewChecked {
           this.store.select(fromRoot.getSelectedPin).subscribe(
             pin => this.pin = pin
           );
+
+          this.title = "Update Pin";
         } else {
           this.isNew = true;
           this.pin = null;
+          this.title = "Create Pin";
         }
         this.initForm();
       }

@@ -1,28 +1,38 @@
-<pin-modal title='New Pin' klass='pinEditModal' size='large'>
-  <div class="large-6 columns">
-    <a [href]="pin?.url" target="_blank">
-      <h5>
-        {{pin?.name}}
-      </h5>
-
-      <div class="pin-image">
-        <img [src]="pin?.image_url" alt="" width="500">
+<pin-modal [title]='title' klass='pinEditModal' size='large'>
+  <div class="large-4 columns callout">
+    <legend>Preview Pin</legend>
+    <div class="pin-image">
+      <div class="pin-url-wrapper">
+        <a [href]="url" class="pin-url" target="_blank">
+          <strong>
+            Learn More Here
+          </strong>
+        </a>
       </div>
-    </a>
-    <br>
-    <p>
-      {{pin?.description}}
-    </p>
+      <img [src]="image_url" alt="Image Preview">
+    </div>
 
     <h6>
-      From {{pin?.user?.name}}
-      <img aria-hidden=true [src]="pin?.user?.avatar" class="avatar"/>
+      <strong>
+        {{name}}
+      </strong>
     </h6>
 
-    <hr>
+    <p>
+      <small class="pin-desc">
+        {{description}}
+      </small>
+    </p>
+
+    <p class="user-profile-link">
+      <small href="#">
+        <img aria-hidden=true [src]="(authUser | async)?.avatar" class="avatar"/>
+        {{(authUser | async)?.name | uppercase}}
+      </small>
+    </p>
   </div>
 
-  <form [formGroup]="pinForm" class="large-6 columns" (ngSubmit)="onPinSave()">
+  <form [formGroup]="pinForm" class="large-8 columns" (ngSubmit)="onPinSave()">
     <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
     
     <div class="input-group">
@@ -31,6 +41,7 @@
         id="pin-name"
         class="input-group-field"
         formControlName="name"
+        [(ngModel)]="name"
         placeholder="Title">
     </div>
 
@@ -38,6 +49,7 @@
       <input
         type="text"
         formControlName="image_url"
+        [(ngModel)]="image_url"
         placeholder="Image Url"
         class="input-group-field">
     </div>
@@ -47,6 +59,7 @@
         type="text"
         formControlName="url"
         placeholder="Work/Blog Url"
+        [(ngModel)]="url"
         class="input-group-field">
     </div>
 
@@ -55,6 +68,7 @@
         type="text"
         formControlName="description"
         placeholder="Small Description"
+        [(ngModel)]="description"
         class="input-group-field">
       </textarea>
     </div>
