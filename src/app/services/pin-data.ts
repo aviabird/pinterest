@@ -20,9 +20,15 @@ export class PinDataService {
   ) {
   };
 
-  getPins(): Observable<Pin[]> {
+  getPins(search_string, offset=0): Observable<Pin[]> {
+    let query = `pins?limit=20&offset=${offset}`;
+
+    if(search_string && search_string.length) {
+      query += `&tags=${search_string}`
+    }
+
     return this
-      .http.get(`pins?limit=20&offset=${this.pinsOffset}`)
+      .http.get(query)
       .map(res => res.json().data)
       .map(pins => {
         this.pinsOffset += pins.length;

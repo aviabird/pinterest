@@ -7,6 +7,7 @@ import * as userAuth from '../../../actions/user-auth';
 import * as fromRoot from '../../../reducers';
 import {Observable} from 'rxjs/Observable';
 import {LoginSuccessAction} from '../../../actions/user-auth';
+import { SearchAction, GetPinsAction } from '../../../actions/pin';
 
 @Component({
   selector: 'pin-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   title = 'PinWork';
   user : Observable < User >;
   userIsAuthenticated : Observable < boolean >;
+  items: string[];
 
   constructor(private authService : AuthenticationService, private store : Store < AppState >)
   {
@@ -42,6 +44,20 @@ export class HeaderComponent implements OnInit {
     this
       .store
       .dispatch(new userAuth.LogoutAction());
+  }
+
+  onItemAdded() {
+    this.search()
+  }
+
+  onItemRemoved() {
+    this.search();
+  }
+
+  search() {
+    let search_string = this.items.join(',');
+    this.store.dispatch(new SearchAction(search_string));
+    this.store.dispatch(new GetPinsAction(search_string));
   }
 
 }

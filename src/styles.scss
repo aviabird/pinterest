@@ -16,3 +16,25 @@
 .reveal {
   background: rgba(white, 0.9);
 }
+
+tag-input{
+
+  .ng2-tag-input{
+    background: rgba(161, 157, 154, 0.05) !important;
+    border-radius: 9px !important;
+    border: none !important;
+  }
+
+  .default.ng2-tag-input--focused{
+    border-bottom: none !important;
+  }
+
+  input{
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 10rem;
+    &:focus {
+      border: none !important;
+    }
+  }
+}
