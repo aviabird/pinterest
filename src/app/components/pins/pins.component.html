@@ -1,3 +1,20 @@
+<div class="dashboard-grid large-12 columns" *ngIf="!(pins | async).length > 0">
+  <masonry id="container">
+    <masonry-brick class="brick" *ngFor="let item of createRange(15)">
+      <div class="timeline-wrapper">
+        <div class="timeline-item">
+          <div class="animated-background">
+              <div class="background-masker image"></div>
+              <div class="background-masker header-bottom"></div>
+              <div class="background-masker paragraph1-bottom"></div>
+              <div class="background-masker paragraph2-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </masonry-brick>
+  </masonry>
+</div>
+
 <div class="dashboard-grid large-12 columns"
   infinite-scroll
   [infiniteScrollDistance]="10"
