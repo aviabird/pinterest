@@ -7,7 +7,7 @@ import * as userAuth from '../../../actions/user-auth';
 import * as fromRoot from '../../../reducers';
 import {Observable} from 'rxjs/Observable';
 import {LoginSuccessAction} from '../../../actions/user-auth';
-import { SearchAction, GetPinsAction } from '../../../actions/pin';
+import { GetPinsAction, SearchPinAction } from '../../../actions/pin';
 
 @Component({
   selector: 'pin-header',
@@ -47,16 +47,16 @@ export class HeaderComponent implements OnInit {
   }
 
   onItemAdded() {
-    this.search()
+    this.onsearch()
   }
 
   onItemRemoved() {
-    this.search();
+    this.onsearch();
   }
 
-  search() {
+  onsearch() {
     let search_string = this.items.join(',');
-    this.store.dispatch(new SearchAction(search_string));
+    this.store.dispatch(new SearchPinAction(search_string));
     this.store.dispatch(new GetPinsAction(search_string));
   }
 

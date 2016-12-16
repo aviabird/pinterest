@@ -26,7 +26,7 @@ export const ActionTypes = {
   SAVE_PIN_SUCCESS:             type('[Pins] Save Pin Success'),
   DELETE_PIN:                   type('[Pins] Delete Pin'),
   DELETE_PIN_SUCCESS:           type('[Pins] Delete Pin Success'),
-  SEARCH:                       type('[Pins] Add Search Tag')
+  SEARCH_PIN:                   type('[Pins] Add Search Tag')
 };
 
 
@@ -103,8 +103,8 @@ export class DeletePinSuccessAction implements Action {
   constructor(public payload: string){};
 }
 
-export class SearchAction implements Action {
-  type = ActionTypes.SEARCH
+export class SearchPinAction implements Action {
+  type = ActionTypes.SEARCH_PIN
 
   constructor(public payload: string){};
 }
@@ -125,4 +125,4 @@ export type Actions
   | SavePinSuccessAction
   | DeletePinAction
   | DeletePinSuccessAction
-  | SearchAction
+  | SearchPinAction

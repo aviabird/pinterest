@@ -23,8 +23,7 @@ export class PinEffects {
     .ofType(pin.ActionTypes.GET_PINS)
     .map(action => action.payload)
     .debounceTime(400)
-    .switchMap(() => this.store.select(getPinscountWithSeatchQuery()))
-    .switchMap((params) =>this.pinDataService.getPins(params.query, params.offset))
+    .switchMap(() =>this.pinDataService.getPins())
     .map((pins: Pin[]) => {
       let users = pins.map(pin => pin.user)
       this.store.dispatch(new userAuth.FindUsersSuccessAction(users))

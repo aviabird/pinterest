@@ -91,7 +91,7 @@ export function reducer(state = initialState, action: pin.Actions): State {
       })
     }
 
-    case pin.ActionTypes.SEARCH: {
+    case pin.ActionTypes.SEARCH_PIN: {
       return Object.assign({}, state, {
         search_tags: action.payload,
         ids: [],
