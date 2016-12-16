@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as pin from '../../actions/pin'
+import { PopNotificationAction } from '../../actions/notification';
+import { Toastr } from '../../models/toastr';
 
 @Component({
   selector: 'pin-items',

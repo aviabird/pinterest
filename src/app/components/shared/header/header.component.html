@@ -7,9 +7,9 @@
             {{title}}
           </a>
         </li>
-        <li class="large-9 small-9 columns text-center">
+        <li class="large-8 small-8 columns text-center">
           <div class="input-group">
-            <span class="input-group-label fa fa-search top-bar-search-label text-brown">
+            <span class="input-group-label top-bar-search-label text-brown">
             </span>
             <tag-input
               [(ngModel)]='items'
@@ -27,16 +27,22 @@
           </div>
         </li>
         
-        <li class="large-1 small-1 columns text-right icons-list">
+        <li class="large-2 small-2 columns text-right icons-list">
           <div class="large-6 small-6">
             <a href="https://github.com/aviabird/pinterest">
               <span class="fa fa-github fa-2x"  aria-hidden="true"></span>
             </a>
           </div>
 
-          <div class="large-6 small-6" [ngClass]="{hide: !(userIsAuthenticated | async)}">
-            <a [routerLink]="['pins', 'new']" class="new-Pin-btn">
-              <span class="fa fa-plus fa-2x"></span>
+          <div class="large-6 small-6">
+            <a [routerLink]="['pins', 'new']" class="new-Pin-btn" *ngIf="(userIsAuthenticated | async)">
+              <span class="fa fa-thumb-tack fa-2x"></span>
+            </a>
+
+            <a (click)="login('google')" class="new-Pin-btn" *ngIf="!(userIsAuthenticated | async)">
+              <span class="fa fa-thumb-tack fa-2x"
+                data-tooltip aria-haspopup="true"
+                data-disable-hover="false" tabindex="1" title="Login to add a Pin"></span>
             </a>
           </div>
         </li>
@@ -45,7 +51,7 @@
            [ngClass]="{hide: (userIsAuthenticated | async)}">
           <ul class="dropdown menu text-center" data-dropdown-menu>
             <li>
-              <a href="#">Login</a>
+              <a [routerLink]="['/']">Login</a>
               <ul class="menu vertical">
                 <li class="text-left">
                   <a (click)="login('google')">
@@ -62,9 +68,7 @@
             [ngClass]="{hide: !(userIsAuthenticated | async)}">
           <ul class="dropdown menu text-center" data-dropdown-menu>
             <li>
-              <a href="#">
-                <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
-              </a>
+              <img aria-hidden=true [src]="(user | async)?.avatar" class="avatar"/>
               <ul class="menu vertical">
                 <li class="text-left">
                   <a (click)="logout()">
