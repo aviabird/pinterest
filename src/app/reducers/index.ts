@@ -162,7 +162,7 @@ export function getUserById(id) {
 export const getPinEntities = createSelector(getPinsState, fromPins.getEntities);
 export const getPinIds = createSelector(getPinsState, fromPins.getIds);
 export const getSelectedPinId = createSelector(getPinsState, fromPins.getSelectedId);
-export const getSearchTags = createSelector(getPinsState, fromPins.getSearchTags)
+export const getSearchString = createSelector(getPinsState, fromPins.getSearchTags)
 /**
  * Some selector functions create joins across parts of state. This selector
  * composes the search result IDs to return an array of pins in the store.
@@ -182,6 +182,12 @@ export const getPinAccessStatus = createSelector(getSelectedPin, getAuthUser, (p
 export function getPinsCount() {
   return createSelector(getPinIds, (ids)=> {
     return ids.length;
+  })
+}
+
+export function getPinscountWithSeatchQuery() {
+  return createSelector(getSearchString, getPinIds, (query, ids) => {
+    return {query: query, offset: ids.length}
   })
 }
 // ------------------------------------

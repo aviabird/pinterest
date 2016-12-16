@@ -20,7 +20,7 @@ export class PinDataService {
   ) {
   };
 
-  getPins(search_string, offset=0): Observable<Pin[]> {
+  getPins(search_string: string, offset: number): Observable<Pin[]> {
     let query = `pins?limit=20&offset=${offset}`;
 
     if(search_string && search_string.length) {
