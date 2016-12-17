@@ -34,11 +34,9 @@ export class PinsComponent implements OnInit {
   }
   
   loadPins(){
-    setTimeout(() => {
-      this
-        .store
-        .dispatch(new pin.GetPinsAction());
-    }, 1000);
+    this
+      .store
+      .dispatch(new pin.GetPinsAction());
   }
 
   createRange(len=20) {
