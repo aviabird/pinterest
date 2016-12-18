@@ -32,60 +32,83 @@
     </p>
   </div>
 
-  <form [formGroup]="pinForm" class="large-7 columns" (ngSubmit)="onPinSave()">
-    <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
-    <input type="hidden" formControlName="id" [ngModel]="pin.id">
-    
-    <div class="input-group">
-      <input
-        type="text"
-        id="pin-name"
+  <div class="large-7 columns">
+    <form [formGroup]="pinForm" (ngSubmit)="onPinSave()">
+      <input type="hidden" formControlName="user_id" [ngModel]="(authUser | async).id">
+      <input type="hidden" formControlName="id" [ngModel]="pin.id">
+      <input type="hidden" formControlName="tags" [ngModel]="pin.tags">
+      
+      <div class="input-group">
+        <input
+          type="text"
+          id="pin-name"
+          class="input-group-field"
+          formControlName="name"
+          [(ngModel)]="pin.name"
+          placeholder="Title">
+      </div>
+      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('name').touched && !pinForm.get('name').valid}">
+        I'm Invalid!
+      </span>
+
+      <div class="input-group">
+        <input
+          type="text"
+          formControlName="image_url"
+          [(ngModel)]="pin.image_url"
+          placeholder="Image Url"
+          class="input-group-field">
+      </div>
+      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('image_url').touched && !pinForm.get('image_url').valid}">
+        I'm Invalid!
+      </span>
+
+      <div class="input-group">
+        <input
+          type="text"
+          formControlName="url"
+          placeholder="Work/Blog Url"
+          [(ngModel)]="pin.url"
+          class="input-group-field">
+      </div>
+      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('url').touched && !pinForm.get('url').valid}">
+        I'm Invalid!
+      </span>
+
+      <div class="input-group">
+        <textarea
+          type="text"
+          formControlName="description"
+          placeholder="Small Description"
+          [(ngModel)]="pin.description"
+          class="input-group-field">
+        </textarea>
+      </div>
+      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('description').touched && !pinForm.get('description').valid}">
+        I'm Invalid!
+      </span>
+    </form>
+
+    <div class="input-group pinTags">
+      <tag-input
+        [(ngModel)]='pinTags'
+        placeholder="+ more (max: 5)"
+        secondaryPlaceholder="Tags (max: 5)"
+        maxItems="5"
+        separatorKeys="[32]"
         class="input-group-field"
-        formControlName="name"
-        [(ngModel)]="pin.name"
-        placeholder="Title">
+        (onAdd)="onItemUpdate()"
+        (onRemove)="onItemUpdate()"
+        (onBlur)="pinForm.controls['tags'].markAsTouched()"
+      ></tag-input>
     </div>
-
-    <div class="input-group">
-      <input
-        type="text"
-        formControlName="image_url"
-        [(ngModel)]="pin.image_url"
-        placeholder="Image Url"
-        class="input-group-field">
-    </div>
-
-    <div class="input-group">
-      <input
-        type="text"
-        formControlName="url"
-        placeholder="Work/Blog Url"
-        [(ngModel)]="pin.url"
-        class="input-group-field">
-    </div>
-
-    <div class="input-group">
-      <textarea
-        type="text"
-        formControlName="description"
-        placeholder="Small Description"
-        [(ngModel)]="pin.description"
-        class="input-group-field">
-      </textarea>
-    </div>
-
-    <div class="input-group">
-      <input
-        type="text"
-        formControlName="tags"
-        placeholder="Tags"
-        [(ngModel)]="pin.tags"
-        class="input-group-field">
-    </div>
+    <span class="form-error" [ngClass]="{'is-visible': pinForm.get('tags').touched && !pinForm.get('tags').valid}">
+      I'm Invalid!
+    </span>
 
     <div class="row">
       <div class="text-right">
-        <button type="submit" class="button" [disabled]="!pinForm.valid">
+        <button class="button" [disabled]="!pinForm.valid" (click)="onPinSave()">
           Save
           <span class="fa fa-save"></span>
         </button>
@@ -99,6 +122,5 @@
         </button>
       </div>
     </div>
-    
-  </form>
+  </div>
 </pin-modal>

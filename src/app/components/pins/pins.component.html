@@ -1,4 +1,4 @@
-<div class="dashboard-grid large-12 columns" *ngIf="!(pins | async).length > 0">
+<div class="dashboard-grid large-12 columns" *ngIf="!(pins | async).length">
   <masonry id="container">
     <masonry-brick class="brick" *ngFor="let item of createRange(15)">
       <div class="timeline-wrapper">
@@ -8,6 +8,10 @@
               <div class="background-masker header-bottom"></div>
               <div class="background-masker paragraph1-bottom"></div>
               <div class="background-masker paragraph2-bottom"></div>
+              <div class="background-masker paragraph3-bottom"></div>
+              <div class="background-masker paragraph4-bottom"></div>
+              <div class="background-masker paragraph5-bottom"></div>
+              <div class="background-masker paragraph6-bottom"></div>
           </div>
         </div>
       </div>

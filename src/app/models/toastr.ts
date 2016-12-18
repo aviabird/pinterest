@@ -1,6 +1,7 @@
 import { Base } from './base';
-export class Toastr extends Base{
-  type: string;
-  title: string;
-  body: string;
+export class Toastr {
+
+  constructor(public type: string, public title: string, public body: string) {
+
+  }
 }

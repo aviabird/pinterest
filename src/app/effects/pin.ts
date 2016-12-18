@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Action, Store } from '@ngrx/store';
 import * as pin from '../actions/pin';
 import * as userAuth from '../actions/user-auth';
-import { AppState } from '../reducers/index';
+import { AppState, getPinscountWithSeatchQuery } from '../reducers/index';
 import { LoginSuccessAction, LogoutAction, FindUsersSuccessAction } from '../actions/user-auth';
 import { PinDataService } from '../services/pin-data';
 import { Pin } from '../models/pin';
@@ -21,7 +21,9 @@ export class PinEffects {
 
   @Effect() getPins$: Observable<Action> = this.actions$
     .ofType(pin.ActionTypes.GET_PINS)
-    .switchMap(() => this.pinDataService.getPins())
+    .map(action => action.payload)
+    .debounceTime(400)
+    .switchMap(() =>this.pinDataService.getPins())
     .map((pins: Pin[]) => {
       let users = pins.map(pin => pin.user)
       this.store.dispatch(new userAuth.FindUsersSuccessAction(users))

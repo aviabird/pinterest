@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as pin from '../../actions/pin'
+import { PopNotificationAction } from '../../actions/notification';
+import { Toastr } from '../../models/toastr';
 
 @Component({
   selector: 'pin-items',
@@ -32,11 +34,9 @@ export class PinsComponent implements OnInit {
   }
   
   loadPins(){
-    setTimeout(() => {
-      this
-        .store
-        .dispatch(new pin.GetPinsAction());
-    }, 1000);
+    this
+      .store
+      .dispatch(new pin.GetPinsAction());
   }
 
   createRange(len=20) {

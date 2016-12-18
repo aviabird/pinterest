@@ -12,6 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MasonryModule } from 'angular2-masonry';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import { TagInputModule } from 'ng2-tag-input';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -64,7 +65,7 @@ export const firebaseConfig = {
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
     }),
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes),
     StoreModule.provideStore(reducer, {
       router: {
         path: window.location.pathname + window.location.search
@@ -79,7 +80,8 @@ export const firebaseConfig = {
     MasonryModule,
     InfiniteScrollModule,
     SlimLoadingBarModule.forRoot(),
-    ToasterModule
+    ToasterModule,
+    TagInputModule
   ],
   providers: [
     AuthenticationService,

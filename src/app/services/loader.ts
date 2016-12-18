@@ -18,8 +18,8 @@ export class LoaderService {
   }
 
   popError() {
-    this.store.dispatch(new PopNotificationAction(new Toastr({
-      type: 'error', tilte: 'Ouchh !!', body: 'Something Went Wrong'
-    })))
+    this.store.dispatch(new PopNotificationAction(new Toastr(
+      'error', 'Ouchh !!', 'Something Went Wrong'
+    )))
   }
 }

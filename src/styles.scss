@@ -16,3 +16,35 @@
 .reveal {
   background: rgba(white, 0.9);
 }
+
+tag-input{
+
+  .ng2-tag-input{
+    background: rgba(161, 157, 154, 0.05) !important;
+    border-radius: 9px !important;
+    border: none !important;
+  }
+
+  .default.ng2-tag-input--focused{
+    border-bottom: none !important;
+  }
+
+  input{
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 10rem;
+    &:focus {
+      border: none !important;
+    }
+  }
+}
+
+.pinTags{
+  border: 1px solid #ccc;
+  .ng2-tag-input{
+    background: rgb(255, 255, 255) !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: inset 1px 1px 4px #ddd;
+  }
+}
