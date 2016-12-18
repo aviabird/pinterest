@@ -71,7 +71,6 @@ export class PinEditComponent implements OnInit, AfterViewInit {
 
   onPinSave() {
     const newPin = this.pinForm.value;
-    newPin.tags = newPin.tags.join(',');
 
     if(this.pinForm.valid){
       if(this.isNew){
@@ -139,6 +138,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
         Validators.minLength(5)
       ])],
       tags: [, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      tagsArray: [],
       user_id: ['', Validators.required],
       id: ['', this.checkForNew()]
     });
@@ -148,6 +148,10 @@ export class PinEditComponent implements OnInit, AfterViewInit {
     if (!this.isNew){
       Validators.required
     }
+  }
+
+  onItemUpdate() {
+    this.pinForm.controls['tags'].setValue(this.pinTags.join(','));
   }
 
 }
