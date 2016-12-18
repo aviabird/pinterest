@@ -74,13 +74,16 @@
       </textarea>
     </div>
 
-    <div class="input-group">
-      <input
-        type="text"
+    <div class="input-group pinTags">
+      <tag-input
+        [(ngModel)]='pinTags'
         formControlName="tags"
-        placeholder="Tags"
-        [(ngModel)]="pin.tags"
-        class="input-group-field">
+        placeholder="+ more (max: 5)"
+        secondaryPlaceholder="Tags (max: 5)"
+        maxItems="5"
+        separatorKeys="[32]"
+        class="input-group-field"
+      ></tag-input>
     </div>
 
     <div class="row">

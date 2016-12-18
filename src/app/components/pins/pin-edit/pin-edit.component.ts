@@ -26,6 +26,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
   private pinIndex: string;
   private subscription: Subscription;
   private authUser: Observable<User>;
+  private pinTags: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +49,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
           this.store.select(fromRoot.getSelectedPin).subscribe(
             pin => {
               this.pin = pin;
+              this.pinTags = this.pin.tags.split(',');
               this.initForm();
             }
           );
@@ -69,6 +71,8 @@ export class PinEditComponent implements OnInit, AfterViewInit {
 
   onPinSave() {
     const newPin = this.pinForm.value;
+    newPin.tags = newPin.tags.join(',');
+
     if(this.pinForm.valid){
       if(this.isNew){
         this.store.dispatch(new pin.AddPinAction(newPin));
@@ -114,11 +118,27 @@ export class PinEditComponent implements OnInit, AfterViewInit {
 
   private initForm() {
     this.pinForm = this.formBuilder.group({
-      name: [, Validators.required],
-      image_url: [, Validators.required],
-      url: [, Validators.required],
-      description: [, Validators.required],
-      tags: [, Validators.required],
+      name: [,Validators.compose([
+        Validators.required,
+        Validators.maxLength(250),
+        Validators.minLength(5)
+      ])],
+      image_url: [, Validators.compose([
+        Validators.required,
+        Validators.maxLength(250),
+        Validators.pattern(RegExp('(https?:\/\/.*\.(?:png|jpg|jpeg|gif|png|svg))', 'i'))
+      ])],
+      url: [, Validators.compose([
+        Validators.required,
+        Validators.maxLength(250),
+        Validators.pattern(RegExp('(https?:\/\/.*\.)', 'i'))
+      ])],
+      description: [, Validators.compose([
+        Validators.required,
+        Validators.maxLength(250),
+        Validators.minLength(5)
+      ])],
+      tags: [, Validators.compose([Validators.required, Validators.maxLength(250)])],
       user_id: ['', Validators.required],
       id: ['', this.checkForNew()]
     });

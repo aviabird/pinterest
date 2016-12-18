@@ -38,3 +38,13 @@ tag-input{
     }
   }
 }
+
+.pinTags{
+  border: 1px solid #ccc;
+  .ng2-tag-input{
+    background: rgb(255, 255, 255) !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: inset 1px 1px 4px #ddd;
+  }
+}
