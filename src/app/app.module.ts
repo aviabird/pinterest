@@ -34,6 +34,7 @@ import { NotificationEffects } from './effects/notification';
 import { ToasterService, ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CanActivateViaAuthGuard } from './guards/authenticated';
 import { CanEditPinGuard } from './guards/can-edit-pin';
+import { PhoenixChannelService } from './services/phoenix-channel.service';
 
 // Must export the config
 export const firebaseConfig = {
@@ -98,7 +99,8 @@ export const firebaseConfig = {
     },
     ToasterService,
     CanActivateViaAuthGuard,
-    CanEditPinGuard
+    CanEditPinGuard,
+    PhoenixChannelService
   ],
   bootstrap: [AppComponent]
 })

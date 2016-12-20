@@ -10,6 +10,7 @@ import { ApiUrl } from '../app.api-url';
 import { HttpService } from './http';
 import { AppState, getPinscountWithSeatchQuery } from '../reducers/index';
 import { Store } from '@ngrx/store';
+import { PhoenixChannelService } from './phoenix-channel.service';
 
 @Injectable()
 export class PinDataService {
@@ -20,7 +21,8 @@ export class PinDataService {
   constructor(
     public db: AngularFireDatabase,
     public http: HttpService,
-    public store: Store<AppState>
+    public store: Store<AppState>,
+    private phoenixChannelService: PhoenixChannelService
   ) {
     this.store.select(getPinscountWithSeatchQuery()).subscribe(
       params => {

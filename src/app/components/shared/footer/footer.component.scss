@@ -29,7 +29,7 @@
 
 @media only screen and (min-width: 40.063em) {
   .footer .columns:nth-child(n+2) {
-    border-left: 1px solid scale-color(#555);
+    border-left: 1px solid rgba(85, 85, 85, 0.05);;
     min-height: 280px;
   }
 }
@@ -49,4 +49,8 @@
 
 .dropdown.menu > li.is-dropdown-submenu-parent > a::after{
   border-color: #805840 transparent transparent;
+}
+
+.fa-heart{
+  color: red;
 }

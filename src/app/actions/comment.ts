@@ -15,8 +15,8 @@ export const ActionTypes = {
   LOAD_COMMENTS_SUCCESS:            type('[Comment] Load Comments Success'),
   ADD_COMMENT:                      type('[Comment] Add Comment'),
   ADD_COMMENT_SUCCESS:              type('[Comment] Add Comment Success'),
-  SAVE_COMMENT:                     type('[Comment] Save Comment'),
-  SAVE_COMMENT_SUCCESS:             type('[Comment] Save Comment Success'),
+  // SAVE_COMMENT:                     type('[Comment] Save Comment'),
+  // SAVE_COMMENT_SUCCESS:             type('[Comment] Save Comment Success'),
   DELETE_COMMENT:                   type('[Comment] Delete Comment'),
   DELETE_COMMENT_SUCCESS:           type('[Comment] Delete Comment Success'),
 };
@@ -53,17 +53,17 @@ export class AddCommentSuccessAction implements Action {
   constructor(public payload: Comment) { };
 }
 
-export class SaveCommentAction implements Action {
-  type = ActionTypes.SAVE_COMMENT;
+// export class SaveCommentAction implements Action {
+//   type = ActionTypes.SAVE_COMMENT;
 
-  constructor(public payload: Comment) { };
-}
+//   constructor(public payload: Comment) { };
+// }
 
-export class SaveCommentSuccessAction implements Action {
-  type = ActionTypes.SAVE_COMMENT_SUCCESS;
+// export class SaveCommentSuccessAction implements Action {
+//   type = ActionTypes.SAVE_COMMENT_SUCCESS;
 
-  constructor() { };
-}
+//   constructor() { };
+// }
 
 export class DeleteCommentAction implements Action {
   type = ActionTypes.DELETE_COMMENT
@@ -86,7 +86,7 @@ export type Actions
   | LoadCommentsSuccessAction
   | AddCommentAction
   | AddCommentSuccessAction
-  | SaveCommentAction
-  | SaveCommentSuccessAction
+  // | SaveCommentAction
+  // | SaveCommentSuccessAction
   | DeleteCommentAction
   | DeleteCommentSuccessAction
