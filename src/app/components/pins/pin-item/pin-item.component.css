@@ -2,6 +2,8 @@
   border: none;
   transition-duration: .5s;
   border-radius: 10px;
+  background: transparent;
+  cursor: zoom-in;
 }
 
 .callout:hover{
