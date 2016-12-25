@@ -27,13 +27,13 @@ export class CommentEffects {
 
   @Effect() addComment$: Observable<Action> = this.actions$
     .ofType(comment.ActionTypes.ADD_COMMENT)
-    .map<Comment>(action => action.payload)
-    .switchMap(comment => this.pinDataService.addComment(comment))
+    .map(action => action.payload)
+    .switchMap((comment: Comment) => this.pinDataService.addComment(comment))
     .map((_comment) => new comment.AddCommentSuccessAction(_comment))
 
   @Effect() deleteComment$: Observable<Action> = this.actions$
     .ofType(comment.ActionTypes.DELETE_COMMENT)
-    .map<string>(action => action.payload)
-    .switchMap(id => this.pinDataService.deleteComment(id))
+    .map(action => action.payload)
+    .switchMap((id: string) => this.pinDataService.deleteComment(id))
     .map((id) => new comment.DeleteCommentSuccessAction(id))
 }

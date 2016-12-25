@@ -22,7 +22,7 @@ const initialState: State = {
 export function reducer(state = initialState, action: pin.Actions): State {
   switch(action.type) {
     case pin.ActionTypes.GET_PINS_SUCESS: {
-      const pins = action.payload;
+      const pins = <Pin[]>action.payload;
       const newPins = pins.filter(pin => !state.entities[pin.id])
 
       const newPinIds = newPins.map(pin => pin.id);
@@ -43,7 +43,7 @@ export function reducer(state = initialState, action: pin.Actions): State {
       });
     }
     case pin.ActionTypes.GET_SELECTED_PIN_SUCCESS: {
-      const pin = action.payload;
+      const pin = <Pin>action.payload;
 
       if(state.entities[pin.id]) { return state }
 
@@ -71,7 +71,7 @@ export function reducer(state = initialState, action: pin.Actions): State {
     }
 
     case pin.ActionTypes.ADD_PIN_SUCCESS: {
-      let newPin = action.payload;
+      let newPin = <Pin>action.payload;
 
       return Object.assign({}, state, {
         entities: Object.assign({}, state.entities,
@@ -82,7 +82,7 @@ export function reducer(state = initialState, action: pin.Actions): State {
     }
 
     case pin.ActionTypes.SAVE_PIN_SUCCESS: {
-      let updatedPin = action.payload;
+      let updatedPin = <Pin>action.payload;
 
       return Object.assign({}, state, {
         entities: Object.assign({}, state.entities,
