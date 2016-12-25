@@ -25,7 +25,7 @@ export class NotificationEffects {
 
   @Effect() showNotification$: Observable<Action> = this.actions$
     .ofType(notification.ActionTypes.POP_NOTIFICATION)
-    .map<Toastr>(action => action.payload)
-    .map((toastr) => new notification.PopNotificationSuccessAction(toastr))
+    .map(action => action.payload)
+    .map((toastr: Toastr) => new notification.PopNotificationSuccessAction(toastr))
 
 }

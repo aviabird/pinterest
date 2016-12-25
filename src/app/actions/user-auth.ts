@@ -44,7 +44,7 @@ export class LoginSuccessAction implements Action {
 export class LogoutAction implements Action {
   type = ActionTypes.LOGOUT;
   
-  constructor() {};
+  constructor(public payload: any = {}) {};
 }
 
 export class LogoutSuccessAction implements Action {
@@ -56,7 +56,7 @@ export class LogoutSuccessAction implements Action {
 export class CheckAuthAction implements Action {
   type = ActionTypes.CHECK_AUTH;
 
-  constructor() {}
+  constructor(public payload: any = {}) {}
 }
 
 export class CheckAuthSuccessAction implements Action {

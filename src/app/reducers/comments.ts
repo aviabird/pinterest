@@ -18,7 +18,7 @@ const initialState: State = {
 export function reducer(state = initialState, action: comment.Actions): State {
   switch(action.type) {
     case comment.ActionTypes.LOAD_COMMENTS_SUCCESS: {
-      const comments = action.payload;
+      const comments = <Comment[]>action.payload;
       const newComments = comments.filter(comment => !state.entities[comment.id])
 
       const newCommentIds = newComments.map(comment => comment.id);
@@ -34,7 +34,7 @@ export function reducer(state = initialState, action: comment.Actions): State {
       })
     }
     case comment.ActionTypes.DELETE_COMMENT_SUCCESS: {
-      const id = action.payload;
+      const id = <string>action.payload;
       const newIds = state.ids.filter(val => val != id)
 
       const newEntities = newIds.reduce((entities: { [id: string]: Comment }, id: string) => {
@@ -50,7 +50,7 @@ export function reducer(state = initialState, action: comment.Actions): State {
     }
 
     case comment.ActionTypes.ADD_COMMENT_SUCCESS: {
-      let newComment = action.payload;
+      let newComment = <Comment>action.payload;
 
       return Object.assign({}, state, {
         entities: Object.assign({}, state.entities,

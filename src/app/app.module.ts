@@ -45,6 +45,16 @@ export const firebaseConfig = {
   messagingSenderId: "1047429115771"
 };
 
+export function httpInterceptor(
+  backend: XHRBackend,
+  defaultOptions: RequestOptions,
+  loaderService: LoaderService,
+  store: Store<AppState>
+) {
+  loaderService = new LoaderService(store);
+  return new HttpService(backend, defaultOptions, loaderService);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,11 +100,7 @@ export const firebaseConfig = {
     LoaderService,
     {
       provide: HttpService,
-      useFactory:
-        (backend: XHRBackend, defaultOptions: RequestOptions, loaderService: LoaderService, store: Store<AppState>) => {
-        loaderService = new LoaderService(store);
-        return new HttpService(backend, defaultOptions, loaderService);
-      },
+      useFactory: httpInterceptor,
       deps: [ XHRBackend, RequestOptions, LoaderService, Store]
     },
     ToasterService,
