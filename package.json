@@ -8,17 +8,20 @@
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
-    "e2e": "protractor"
+    "e2e": "protractor",
+    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.json"
   },
   "private": true,
   "dependencies": {
     "@angular/common": "^2.3.1",
     "@angular/compiler": "^2.3.1",
+    "@angular/compiler-cli": "^2.4.1",
     "@angular/core": "^2.3.1",
     "@angular/forms": "^2.3.1",
     "@angular/http": "^2.3.1",
     "@angular/platform-browser": "^2.3.1",
     "@angular/platform-browser-dynamic": "^2.3.1",
+    "@angular/platform-server": "^2.4.1",
     "@angular/router": "^3.3.1",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.0",
@@ -48,7 +51,9 @@
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
     "angular-cli": "1.0.0-beta.24",
+    "angular2-dependencies-graph": "^1.0.0-alpha.12",
     "codelyzer": "~2.0.0-beta.1",
+    "compodoc": "0.0.23",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
@@ -56,12 +61,12 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
+    "ngrx-store-freeze": "^0.1.4",
+    "node-sass": "^3.13.0",
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
     "tslint": "^4.0.2",
     "typescript": "~2.0.3",
-    "ngrx-store-freeze": "^0.1.4",
-    "node-sass": "^3.13.0",
     "webdriver-manager": "10.2.5"
   }
 }
