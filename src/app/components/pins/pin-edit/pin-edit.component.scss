@@ -57,3 +57,11 @@
 p{
   line-height: 1;
 }
+
+.ng-valid.ng-touched:not(form) {
+  border-left: 5px solid rgba(34, 210, 45, 0.85);
+}
+
+.ng-invalid.ng-touched:not(form) {
+  border-left: 5px solid rgba(255, 5, 0, 0.85);
+}
