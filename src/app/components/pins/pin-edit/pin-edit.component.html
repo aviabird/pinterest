@@ -47,9 +47,9 @@
           [(ngModel)]="pin.name"
           placeholder="Title">
       </div>
-      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('name').touched && !pinForm.get('name').valid}">
+      <!--<span class="form-error" [ngClass]="{'is-visible': pinForm.get('name').touched && !pinForm.get('name').valid}">
         I'm Invalid!
-      </span>
+      </span>-->
 
       <div class="input-group">
         <input
@@ -59,9 +59,9 @@
           placeholder="Image Url"
           class="input-group-field">
       </div>
-      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('image_url').touched && !pinForm.get('image_url').valid}">
+      <!--<span class="form-error" [ngClass]="{'is-visible': pinForm.get('image_url').touched && !pinForm.get('image_url').valid}">
         I'm Invalid!
-      </span>
+      </span>-->
 
       <div class="input-group">
         <input
@@ -71,9 +71,9 @@
           [(ngModel)]="pin.url"
           class="input-group-field">
       </div>
-      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('url').touched && !pinForm.get('url').valid}">
+      <!--<span class="form-error" [ngClass]="{'is-visible': pinForm.get('url').touched && !pinForm.get('url').valid}">
         I'm Invalid!
-      </span>
+      </span>-->
 
       <div class="input-group">
         <textarea
@@ -84,9 +84,9 @@
           class="input-group-field">
         </textarea>
       </div>
-      <span class="form-error" [ngClass]="{'is-visible': pinForm.get('description').touched && !pinForm.get('description').valid}">
+      <!--<span class="form-error" [ngClass]="{'is-visible': pinForm.get('description').touched && !pinForm.get('description').valid}">
         I'm Invalid!
-      </span>
+      </span>-->
     </form>
 
     <div class="input-group pinTags">
@@ -100,11 +100,12 @@
         (onAdd)="onItemUpdate()"
         (onRemove)="onItemUpdate()"
         (onBlur)="pinForm.controls['tags'].markAsTouched()"
+        [ngClass]="{'ng-invalid': pinForm.get('tags').touched && !pinForm.get('tags').valid,'ng-touched': pinForm.get('tags').touched}"
       ></tag-input>
     </div>
-    <span class="form-error" [ngClass]="{'is-visible': pinForm.get('tags').touched && !pinForm.get('tags').valid}">
+    <!--<span class="form-error" [ngClass]="{'is-visible': pinForm.get('tags').touched && !pinForm.get('tags').valid}">
       I'm Invalid!
-    </span>
+    </span>-->
 
     <div class="row">
       <div class="text-right">
