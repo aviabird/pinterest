@@ -26,9 +26,7 @@ export class PinDetailComponent implements OnInit {
   private pinIndex: string;
   private pin: Observable<Pin>;
   private comments: Observable<Comment[]>;
-  private userIsAuthenticated: Observable<boolean>;
   private authUser: Observable<User>;
-  private commentForm: FormGroup;
   private canAccessPin: Observable<boolean>;
 
   constructor(
@@ -39,7 +37,6 @@ export class PinDetailComponent implements OnInit {
   ) {
     this.pin = this.store.select(fromRoot.getSelectedPin);
     this.comments = this.store.select(fromRoot.getSelectedPinComments);
-    this.userIsAuthenticated = this.store.select(fromRoot.getUserAuthStatus);
     this.authUser = this.store.select(fromRoot.getAuthUser);
     this.canAccessPin = this.store.select(fromRoot.getPinAccessStatus);
   }
@@ -57,7 +54,6 @@ export class PinDetailComponent implements OnInit {
       }
     );
     this.loadModal()
-    this.initCommentForm()
   }
 
   loadModal() {
@@ -78,14 +74,6 @@ export class PinDetailComponent implements OnInit {
     );
   }
 
-  onCommentSave() {
-    const newComment = this.commentForm.value;
-    if(this.commentForm.valid){
-      this.store.dispatch(new comment.AddCommentAction(newComment));
-      this.resetForm();
-    }
-  }
-
   onCommentDelete(id) {
     this.store.dispatch(new comment.DeleteCommentAction(id))
   }
@@ -96,28 +84,6 @@ export class PinDetailComponent implements OnInit {
 
   getUser(id) {
     return this.store.select(fromRoot.getUserById(id))
-  }
-
-  initCommentForm(){
-    this.commentForm = this.formBuilder.group({
-      message: ['', Validators.required],
-      user_id: ['', Validators.required],
-      pin_id: ['', Validators.required]
-    });
-  }
-
-  onCancel() {
-    this.resetForm();
-  }
-
-  resetForm() {
-    this.commentForm.controls['message'].reset();
-  }
-
-  onKeyPressed(keyCode){
-    if(keyCode == 13){
-      this.onCommentSave();
-    }
   }
 
   onEditPin() {

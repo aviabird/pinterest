@@ -1,0 +1,25 @@
+<form [formGroup]="commentForm" (ngSubmit)="onCommentSave()" *ngIf="userIsAuthenticated | async">
+  <div class="input-group">
+    <span class="input-group-label comment-user-img">
+      <img aria-hidden=true [src]="authUser.avatar" class="avatar"/>
+    </span>
+    <textarea
+      type="text"
+      id="message"
+      class="input-group-field"
+      formControlName="message"
+      placeholder="Add Comment"
+      (keypress)="onKeyPressed($event.keyCode)">
+    </textarea>
+    <input type="hidden" formControlName="user_id" [ngModel]="authUser.id">
+    <input type="hidden" formControlName="pin_id" [ngModel]="pin.id">
+  </div>
+  <div class="row">
+    <div class="text-right">
+      <div class="button-group">
+        <button type="submit" class="primary button fa fa-paper-plane" *ngIf="commentForm.valid"></button>
+        <a class="warning button fa fa-times" (click)="onCancel()" *ngIf="commentForm.valid"></a>
+      </div>
+    </div>
+  </div>
+</form>

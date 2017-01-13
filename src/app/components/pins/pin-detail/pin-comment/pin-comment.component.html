@@ -1,0 +1,30 @@
+<div class="input-group comment-wrapper">
+  <span class="input-group-label comment-user-img">
+    <img aria-hidden=true [src]="comment.user.avatar" class="avatar"/>
+  </span>
+  <div class="comment-user-wrapper">
+    <h6>
+      <strong class="text-left">
+        {{comment.user.name}}
+      </strong>
+
+      <small class="text-right">
+        <i class="text-left">
+          {{comment.inserted_at | date:fullDate}}
+        </i>
+
+        <button
+          class='delete-comment'
+          (click)="onCommentDelete(comment.id)"
+          *ngIf="authUser.id == comment.user_id">
+          <i class="fa fa-times"></i>
+        </button>
+      </small>
+    </h6>
+
+    <p class="comment-text">
+      {{comment.message}}
+    </p>
+
+  </div>
+</div>

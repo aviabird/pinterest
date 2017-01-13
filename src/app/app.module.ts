@@ -35,6 +35,8 @@ import { ToasterService, ToasterModule } from 'angular2-toaster/angular2-toaster
 import { CanActivateViaAuthGuard } from './guards/authenticated';
 import { CanEditPinGuard } from './guards/can-edit-pin';
 import { PhoenixChannelService } from './services/phoenix-channel.service';
+import { PinCommentComponent } from './components/pins/pin-detail/pin-comment/pin-comment.component';
+import { PinCommentNewComponent } from './components/pins/pin-detail/pin-comment-new/pin-comment-new.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -64,7 +66,9 @@ export function httpInterceptor(
     PinItemComponent,
     PinDetailComponent,
     ModalComponent,
-    PinEditComponent
+    PinEditComponent,
+    PinCommentComponent,
+    PinCommentNewComponent
   ],
   imports: [
     BrowserModule,
