@@ -1,5 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/rx'
+import {
+  Component, OnInit, ChangeDetectionStrategy, OnDestroy, trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/core';
+import { Subscription } from 'rxjs/Rx'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Pin } from '../../../models/pin';
@@ -12,14 +18,30 @@ import { Comment } from '../../../models/comment';
 import { FormArray, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { go } from '@ngrx/router-store';
 
-declare var $:any;
-declare var Foundation:any;
+declare var $: any;
+declare var Foundation: any;
 
 @Component({
   selector: 'pin-pin-detail',
   templateUrl: './pin-detail.component.html',
   styleUrls: ['./pin-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('flyInRight', [
+      state('in', style({ transform: 'translateX(0)', 'z-index': 0 })),
+      transition('void => *', [
+        style({ transform: 'translateX(-50%)', opacity: 0, 'z-index': -999 }),
+        animate(1000)
+      ])
+    ]),
+    trigger('flyInDown', [
+      state('in', style({ transform: 'translateY(0)', 'z-index': 0 })),
+      transition('void => *', [
+        style({ transform: 'translateY(100%)', opacity: 0, 'z-index': -999 }),
+        animate(1000)
+      ])
+    ])
+  ]
 })
 export class PinDetailComponent implements OnInit {
   private subscription: Subscription;
@@ -46,10 +68,10 @@ export class PinDetailComponent implements OnInit {
       (params: any) => {
         this.pinIndex = params['id'];
         this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
-        
+
         // Incase Pin is not in store. Load it from api.
         setTimeout(() => this.store.dispatch(new pin.GetSelectedPinAction(this.pinIndex)), 3000);
-        
+
         this.store.dispatch(new comment.LoadCommentsAction(this.pinIndex));
       }
     );
@@ -59,17 +81,17 @@ export class PinDetailComponent implements OnInit {
   loadModal() {
     this.pin.subscribe(
       pin => {
-        try{
+        try {
           let el = $(`.pinModal-${this.pinIndex}`);
           if (el.length) {
             if (el.data('zfPlugin')) {
               el.foundation('open');
-            }else{
+            } else {
               new Foundation.Reveal(el);
               el.foundation('open');
             }
           }
-        }catch(e){console.log(e)};
+        } catch (e) { console.log(e) };
       }
     );
   }
@@ -78,7 +100,7 @@ export class PinDetailComponent implements OnInit {
     this.store.dispatch(new comment.DeleteCommentAction(id))
   }
 
-  onOnDestroy(){
+  onOnDestroy() {
     this.subscription.unsubscribe()
   }
 

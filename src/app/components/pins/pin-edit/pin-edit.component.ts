@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Pin } from '../../../models/pin';
-import { Subscription } from 'rxjs/rx';
+import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as fromRoot from '../../../reducers';
 import { Store } from '@ngrx/store';

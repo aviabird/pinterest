@@ -6,7 +6,7 @@
           {{(pin | async).name}}
         </h5>
 
-        <div class="pin-image">
+        <div class="pin-image" [@flyInRight]="'in'">
           <img [src]="(pin | async).image_url" alt="" width="500">
         </div>
       </a>
@@ -48,7 +48,7 @@
         <br>
       </h6>
 
-      <div *ngFor="let comment of comments | async">
+      <div *ngFor="let comment of comments | async" [@flyInDown]="'in'">
         <pin-pin-comment [comment]="comment" [authUser]="authUser | async"></pin-pin-comment>
         <br>
       </div>
