@@ -9,11 +9,14 @@
 </p>
 
 <p align="center">
-  <a href="https://aviabird.github.io/pinterest/">View App</a>
+	<a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </p>
 
 <p align="center">
-	<a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+  <a href="https://aviabird.github.io/pinterest/">
+    DEMO HERE
+    <img alt="PinWork App Logo" title="Angular 2 PinWork App" src="http://res.cloudinary.com/mally-in/image/upload/v1486183305/Screen_Shot_2017-02-04_at_10.10.43_AM_ysuihi.png">
+  </a>
 </p>
 
 ## Setting up
