@@ -25,7 +25,7 @@
 
 ```
 $ git clone https://github.com/aviabird/pinterest.git
-$ cd travel-app
+$ cd pinterest
 ```
 
 ##### Install npm dependencies
