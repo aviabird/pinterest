@@ -17,4 +17,4 @@ export function type<T>(label: T | ''): T {
   typeCache[<string>label] = true;
 
   return <T>label;
-}
+};

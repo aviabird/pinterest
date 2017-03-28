@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, XHRBackend, RequestOptions, Http } from '@angular/http';
+import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { StoreModule, Store } from '@ngrx/store';
-import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { routes, AppRoutes } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MasonryModule } from 'angular2-masonry';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
@@ -40,11 +40,11 @@ import { PinCommentNewComponent } from './components/pins/pin-detail/pin-comment
 
 // Must export the config
 export const firebaseConfig = {
-  apiKey: "AIzaSyA4tjVj427twh-n3lOAAniS-x9knzdw7vM",
-  authDomain: "pinterest-da3ba.firebaseapp.com",
-  databaseURL: "https://pinterest-da3ba.firebaseio.com",
-  storageBucket: "pinterest-da3ba.appspot.com",
-  messagingSenderId: "1047429115771"
+  apiKey: 'AIzaSyA4tjVj427twh-n3lOAAniS-x9knzdw7vM',
+  authDomain: 'pinterest-da3ba.firebaseapp.com',
+  databaseURL: 'https://pinterest-da3ba.firebaseio.com',
+  storageBucket: 'pinterest-da3ba.appspot.com',
+  messagingSenderId: '1047429115771'
 };
 
 export function httpInterceptor(
@@ -86,7 +86,7 @@ export function httpInterceptor(
         path: window.location.pathname + window.location.search
       }
     }),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    // StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(UserAuthEffects),
     EffectsModule.run(PinEffects),

@@ -15,25 +15,25 @@ export const ActionTypes = {
 export class ShowProgressAction implements Action {
   type = ActionTypes.SHOW_PROGRESS;
 
-  constructor() { };
+  constructor(public payload?: any) { };
 }
 
 export class ShowProgressSuccessAction implements Action {
   type = ActionTypes.SHOW_PROGRESS_SUCCESS;
 
-  constructor() { };
+  constructor(public payload?: any) { };
 }
 
 export class CompleteProgressAction implements Action {
   type = ActionTypes.COMPLETE_PROGRESS;
 
-  constructor() { };
+  constructor(public payload?: any) { };
 }
 
 export class CompleteProgressSuccessAction implements Action {
   type = ActionTypes.COMPLETE_PROGRESS_SUCCESS;
 
-  constructor() { };
+  constructor(public payload?: any) { };
 }
 
 export class PopNotificationAction implements Action {
@@ -54,4 +54,4 @@ export type Actions
   | CompleteProgressAction
   | CompleteProgressSuccessAction
   | PopNotificationAction
-  | PopNotificationSuccessAction
+  | PopNotificationSuccessAction;

@@ -27,20 +27,20 @@ declare var Foundation: any;
   styleUrls: ['./pin-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('flyInRight', [
-      state('in', style({ transform: 'translateX(0)', 'z-index': 0 })),
-      transition('void => *', [
-        style({ transform: 'translateX(-50%)', opacity: 0, 'z-index': -999 }),
-        animate(1000)
-      ])
-    ]),
-    trigger('flyInDown', [
-      state('in', style({ transform: 'translateY(0)', 'z-index': 0 })),
-      transition('void => *', [
-        style({ transform: 'translateY(100%)', opacity: 0, 'z-index': -999 }),
-        animate(1000)
-      ])
-    ])
+    // trigger('flyInRight', [
+    //   state('in', style({ transform: 'translateX(0)', 'z-index': 0 })),
+    //   transition('void => *', [
+    //     style({ transform: 'translateX(-50%)', opacity: 0, 'z-index': -999 }),
+    //     animate(1000)
+    //   ])
+    // ]),
+    // trigger('flyInDown', [
+    //   state('in', style({ transform: 'translateY(0)', 'z-index': 0 })),
+    //   transition('void => *', [
+    //     style({ transform: 'translateY(100%)', opacity: 0, 'z-index': -999 }),
+    //     animate(1000)
+    //   ])
+    // ])
   ]
 })
 export class PinDetailComponent implements OnInit {

@@ -4,7 +4,7 @@ import { Toastr } from '../models/toastr';
 // this.toasterService.pop('success', 'Args Title', 'Args Body');
 export interface State {
   showProgress: boolean;
-  notifications: Toastr[]
+  notifications: Toastr[];
 }
 
 const initialState: State = {
@@ -13,26 +13,23 @@ const initialState: State = {
 };
 
 export function reducer(state = initialState, action: notification.Actions): State {
-  switch(action.type) {
-    case notification.ActionTypes.SHOW_PROGRESS_SUCCESS: {
+  switch (action.type) {
+    case notification.ActionTypes.SHOW_PROGRESS_SUCCESS:
       return Object.assign({}, state, {
         showProgress: true
-      })
-    }
+      });
 
-    case notification.ActionTypes.COMPLETE_PROGRESS_SUCCESS: {
+    case notification.ActionTypes.COMPLETE_PROGRESS_SUCCESS:
       return Object.assign({}, state, {
         showProgress: false
-      })
-    }
+      });
 
-    case notification.ActionTypes.POP_NOTIFICATION_SUCCESS: {
+    case notification.ActionTypes.POP_NOTIFICATION_SUCCESS:
       return Object.assign({}, state, {
         notifications: state.notifications.concat(action.payload)
-      })
-    }
+      });
 
-    default: 
+    default:
       return state;
   }
 }
