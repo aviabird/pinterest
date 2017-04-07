@@ -17,7 +17,7 @@
               secondaryPlaceholder="Search"
               maxItems="5"
               separatorKeys="[32]"
-              (onAdd)="onItemAdded()"
+              (onAdd)="onItemAdded($event)"
               (onRemove)="onItemRemoved()"
             ></tag-input>
             <!--<input id= "top-bar-search-input" class="input-group-field" type="text" placeholder='So, What are you looking for?'>

@@ -1,0 +1,16 @@
+{
+	"name": "Pin Work",
+	"short_name": "pinwork",
+	"icons": [
+		{
+			"src": "assets/balls.svg",
+			"sizes": "192x192",
+			"type": "image\/svg"
+		}
+	],
+	"theme_color": "#FF3867",
+  "background_color": "#ffffff",
+	"display": "standalone",
+	"orientation": "portrait",
+	"start_url": "./?utm_source=web_app_manifest"
+}

@@ -4,9 +4,7 @@ import { AuthenticationService } from '../../services/authentication';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
-import * as pin from '../../actions/pin'
-import { PopNotificationAction } from '../../actions/notification';
-import { Toastr } from '../../models/toastr';
+import * as pin from '../../actions/pin';
 
 @Component({
   selector: 'pin-items',
@@ -26,22 +24,22 @@ export class PinsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadPins()
+    this.loadPins();
   }
 
-  onScroll(pinsCount){
-    this.loadPins()
+  onScroll() {
+    this.loadPins();
   }
-  
-  loadPins(){
+
+  loadPins() {
     this
       .store
       .dispatch(new pin.GetPinsAction());
   }
 
-  createRange(len=20) {
+  createRange(len= 20) {
     let arr = [];
-    for(let i = 0; i < len ; i++) {
+    for (let i = 0; i < len ; i++) {
       arr.push(i);
     }
     return arr;

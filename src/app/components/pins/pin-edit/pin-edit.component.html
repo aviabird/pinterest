@@ -97,7 +97,7 @@
         maxItems="5"
         separatorKeys="[32]"
         class="input-group-field"
-        (onAdd)="onItemUpdate()"
+        (onAdd)="onItemUpdate($event)"
         (onRemove)="onItemUpdate()"
         (onBlur)="pinForm.controls['tags'].markAsTouched()"
         [ngClass]="{'ng-invalid': pinForm.get('tags').touched && !pinForm.get('tags').valid,'ng-touched': pinForm.get('tags').touched}"

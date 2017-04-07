@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Pin } from '../../../models/pin';
 import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as fromRoot from '../../../reducers';
@@ -10,8 +9,8 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../../../models/user';
 import { replace } from '@ngrx/router-store';
 
-declare var $:any;
-declare var Foundation:any;
+declare var $: any;
+declare var Foundation: any;
 
 @Component({
   selector: 'pin-pin-edit',
@@ -19,14 +18,14 @@ declare var Foundation:any;
   styleUrls: ['./pin-edit.component.scss']
 })
 export class PinEditComponent implements OnInit, AfterViewInit {
-  private pinForm: FormGroup;
-  private title: string;
-  private isNew = true;
-  private pin: any;
-  private pinIndex: string;
-  private subscription: Subscription;
-  private authUser: Observable<User>;
-  private pinTags: string[];
+  pinForm: FormGroup;
+  title: string;
+  isNew = true;
+  pin: any;
+  pinIndex: string;
+  subscription: Subscription;
+  authUser: Observable<User>;
+  pinTags: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +44,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
           this.pinIndex = params['id'];
           this.isNew = false;
           this.store.dispatch(new pin.SelectPinAction(this.pinIndex));
-        
+
           this.store.select(fromRoot.getSelectedPin).subscribe(
             pin => {
               this.pin = pin;
@@ -54,11 +53,11 @@ export class PinEditComponent implements OnInit, AfterViewInit {
             }
           );
 
-          this.title = "Update Pin";
+          this.title = 'Update Pin';
         } else {
           this.isNew = true;
           this.pin = {};
-          this.title = "Create Pin";
+          this.title = 'Create Pin';
           this.initForm();
         }
       }
@@ -71,12 +70,11 @@ export class PinEditComponent implements OnInit, AfterViewInit {
 
   onPinSave() {
     const newPin = this.pinForm.value;
-
-    if(this.pinForm.valid){
-      if(this.isNew){
+    if (this.pinForm.valid) {
+      if (this.isNew) {
         this.store.dispatch(new pin.AddPinAction(newPin));
       } else {
-        this.store.dispatch(new pin.SavePinAction(newPin))
+        this.store.dispatch(new pin.SavePinAction(newPin));
       }
       this.closeModal();
     }
@@ -108,7 +106,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
           el.foundation('open');
         }
       }
-    }catch(e){console.log(e)};
+    }catch (e){console.log(e); };
   }
 
   ngOnDestroy() {
@@ -117,7 +115,7 @@ export class PinEditComponent implements OnInit, AfterViewInit {
 
   private initForm() {
     this.pinForm = this.formBuilder.group({
-      name: [,Validators.compose([
+      name: [, Validators.compose([
         Validators.required,
         Validators.maxLength(250),
         Validators.minLength(5)
@@ -145,12 +143,16 @@ export class PinEditComponent implements OnInit, AfterViewInit {
   }
 
   checkForNew() {
-    if (!this.isNew){
-      Validators.required
+    if (!this.isNew) {
+      return Validators.required;
     }
   }
 
-  onItemUpdate() {
+  onItemUpdate(event) {
+    if (event) {
+      this.pinTags.pop();
+      this.pinTags.push(event.value);
+    }
     this.pinForm.controls['tags'].setValue(this.pinTags.join(','));
   }
 

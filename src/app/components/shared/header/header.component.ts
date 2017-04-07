@@ -18,11 +18,11 @@ import { GetPinsAction, SearchPinAction } from '../../../actions/pin';
 
 export class HeaderComponent implements OnInit {
   title = 'PinWork';
-  user : Observable < User >;
-  userIsAuthenticated : Observable < boolean >;
+  user: Observable < User >;
+  userIsAuthenticated: Observable < boolean >;
   items: string[];
 
-  constructor(private authService : AuthenticationService, private store : Store < AppState >)
+  constructor(private authService: AuthenticationService, private store : Store < AppState >)
   {
     this.user = store.select(fromRoot.getAuthUser);
     this.userIsAuthenticated = store.select(fromRoot.getUserAuthStatus);
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
       .dispatch(new userAuth.CheckAuthAction());
   }
 
-  login(provider : string) {
+  login(provider: string) {
     this
       .store
       .dispatch(new userAuth.LoginAction(provider));
@@ -46,8 +46,10 @@ export class HeaderComponent implements OnInit {
       .dispatch(new userAuth.LogoutAction());
   }
 
-  onItemAdded() {
-    this.onsearch()
+  onItemAdded(event) {
+    this.items.pop();
+    this.items.push(event.value);
+    this.onsearch();
   }
 
   onItemRemoved() {

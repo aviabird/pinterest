@@ -1,10 +1,14 @@
+import { Input } from '@angular/core';
 import {
   Component,
   OnInit,
   OnDestroy,
   AfterViewInit,
-  // state,
-  // transition
+  state,
+  transition,
+  trigger,
+  style,
+  animate
 } from '@angular/core';
 
 declare var $: any;
@@ -13,26 +17,25 @@ declare var $: any;
   selector: 'pin-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
-  inputs: ['title', 'klass', 'size'],
   animations: [
-    // trigger('flyInDown', [
-    //   state('in', style({ transform: 'translateY(0)' })),
-    //   transition('void => *', [
-    //     style({ transform: 'translateY(-100%)' }),
-    //     animate(500)
-    //   ]),
-    //   transition('* => void', [
-    //     animate(500, style({ transform: 'translateY(100%)' }))
-    //   ])
-    // ])
+    trigger('flyInDown', [
+      state('in', style({ transform: 'translateY(0)' })),
+      transition('void => *', [
+        style({ transform: 'translateY(-100%)' }),
+        animate(300)
+      ]),
+      transition('* => void', [
+        animate(300, style({ transform: 'translateY(100%)' }))
+      ])
+    ])
   ]
 
 })
 
 export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
-  title: string;
-  klass: string;
-  size: string;
+  @Input() title: string;
+  @Input() klass: string;
+  @Input() size: string;
 
   constructor() {
   }

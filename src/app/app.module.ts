@@ -13,6 +13,7 @@ import { MasonryModule } from 'angular2-masonry';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 import { TagInputModule } from 'ng2-tag-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -96,7 +97,8 @@ export function httpInterceptor(
     InfiniteScrollModule,
     SlimLoadingBarModule.forRoot(),
     ToasterModule,
-    TagInputModule
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthenticationService,
