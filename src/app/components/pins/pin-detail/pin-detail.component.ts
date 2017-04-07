@@ -5,7 +5,7 @@ import {
   transition,
   animate
 } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Pin } from '../../../models/pin';

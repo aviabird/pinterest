@@ -10,7 +10,6 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { LoaderService } from "./loader";
-import 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import { AppState } from '../reducers/index';
 
