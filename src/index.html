@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Pinterest</title>
@@ -8,20 +9,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
   <pin-root>
-    <img
-      style="
+    <img style="
         position: absolute;
         transform: translate(0vw, 10vh);
         margin: 0 auto;
         top: 25vh;
         left: 42vw;
-        height: 30%;"
-      src='assets/balls.svg'>
+        height: 30%;" src='assets/balls.svg'>
   </pin-root>
+  <script type="text/javascript">
+    $(document).foundation();
+
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+        console.log('Service Worker registered');
+      }).catch(function (err) {
+        console.log('Service Worker registration failed: ', err);
+      });
+    }
+
+  </script>
 </body>
-<script type="text/javascript">
-  $(document).foundation();
-</script>
+
 </html>
