@@ -20,11 +20,8 @@
         left: 42vw;
         height: 30%;" src='assets/balls.svg'>
   </pin-root>
-  <script type="text/javascript">
-    $(document).foundation();
-
-  </script>
   <script>
+    $(document).foundation();
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
         console.log('Service Worker registered');
@@ -32,7 +29,6 @@
         console.log('Service Worker registration failed: ', err);
       });
     }
-
   </script>
 </body>
 
